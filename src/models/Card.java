@@ -4,13 +4,13 @@ public class Card {
 	
 	//Attributes
 	private String suit;
-	private String rank;
+	private int rank;
 	private boolean cardVisible;
 	
 	//Constructors
 	public Card () {}
 	
-	public Card (String suit, String rank) {
+	public Card (String suit, int rank) {
 		this.suit = suit;
 		this.rank = rank;
 		cardVisible = false;
@@ -25,11 +25,11 @@ public class Card {
 		this.suit = suit;
 	}
 	
-	public String getRank() {
+	public int getRank() {
 		return rank;
 	}
 	
-	public void setRank(String rank) {
+	public void setRank(int rank) {
 		this.rank = rank;
 	}
 	
@@ -39,6 +39,10 @@ public class Card {
 	
 	public void setCardVisible(boolean cardVisible) {
 		this.cardVisible = cardVisible;
+	}
+	
+	public String getCardColor() {
+		return (suit == Constants.hearts || suit == Constants.diamonds) ? "RED" : "BLACK";
 	}
 	
 

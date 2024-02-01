@@ -9,7 +9,7 @@ public class CardDeck {
 	
 	
 	//Attributes
-	private List<Card> cards = new ArrayList<>();
+	private List<Card> cards = new ArrayList<Card>();
 	
 	//Constructors
 	public CardDeck() {
