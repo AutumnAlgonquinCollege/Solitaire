@@ -24,7 +24,8 @@ public class CardButton extends JButton{
 		this.setBackground(GameFrame.backgroundGreen);
 	}
 	
-	//draws the cardButton based on the x and y
+	//draws the cardButton based on the x and y and sets
+	//the dimensions of the button to the image that is assigned to it. 
 	public void draw(int x, int y) {
 		this.setBounds(x, y, this.getIcon().getIconWidth(), this.getIcon().getIconHeight());
 		this.repaint();

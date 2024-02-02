@@ -1,22 +1,13 @@
 package views;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
 
 import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
-import javax.swing.border.Border;
 
 public class GameFrame extends JFrame{
 	
@@ -30,23 +21,28 @@ public class GameFrame extends JFrame{
 	
 	public static void main(String args[]) {
 
+		//Creating the frame itself
 		GameFrame frame = new GameFrame();
 
+		//The menubar has it's own class to keep things seperate from the game
 		frame.setJMenuBar(new MenuBarCreator().createMenuBar());
 		
 		
 		
-		
+		//A panel is needed to function and set the layered pane
 		JPanel game = new JPanel();
 		game.setBackground(backgroundGreen);
 		
+		//The JLayeredPane gamePane functions like that JPanel in this particular instance,
+		//which allows the use of different depths to layer the tableau. it's set to be slightly smaller than 
+		//the frame, taking up the majority of the space. 
 		JLayeredPane gamePane = new JLayeredPane();
 		gamePane.setLayout(null);
 		gamePane.setPreferredSize(new Dimension(frame.getWidth()-20, frame.getHeight()-70));
 		gamePane.setBorder(BorderFactory.createLineBorder(Color.black));
 		
 		//ImageIcons for testing purposes
-		//this should all be handled by the controller and model later on
+		//this should all be handled by the controller / model later on
 		ImageIcon deckIcon = new ImageIcon("ImageAssets/Backs/back_2.png");
 		ImageIcon emptyCardFrameIcon = new ImageIcon("ImageAssets/Misc/empty_frame.png");
 		ImageIcon clubsFoundationIcon = new ImageIcon("ImageAssets/Misc/clubs_foundation.png");
@@ -57,6 +53,8 @@ public class GameFrame extends JFrame{
 		
 		
 		//Creating the first set of cards and placing them for testing purposes
+		//DO NOT DELETE UNTIL SURE; this currently has all the actually
+		//placement data. Since all positioning is absolute, this has been calculated. 
 		CardButton deck = new CardButton(deckIcon);
 		deck.draw(10, 10);
 		
@@ -100,6 +98,10 @@ public class GameFrame extends JFrame{
 		System.out.println(tableau7.getX());
 		cardTest.draw(tableau7.getX(), tableau7.getY()+25);
 		
+		
+		//Adding all the different parts together;
+		//The controller should have a method to do all of this based on what actually exists
+		//otherwise we'll run into some major problems	
 		game.add(gamePane);
 		gamePane.add(deck);
 		gamePane.add(waste);
@@ -116,6 +118,9 @@ public class GameFrame extends JFrame{
 		gamePane.add(tableau7);
 		gamePane.add(cardTest, 2, 0);
 		
+		
+		
+		//Finally, add the Panel to the frame
 		frame.add(game);
 		
 
