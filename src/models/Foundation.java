@@ -5,14 +5,23 @@ import java.util.ArrayList;
 
 public class Foundation {
 
-	//Attributes
+	//==================================
+	//          Attributes
+	//==================================
+	
 	private String suit;
 	private List<Card> cards = new ArrayList<Card>();
 	
-	//Constructor
+	//==================================
+	//          Constructors
+	//==================================
 	public Foundation (String suit) {
 		this.suit = suit;
 	}
+	
+	//==================================
+	//          Private methods
+	//==================================
 	
 	//Checks if the card is the next sequential rank and returns a boolean
 	//Returns true if the card is the next sequential
@@ -37,5 +46,33 @@ public class Foundation {
 		return cards.get(cards.size() -1 ).getRank();		
 	}
 	
+	
+	//==================================
+	//          Public Methods
+	//==================================
+	
+	//Adds the card to the foundation pile if the suit matches and it is the correct rank.
+	public void addCard(Card card) {
+		if (checkSuitMatches(card)) {
+			if (cards.size() == 0 && checkFirstCard(card)) {
+				cards.add(card);
+			}
+			else if (checkNextValue(card)){
+				cards.add(card);
+			}
+		}
+	}
+	
+	//Removes the card from the foundation pile
+	public void removeCard(Card card) {
+		cards.remove(card);
+	}
+	
+	//Checks if the foundation pile has been completed.
+	//Returns true if it is.
+	public boolean isFoundationComplete() {
+		return (getLastRank() == 13) ? true : false;
+	}
+		
 	
 }

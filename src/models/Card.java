@@ -2,12 +2,16 @@ package models;
 
 public class Card {
 	
-	//Attributes
+	//==================================
+	//          Attributes
+	//==================================
 	private String suit;
 	private int rank;
 	private boolean cardVisible;
 	
-	//Constructors
+	//==================================
+	//          Constructors
+	//==================================
 	public Card () {}
 	
 	public Card (String suit, int rank) {
@@ -16,7 +20,9 @@ public class Card {
 		cardVisible = false;
 	}
 	
-	//Getters and Setters
+	//==================================
+	//		 Getters and Setters
+	//==================================
 	public String getSuit() {
 		return suit;
 	}
