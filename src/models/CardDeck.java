@@ -39,7 +39,6 @@ public class CardDeck {
 		Collections.shuffle(cards);
 	}
 	
-	
 	//==================================
 	//			Public methods
 	//==================================
@@ -61,7 +60,7 @@ public class CardDeck {
 	
 	//Returns the index size of the remaining cards.
 	//Returns -1 if the deck is empty.
-	public int getRemainingCardsSize() {
+	public int getRemainingDeckSize() {
 		return (cards.size() != 0) ? cards.size() - 1 : -1;
 	}
 

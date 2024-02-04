@@ -80,28 +80,36 @@ public class Tableau {
 	//==================================
 	
 	//Adds a single card to the tableau
-	public void addCard(Card card) {
+	public boolean addCard(Card card) {
+		boolean cardAdded = false;
 		//If tableau is empty and the first card is a king add it.
 		if (cards.size() == 0 && checkFirstCard(card)) {
 			cards.add(card);
+			cardAdded = true;
 		}
 		else if (cards.size() != 0) {
 			if (checkPreviousValue(card) && checkNextColor(card)) {
 				cards.add(card);
+				cardAdded = true;
 			}
 		}
+		return cardAdded;
 	}
 	
 	//Adds a stack of cards to the tableau
-	public void addCardStack(List<Card> cards) {
+	public boolean addCardStack(List<Card> cards) {
+		boolean cardsAdded = false;
 		if (this.cards.size() == 0 && checkFirstCard(cards.get(0))) {
 			cards.addAll(cards);
+			cardsAdded = true;
 		}
 		else if (cards.size() != 0) {
 			if (checkPreviousValue(cards.get(0)) && checkNextColor(cards.get(0))) {
 				cards.addAll(cards);
+				cardsAdded = true;
 			}
 		}
+		return cardsAdded;
 	}
 	
 	//Removes a card from the tableau
@@ -119,6 +127,24 @@ public class Tableau {
 			getLastCard().setCardVisible(true);
 		}
 	}
+	
+	//Returns a collection of cards for every object after the selected index
+	public List<Card> splitCardStack(int index) {
+		List<Card> newCards = new ArrayList<Card>();
+		for (int i = index ; index < cards.size(); index++) {
+			newCards.add(this.cards.get(i));
+			cards.remove(i);
+		}
+		return newCards;
+	}
+	
+	//Sets the last card in the tableau to visible
+	public void setLastTableauCardVisible() {
+		if (cards.size() != 0 && getLastCard().getCardVisible() != true) {
+			getLastCard().setCardVisible(true);
+		}
+	}
+	
 	
 	
 	//Don't think these are useful but keeping just in case

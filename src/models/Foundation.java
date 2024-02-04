@@ -52,15 +52,19 @@ public class Foundation {
 	//==================================
 	
 	//Adds the card to the foundation pile if the suit matches and it is the correct rank.
-	public void addCard(Card card) {
+	public boolean addCard(Card card) {
+		boolean cardAdded = false;
 		if (checkSuitMatches(card)) {
 			if (cards.size() == 0 && checkFirstCard(card)) {
 				cards.add(card);
+				cardAdded = true;
 			}
 			else if (checkNextValue(card)){
 				cards.add(card);
+				cardAdded = true;
 			}
 		}
+		return cardAdded;
 	}
 	
 	//Removes the card from the foundation pile
