@@ -30,7 +30,7 @@ public class GameBoard {
 		tableau4 = new Tableau(3);
 		tableau5 = new Tableau(4);
 		tableau6 = new Tableau(5);
-		tableau7 = new Tableau(7);
+		tableau7 = new Tableau(6);
 		foundationSpades = new Foundation(Constants.spades);
 		foundationClubs = new Foundation(Constants.clubs);
 		foundationDiamonds = new Foundation(Constants.diamonds);
