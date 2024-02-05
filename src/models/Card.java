@@ -8,15 +8,17 @@ public class Card {
 	private String suit;
 	private int rank;
 	private boolean cardVisible;
+	private String imagePath;
 	
 	//==================================
 	//          Constructors
 	//==================================
 	public Card () {}
 	
-	public Card (String suit, int rank) {
+	public Card (String suit, int rank, String imagePath) {
 		this.suit = suit;
 		this.rank = rank;
+		this.imagePath = imagePath;
 		cardVisible = false;
 	}
 	
@@ -43,13 +45,20 @@ public class Card {
 		return cardVisible;
 	}
 	
+	public String getImagePath() {
+		return imagePath;
+	}
+	
+	public void setImagePath(String imagePath) {
+		this.imagePath = imagePath;
+	}
+	
 	public void setCardVisible(boolean cardVisible) {
 		this.cardVisible = cardVisible;
 	}
 	
 	public String getCardColor() {
 		return (suit == Constants.hearts || suit == Constants.diamonds) ? "RED" : "BLACK";
-	}
-	
+	}	
 
 }
