@@ -8,20 +8,22 @@ import javax.swing.JButton;
 
 public class CardButton extends JButton{
 		
+	public static Color backgroundGreen = new Color(0, 128, 1);
+	
 	//Creates a button without an icon. NOT RECOMMENDED.
-	CardButton() {
+	public CardButton() {
 		super();
 		this.setMargin(new Insets(0,0,0,0));
 		this.setBorder(null);
-		this.setBackground(GameFrame.backgroundGreen);
+		this.setBackground(backgroundGreen);
 	}
 	
 	//Creates a button with an icon
-	CardButton(ImageIcon i) {
+	public CardButton(ImageIcon i) {
 		super(i);
 		this.setMargin(new Insets(0,0,0,0));
 		this.setBorder(null);
-		this.setBackground(GameFrame.backgroundGreen);
+		this.setBackground(backgroundGreen);
 	}
 	
 	//draws the cardButton based on the x and y and sets
