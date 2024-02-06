@@ -20,7 +20,7 @@ public class DeckActionListener implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		deckModel.drawCard(0);
-		deckView.setIcon(deckModel.drawCard(0).get);
+//		deckView.setIcon(deckModel.drawCard(0).get);
 		
 	}
 

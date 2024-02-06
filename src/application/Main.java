@@ -20,7 +20,7 @@ public class Main {
 		Controller controller = new Controller(gameBoard, gameView);
 		
 		CardButton deckButton = new CardButton(deckIcon);
-		deckButton.addActionListener(new DeckActionListener(deckButton));
+//		deckButton.addActionListener(new DeckActionListener(deckButton));
 		
 		gameView.addCardButton(new CardButton(deckIcon), (int)ControllerConstants.deckPoint.getX(), (int)ControllerConstants.deckPoint.getY());
 		
