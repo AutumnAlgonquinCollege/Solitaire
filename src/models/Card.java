@@ -57,6 +57,10 @@ public class Card {
 		this.cardVisible = cardVisible;
 	}
 	
+	public String getDisplayImagePath() {
+		 return (cardVisible) ? imagePath : Constants.backSideImgPath;
+	}
+	
 	public String getCardColor() {
 		return (suit == Constants.hearts || suit == Constants.diamonds) ? "RED" : "BLACK";
 	}	
