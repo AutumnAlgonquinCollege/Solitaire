@@ -60,7 +60,7 @@ public class CardDeck {
 	//==================================
 	
 	//Returns the card object by the index.
-	public Card drawCard(int index) {
+	public Card getCardByIndex(int index) {
 		return cards.get(index);
 	}
 	

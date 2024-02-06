@@ -1,5 +1,7 @@
 package models;
 
+import javax.swing.ImageIcon;
+
 public class Card {
 	
 	//==================================
@@ -9,6 +11,7 @@ public class Card {
 	private int rank;
 	private boolean cardVisible;
 	private String imagePath;
+	private ImageIcon imageIcon;
 	
 	//==================================
 	//          Constructors
@@ -20,6 +23,7 @@ public class Card {
 		this.rank = rank;
 		this.imagePath = imagePath;
 		cardVisible = false;
+		this.imageIcon = new ImageIcon(imagePath);
 	}
 	
 	//==================================
@@ -45,6 +49,10 @@ public class Card {
 		return cardVisible;
 	}
 	
+	public ImageIcon getImageIcon() {
+		return imageIcon;
+	}
+	
 	public String getImagePath() {
 		return imagePath;
 	}
@@ -57,8 +65,8 @@ public class Card {
 		this.cardVisible = cardVisible;
 	}
 	
-	public String getDisplayImagePath() {
-		 return (cardVisible) ? imagePath : Constants.backSideImgPath;
+	public ImageIcon getDisplayImage() {
+		 return (cardVisible) ? imageIcon : Constants.backSideImg;
 	}
 	
 	public String getCardColor() {

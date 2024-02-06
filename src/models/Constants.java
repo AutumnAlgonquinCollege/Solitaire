@@ -15,12 +15,12 @@ public class Constants {
 	public static final String hearts = "HEARTS";
 	
 	
-	public static final ImageIcon emptyCardImgPath = new ImageIcon("ImageAssets/Misc/empty_frame.png");
-	public static final String backSideImgPath = "ImageAssets/Backs/back_0.png";
-	public static final String spadesFoundationImgPath = "ImageAssets/Misc/spades_foundation.png";
-	public static final String clubsFoundationImgPath = "ImageAssets/Misc/clubs_foundation.png";
-	public static final String diamondsFoundationImgPath = "ImageAssets/Misc/diamonds_foundation.png";
-	public static final String heartsFoundationImgPath = "ImageAssets/Misc/heartsFoundationImgPath.png";
+	public static final ImageIcon emptyCardImg = new ImageIcon("ImageAssets/Misc/empty_frame.png");
+	public static final ImageIcon backSideImg = new ImageIcon("ImageAssets/Backs/back_0.png");
+	public static final ImageIcon spadesFoundationImg = new ImageIcon("ImageAssets/Misc/spades_foundation.png");
+	public static final ImageIcon clubsFoundationImg = new ImageIcon("ImageAssets/Misc/clubs_foundation.png");
+	public static final ImageIcon diamondsFoundationImg = new ImageIcon("ImageAssets/Misc/diamonds_foundation.png");
+	public static final ImageIcon heartsFoundationImg = new ImageIcon("ImageAssets/Misc/hearts_foundation.png");
 	public static final String[] spadesImgPath = 
 		{"ImageAssets/Spades/Spades_card_01.png",
 		"ImageAssets/Spades/Spades_card_02.png",

@@ -111,14 +111,13 @@ public class GameBoard {
 		
 		int i = 0;
 		for (i = 0; i < tableau.getUndiscoveredCards(); i++) {
-			tableau.dealCard(cardDeck.drawCard(i));
+			tableau.dealCard(cardDeck.getCardByIndex(i));
 			cardDeck.removeCardByIndex(i);
 		}
 		
-		tableau.dealCard(cardDeck.drawCard(i));
+		tableau.dealCard(cardDeck.getCardByIndex(i));
 		cardDeck.removeCardByIndex(i);
 		tableau.setLastTableauCardVisible();	
-	
 	}
 	
 }

@@ -150,6 +150,13 @@ public class Tableau {
 		}
 	}
 	
+	public Card getCardByIndex(int index) {
+		return cards.get(index);
+	}
+	
+	public int getTotalCards() {
+		return (cards.size() != 0) ? cards.size() -1 : -1;
+	}
 	
 	
 	//Don't think these are useful but keeping just in case

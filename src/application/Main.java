@@ -13,16 +13,21 @@ public class Main {
 
 	public static void main(String[] args) {
 		
-		ImageIcon deckIcon = new ImageIcon(models.Constants.spadesImgPath[0]);
+		//ImageIcon deckIcon = new ImageIcon(models.Constants.backSideImg);
 		
 		GameBoard gameBoard = new GameBoard();
 		GameView gameView = new GameView();
 		Controller controller = new Controller(gameBoard, gameView);
 		
-		CardButton deckButton = new CardButton(deckIcon);
-//		deckButton.addActionListener(new DeckActionListener(deckButton));
+		controller.createGui();
 		
-		gameView.addCardButton(new CardButton(deckIcon), (int)ControllerConstants.deckPoint.getX(), (int)ControllerConstants.deckPoint.getY());
+		CardButton deckButton = controller.getDeckBtn();
+		CardButton wasteButton = controller.getWasteBtn();
+		controller.getDeckBtn().addActionListener(new DeckActionListener(deckButton, gameBoard.getCardDeck(), wasteButton));
+		
+		//deckButton.addActionListener(new DeckActionListener(deckButton, gameBoard.getCardDeck()));
+		
+		//gameView.addCardButton(new CardButton(deckIcon), (int)ControllerConstants.deckPoint.getX(), (int)ControllerConstants.deckPoint.getY());
 		
 		
 		
