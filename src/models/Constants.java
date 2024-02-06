@@ -12,4 +12,10 @@ public class Constants {
 	public static final String diamonds = "DIAMONDS";
 	public static final String hearts = "HEARTS";
 	
+	
+	public static final String backSideImgPath = "Test";
+	public static final String[] spadesImgPath = {"Test1", "Test2", "Test3", "Test4", "Test5", "Test6", "Test7", "Test8", "Test9", "Test10", "Test11", "Test12", "Test13" };
+	public static final String[] clubsImgPath = {"Test1", "Test2", "Test3", "Test4", "Test5", "Test6", "Test7", "Test8", "Test9", "Test10", "Test11", "Test12", "Test13" };
+	public static final String[] diamondsImgPath = {"Test1", "Test2", "Test3", "Test4", "Test5", "Test6", "Test7", "Test8", "Test9", "Test10", "Test11", "Test12", "Test13" };
+	public static final String[] heartsImgPath = {"Test1", "Test2", "Test3", "Test4", "Test5", "Test6", "Test7", "Test8", "Test9", "Test10", "Test11", "Test12", "Test13" };
 }
