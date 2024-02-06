@@ -110,12 +110,12 @@ public class GameBoard {
 	private void dealCardsToTableau(Tableau tableau) {
 		int i;
 		for (i = 0; i < tableau.getUndiscoveredCards(); i++) {
-			tableau.addCard(cardDeck.drawCard(i));
+			tableau.dealCard(cardDeck.drawCard(i));
 			cardDeck.removeCardByIndex(i);
 		}
 		
-		tableau.addCard(cardDeck.drawCard(i + 1));
-		cardDeck.removeCardByIndex(i + 1);
+		tableau.dealCard(cardDeck.drawCard(i));
+		cardDeck.removeCardByIndex(i);
 		tableau.setLastTableauCardVisible();	
 	}	
 	

@@ -79,6 +79,11 @@ public class Tableau {
 	//          Public Methods
 	//==================================
 	
+	//Only used when dealing the card to the tableau
+	public void dealCard(Card card) {
+		cards.add(card);
+	}
+	
 	//Adds a single card to the tableau
 	public boolean addCard(Card card) {
 		boolean cardAdded = false;
