@@ -97,13 +97,13 @@ public class GameBoard {
 	
 	//Sets up the cards in all the tableaus
 	private void initializeGameBoard() {
-//		dealCardsToTableau(tableau1);
-//		dealCardsToTableau(tableau2);
-//		dealCardsToTableau(tableau3);
-//		dealCardsToTableau(tableau4);
-//		dealCardsToTableau(tableau5);
-//		dealCardsToTableau(tableau6);
-//		dealCardsToTableau(tableau7);		
+		dealCardsToTableau(tableau1);
+		dealCardsToTableau(tableau2);
+		dealCardsToTableau(tableau3);
+		dealCardsToTableau(tableau4);
+		dealCardsToTableau(tableau5);
+		dealCardsToTableau(tableau6);
+		dealCardsToTableau(tableau7);		
 	}
 	
 	//Deals all the required undiscovered cards to the tableau object along with the last visible card.
