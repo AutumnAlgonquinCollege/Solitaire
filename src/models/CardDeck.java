@@ -27,9 +27,25 @@ public class CardDeck {
 	
 	//Creates the full deck of cards.
 	private void createDeck() {
+		String imgPath = null;
+		
 		for (int i = 0; i < Constants.suitArray.length; i++) {
 			for (int j = 0; j < Constants.rankArray.length; j++) {
-				cards.add(new Card(Constants.suitArray[i], Constants.rankArray[j]));
+				
+				if (i == 0) {
+					imgPath = Constants.spadesImgPath[j];
+				}
+				else if (i == 1) {
+					imgPath = Constants.clubsImgPath[j];
+				}
+				else if (i == 2) {
+					imgPath = Constants.diamondsImgPath[j];
+				}
+				else if (i == 3) {
+					imgPath = Constants.heartsImgPath[j];
+				}
+				
+				cards.add(new Card(Constants.suitArray[i], Constants.rankArray[j], imgPath));
 			}
 		}
 	}
