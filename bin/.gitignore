@@ -1,4 +1,10 @@
+<<<<<<< HEAD
 /controllers/
 /Main.class
 /application/
 /views/
+=======
+/models/
+/views/
+/application/
+>>>>>>> refs/heads/master
