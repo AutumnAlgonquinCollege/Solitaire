@@ -97,18 +97,19 @@ public class GameBoard {
 	
 	//Sets up the cards in all the tableaus
 	private void initializeGameBoard() {
-		dealCardsToTableau(tableau1);
-		dealCardsToTableau(tableau2);
-		dealCardsToTableau(tableau3);
-		dealCardsToTableau(tableau4);
-		dealCardsToTableau(tableau5);
-		dealCardsToTableau(tableau6);
-		dealCardsToTableau(tableau7);		
+//		dealCardsToTableau(tableau1);
+//		dealCardsToTableau(tableau2);
+//		dealCardsToTableau(tableau3);
+//		dealCardsToTableau(tableau4);
+//		dealCardsToTableau(tableau5);
+//		dealCardsToTableau(tableau6);
+//		dealCardsToTableau(tableau7);		
 	}
 	
 	//Deals all the required undiscovered cards to the tableau object along with the last visible card.
 	private void dealCardsToTableau(Tableau tableau) {
-		int i;
+		
+		int i = 0;
 		for (i = 0; i < tableau.getUndiscoveredCards(); i++) {
 			tableau.addCard(cardDeck.drawCard(i));
 			cardDeck.removeCardByIndex(i);
@@ -117,6 +118,7 @@ public class GameBoard {
 		tableau.addCard(cardDeck.drawCard(i + 1));
 		cardDeck.removeCardByIndex(i + 1);
 		tableau.setLastTableauCardVisible();	
-	}	
+	
+	}
 	
 }
