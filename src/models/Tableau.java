@@ -158,7 +158,6 @@ public class Tableau {
 		return (cards.size() != 0) ? cards.size() -1 : -1;
 	}
 	
-	
 	//Don't think these are useful but keeping just in case
 	
 	/*

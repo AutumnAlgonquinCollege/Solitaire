@@ -2,6 +2,7 @@ package controllers;
 
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 import models.*;
@@ -13,13 +14,13 @@ public class Controller {
 	GameView gameView;
 	CardButton deckBtn;
 	CardButton wasteBtn;
-	CardButton tableauBtn1;
-	CardButton tableauBtn2;
-	CardButton tableauBtn3;
-	CardButton tableauBtn4;
-	CardButton tableauBtn5;
-	CardButton tableauBtn6;
-	CardButton tableauBtn7;
+	List<CardButton> tableauList1;
+	List<CardButton> tableauList2;
+	List<CardButton> tableauList3;
+	List<CardButton> tableauList4;
+	List<CardButton> tableauList5;
+	List<CardButton> tableauList6;
+	List<CardButton> tableauList7;
 	CardButton foundationSpadesBtn;
 	CardButton foundationClubsBtn;
 	CardButton foundationDiamondsBtn;
@@ -32,10 +33,18 @@ public class Controller {
 		this.gameView = view;
 	}
 	
-	private void setUpTableauBtn(Tableau tableau, int xAxis){
-		int yAxis = (int) ControllerConstants.tableau1Point.getY();
+	private List<CardButton> setUpTableauBtn(Tableau tableau){
+		List<CardButton> cardBtnList = new ArrayList<CardButton>();
 		for (int i = 0 ; i <= tableau.getTotalCards(); i++) {
-			gameView.addCardButton(new CardButton(tableau.getCardByIndex(i).getDisplayImage()), xAxis, yAxis);
+			cardBtnList.add(new CardButton(tableau.getCardByIndex(i).getDisplayImage()));			
+		}
+		return cardBtnList;
+	}
+	
+	private void displayTableauBtn(List<CardButton> btnList, int xAxis) {
+		int yAxis = (int) ControllerConstants.tableau1Point.getY();
+		for (int i = 0; i < btnList.size(); i++) {
+			gameView.addCardButton(btnList.get(i), xAxis, yAxis);
 			yAxis += 25;
 		}
 	}
@@ -53,7 +62,7 @@ public class Controller {
 		//Create deck view
 		gameView.addCardButton(deckBtn, (int)ControllerConstants.deckPoint.getX(), (int)ControllerConstants.deckPoint.getY());
 		
-		//Create waste point
+		//Create waste view
 		gameView.addCardButton(wasteBtn, (int)ControllerConstants.wastePoint.getX(), (int)ControllerConstants.wastePoint.getY());
 		
 		//Create foundation view
@@ -62,17 +71,25 @@ public class Controller {
 		gameView.addCardButton(foundationDiamondsBtn, (int)ControllerConstants.foundationDiamondsPoint.getX(), (int)ControllerConstants.foundationDiamondsPoint.getY());
 		gameView.addCardButton(foundationHeartsBtn, (int)ControllerConstants.foundationHeartsPoint.getX(), (int)ControllerConstants.foundationHeartsPoint.getY());
 		
+		//Create CardButtons for tableaus
+		//Stores them in a list so that we can add action listeners... Maybe with event.getSource to make sure its only the last element
+		tableauList1 = setUpTableauBtn(gameBoard.getTableau1());
+		tableauList2 = setUpTableauBtn(gameBoard.getTableau2());
+		tableauList3 = setUpTableauBtn(gameBoard.getTableau3());
+		tableauList4 = setUpTableauBtn(gameBoard.getTableau4());
+		tableauList5 = setUpTableauBtn(gameBoard.getTableau5());
+		tableauList6 = setUpTableauBtn(gameBoard.getTableau6());
+		tableauList7 = setUpTableauBtn(gameBoard.getTableau7());
+		
 		//Create tableau view
-		setUpTableauBtn(gameBoard.getTableau1(), (int)ControllerConstants.tableau1Point.getX());
-		setUpTableauBtn(gameBoard.getTableau2(), (int)ControllerConstants.tableau2Point.getX());
-		setUpTableauBtn(gameBoard.getTableau3(), (int)ControllerConstants.tableau3Point.getX());
-		setUpTableauBtn(gameBoard.getTableau4(), (int)ControllerConstants.tableau4Point.getX());
-		setUpTableauBtn(gameBoard.getTableau5(), (int)ControllerConstants.tableau5Point.getX());
-		setUpTableauBtn(gameBoard.getTableau6(), (int)ControllerConstants.tableau6Point.getX());
-		setUpTableauBtn(gameBoard.getTableau7(), (int)ControllerConstants.tableau7Point.getX());
-
+		displayTableauBtn(tableauList1, (int)ControllerConstants.tableau1Point.getX());
+		displayTableauBtn(tableauList2, (int)ControllerConstants.tableau2Point.getX());
+		displayTableauBtn(tableauList3, (int)ControllerConstants.tableau3Point.getX());
+		displayTableauBtn(tableauList4, (int)ControllerConstants.tableau4Point.getX());
+		displayTableauBtn(tableauList5, (int)ControllerConstants.tableau5Point.getX());
+		displayTableauBtn(tableauList6, (int)ControllerConstants.tableau6Point.getX());
+		displayTableauBtn(tableauList7, (int)ControllerConstants.tableau7Point.getX());
 	}
-	
 	
 	public CardButton getDeckBtn() {
 		return deckBtn;
@@ -81,6 +98,14 @@ public class Controller {
 	public CardButton getWasteBtn() {
 		return wasteBtn;
 	}
+	
+	public List<CardButton> getTableauList1() {	return tableauList1; }
+	public List<CardButton> getTableauList2() {	return tableauList2; }
+	public List<CardButton> getTableauList3() {	return tableauList3; }
+	public List<CardButton> getTableauList4() {	return tableauList4; }
+	public List<CardButton> getTableauList5() {	return tableauList5; }
+	public List<CardButton> getTableauList6() {	return tableauList6; }
+	public List<CardButton> getTableauList7() {	return tableauList7; }
 
 	public boolean deckClicked() {
 		gameBoard.getCardDeck().getCardByIndex(0);
