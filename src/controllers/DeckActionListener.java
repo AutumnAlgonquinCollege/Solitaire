@@ -8,6 +8,7 @@ import javax.swing.ImageIcon;
 import models.CardDeck;
 import models.Constants;
 import models.GameBoard;
+import models.WastePile;
 import views.CardButton;
 
 public class DeckActionListener implements ActionListener{
@@ -15,13 +16,15 @@ public class DeckActionListener implements ActionListener{
 	CardButton deckView;
 	CardButton wasteView;
 	CardDeck deckModel;
+	WastePile wastePile;
 	private int deckIndex;
 	
 	
-	public DeckActionListener(CardButton deckView, CardDeck deckModel, CardButton wasteView) {
+	public DeckActionListener(CardButton deckView, CardDeck deckModel, CardButton wasteView, WastePile wastePile) {
 		this.deckView = deckView;
 		this.deckModel = deckModel;
 		this.wasteView = wasteView;
+		this.wastePile = wastePile;
 		deckIndex = 0;
 	}
 	
@@ -29,8 +32,9 @@ public class DeckActionListener implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		
-		
+	
 		deckModel.getCardByIndex(deckIndex);
+		wastePile.addCardToWaste(deckModel.getCardByIndex(deckIndex));
 		wasteView.setIcon(deckModel.getCardByIndex(deckIndex).getImageIcon());
 		deckIndex++;
 		if (deckIndex != deckModel.getRemainingDeckSize()) {
@@ -39,6 +43,7 @@ public class DeckActionListener implements ActionListener{
 		}
 		else {
 		deckView.setIcon(Constants.emptyCardImg);
+		wastePile.emptyWaste();
 		deckIndex = 0;
 		}
 		

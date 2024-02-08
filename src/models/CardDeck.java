@@ -10,7 +10,7 @@ public class CardDeck {
 	//          Attributes
 	//==================================
 	
-	private List<Card> cards = new ArrayList<Card>();
+	protected List<Card> cards = new ArrayList<Card>();
 	
 	//==================================
 	//          Constructors

@@ -5,6 +5,8 @@ package controllers;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.ImageIcon;
+
 import models.*;
 import views.*;
 
@@ -49,8 +51,13 @@ public class Controller {
 		}
 	}
 	
-	
+	public CardButton testWasteButton;
 	public void createGui() {
+		
+		//TEST WASTE BUTTONS
+		testWasteButton = new CardButton(new ImageIcon(Constants.heartsImgPath[0]));
+		gameView.addCardButton(testWasteButton,10, 500);
+		
 		//Instantiate card buttons
 		deckBtn = new CardButton(Constants.backSideImg);
 		wasteBtn = new CardButton(Constants.emptyCardImg);
@@ -99,6 +106,11 @@ public class Controller {
 		return wasteBtn;
 	}
 	
+	public CardButton getHeartsFoundation() {
+		return foundationHeartsBtn;
+	}
+	
+	
 	public List<CardButton> getTableauList1() {	return tableauList1; }
 	public List<CardButton> getTableauList2() {	return tableauList2; }
 	public List<CardButton> getTableauList3() {	return tableauList3; }
@@ -111,5 +123,6 @@ public class Controller {
 		gameBoard.getCardDeck().getCardByIndex(0);
 		return false;
 	}
+	
 	
 }

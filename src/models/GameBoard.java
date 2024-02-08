@@ -6,6 +6,7 @@ public class GameBoard {
 	//          Attributes
 	//==================================
 	private CardDeck cardDeck;
+	private WastePile wastePile;
 	private Tableau tableau1;
 	private Tableau tableau2;
 	private Tableau tableau3;
@@ -24,6 +25,7 @@ public class GameBoard {
 	//==================================
 	public GameBoard() {
 		cardDeck = new CardDeck();
+		wastePile = new WastePile();
 		tableau1 = new Tableau(0);
 		tableau2 = new Tableau(1);
 		tableau3 = new Tableau(2);
@@ -44,6 +46,10 @@ public class GameBoard {
 	
 	public CardDeck getCardDeck() {
 		return cardDeck;
+	}
+	
+	public WastePile getWastePile() {
+		return wastePile;
 	}
 	
 	public Tableau getTableau1() {

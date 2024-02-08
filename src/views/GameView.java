@@ -55,6 +55,10 @@ public class GameView {
 		card.draw(x, y);
 	}
 	
+	public JLayeredPane getPane() {
+		return pane;
+	}
+	
 	public void setViewVisible() {
 		frame.setVisible(true);
 		panel.setVisible(true);

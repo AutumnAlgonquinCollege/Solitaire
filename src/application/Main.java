@@ -2,7 +2,8 @@ package application;
 
 import javax.swing.ImageIcon;
 
-import controllers.Controller;
+
+import controllers.*;
 import controllers.ControllerConstants;
 import controllers.DeckActionListener;
 import models.GameBoard;
@@ -23,11 +24,13 @@ public class Main {
 		
 		CardButton deckButton = controller.getDeckBtn();
 		CardButton wasteButton = controller.getWasteBtn();
-		controller.getDeckBtn().addActionListener(new DeckActionListener(deckButton, gameBoard.getCardDeck(), wasteButton));
+		CardButton heartsFoundation = controller.getHeartsFoundation();
+		controller.getDeckBtn().addActionListener(new DeckActionListener(deckButton, gameBoard.getCardDeck(), wasteButton, gameBoard.getWastePile()));
+		controller.getWasteBtn().addActionListener(new WasteActionListener());
+		controller.testWasteButton.addActionListener(new WasteActionListener());
+		controller.getHeartsFoundation().addActionListener(new FoundationActionListener(gameBoard.getFoundationHearts(), gameView, gameBoard.getWastePile(), controller, controller.getHeartsFoundation()));
 		
-		//deckButton.addActionListener(new DeckActionListener(deckButton, gameBoard.getCardDeck()));
 		
-		//gameView.addCardButton(new CardButton(deckIcon), (int)ControllerConstants.deckPoint.getX(), (int)ControllerConstants.deckPoint.getY());
 		
 		
 		
