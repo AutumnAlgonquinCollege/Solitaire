@@ -29,6 +29,7 @@ public class DeckActionListener implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		
+		
 		deckModel.getCardByIndex(deckIndex);
 		wasteView.setIcon(deckModel.getCardByIndex(deckIndex).getImageIcon());
 		deckIndex++;

@@ -5,8 +5,9 @@ import java.awt.Insets;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JToggleButton;
 
-public class CardButton extends JButton{
+public class CardButton extends JToggleButton{
 		
 	public static Color backgroundGreen = new Color(0, 128, 1);
 	

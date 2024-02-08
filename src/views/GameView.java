@@ -8,7 +8,7 @@ import javax.swing.*;
 public class GameView {
 	
 	
-	
+	ButtonGroup gameButtons;
 	GameFrame frame;
 	JPanel panel;
 	JLayeredPane pane;
@@ -20,6 +20,8 @@ public class GameView {
 		
 		panel = new JPanel();
 		panel.setBackground(backgroundGreen);
+		
+		gameButtons = new ButtonGroup();
 		
 		pane = new JLayeredPane();
 		pane.setLayout(null);
@@ -37,12 +39,20 @@ public class GameView {
 	
 	public void addCardButton(CardButton card, int x, int y) {
 		pane.add(card);
+		gameButtons.add(card);
 		card.draw(x, y);
 		
 	}
 	
-	public void removeComponent(JComponent component) {
-		pane.remove(component);
+	public void removeComponent(CardButton card) {
+		pane.remove(card);
+		gameButtons.remove(card);
+	}
+	
+	public void addTableauCardButton(CardButton card, int x, int y, Integer z) {
+		pane.add(card, z);
+		gameButtons.add(card);
+		card.draw(x, y);
 	}
 	
 	public void setViewVisible() {
