@@ -22,18 +22,15 @@ public class FoundationActionListener implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		foundation = controller.getFoundation(suit);
 		LastCardSelectedUtility.setCardSelected(foundation, foundation.getFoundationSize());
-		System.out.println(LastCardSelectedUtility.getLastCardSelected());
-		System.out.println(controller.getGameBoard().getWastePile());
-		if (LastCardSelectedUtility.getLastCardSelected() == controller.getGameBoard().getWastePile()) {
-			System.out.println("True");
-			foundation.addCard(controller.gameBoard.getWastePile().getCardByIndex(LastCardSelectedUtility.getLastIndexSelected()));
-				
-			
-			controller.gameBoard.getWastePile().removeCardByIndex(LastCardSelectedUtility.getLastIndexSelected());
+		if (LastCardSelectedUtility.getLastCardSelected() == controller.getGameBoard().getWastePile())	{
+			System.out.println(controller.gameBoard.getWastePile().getLastCard().getSuit());
+			if (foundation.addCard(controller.getGameBoard().getWastePile().getLastCard())) {
+				controller.getGameBoard().getWastePile().removeCardByIndex(LastCardSelectedUtility.getLastIndexSelected());
+				controller.getGameBoard().getCardDeck().removeCardByObject(controller.getGameBoard().getWastePile().getLastCard());
+			}
 		}
 		
-		System.out.println("This was chosen:" + suit);
-		System.out.println(LastCardSelectedUtility.getLastIndexSelected());
+		
 		controller.redrawAll();
 		
 	}

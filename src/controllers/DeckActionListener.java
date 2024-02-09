@@ -28,6 +28,7 @@ public class DeckActionListener implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		
 		controller.gameBoard.getWastePile().addCardToWaste(cardDeck.getCardByIndex(deckIndex));
+		System.out.println("rank" + cardDeck.getCardByIndex(deckIndex).getRank());
 		deckIndex ++;
 		if (deckIndex == cardDeck.getRemainingDeckSize()) {
 			deckIndex = 0;

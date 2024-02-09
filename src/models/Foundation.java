@@ -29,7 +29,8 @@ public class Foundation {
 	//Checks if the card is the next sequential rank and returns a boolean
 	//Returns true if the card is the next sequential
 	private boolean checkNextValue(Card card) {
-		return (getLastRank() == card.getRank() + 1) ? true : false;
+		boolean check = (getLastRank() + 1 == card.getRank()) ? true : false;
+		return (getLastRank() + 1 == card.getRank()) ? true : false;
 	}
 	
 	//Checks if the card matches the suit of the foundation
@@ -46,7 +47,7 @@ public class Foundation {
 	
 	//Returns the rank value for the last card in the List
 	private int getLastRank() {
-		return cards.get(cards.size() -1 ).getRank();		
+		return cards.get(cards.size()-1).getRank();		
 	}
 	
 	
@@ -58,14 +59,16 @@ public class Foundation {
 	public boolean addCard(Card card) {
 		boolean cardAdded = false;
 		if (checkSuitMatches(card)) {
-			if (cards.size() == 0 && checkFirstCard(card)) {
+			if (cards.isEmpty() && checkFirstCard(card)) {
 				cards.add(card);
 				cardAdded = true;
 			}
-			else if (checkNextValue(card)){
+			
+			else if (!cards.isEmpty() && checkNextValue(card)){
 				cards.add(card);
 				cardAdded = true;
 			}
+			
 		}
 		return cardAdded;
 	}
@@ -84,7 +87,7 @@ public class Foundation {
 
 	public ImageIcon getFoundationDisplayImage(String suit) {
 		ImageIcon imageIcon;
-		if (cards.size() == 0) {
+		if (cards.isEmpty()) {
 			switch (suit) {
 				case Constants.spades:
 					imageIcon = Constants.spadesFoundationImg;
@@ -101,7 +104,8 @@ public class Foundation {
 			}				
 		}
 		else {
-			imageIcon = cards.get(cards.size() -1).getDisplayImage();
+			imageIcon = cards.get(cards.size()-1).getImageIcon();
+			System.out.println("foundation index:" + cards.size());
 		}
 		
 		return imageIcon;

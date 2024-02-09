@@ -128,7 +128,7 @@ public class Controller {
 		case Constants.diamonds:
 			return gameBoard.getFoundationDiamonds();
 		case Constants.hearts:
-			return gameBoard.getFoundationDiamonds();
+			return gameBoard.getFoundationHearts();
 		default:
 			return gameBoard.getFoundationClubs();
 		

@@ -7,7 +7,7 @@ import javax.swing.ImageIcon;
 
 public class WastePile extends CardDeck{
 		
-	private List<Card> cards = new ArrayList<Card>();
+	public List<Card> cards = new ArrayList<Card>();
 	
 	public WastePile() {
 		
