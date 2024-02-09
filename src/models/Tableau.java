@@ -154,6 +154,10 @@ public class Tableau {
 		return cards.get(index);
 	}
 	
+	public int getCardIndexByObject(Card card) {
+		return cards.indexOf(card);
+	}
+	
 	public int getTotalCards() {
 		return (cards.size() != 0) ? cards.size() -1 : -1;
 	}

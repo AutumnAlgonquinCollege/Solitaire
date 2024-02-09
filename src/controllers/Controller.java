@@ -38,7 +38,7 @@ public class Controller {
 	private List<CardButton> setUpTableauBtn(Tableau tableau){
 		List<CardButton> cardBtnList = new ArrayList<CardButton>();
 		for (int i = 0 ; i <= tableau.getTotalCards(); i++) {
-			cardBtnList.add(new CardButton(tableau.getCardByIndex(i).getDisplayImage()));			
+			cardBtnList.add(new CardButton(tableau.getCardByIndex(i).getDisplayImage()));
 		}
 		return cardBtnList;
 	}
@@ -47,7 +47,7 @@ public class Controller {
 		int yAxis = (int) ControllerConstants.tableau1Point.getY();
 		for (int i = 0; i < btnList.size(); i++) {
 			gameView.addTableauCardButton(btnList.get(i), xAxis, yAxis, Integer.valueOf(i));
-			btnList.get(i).addActionListener(new TableauActionListener(gameBoard, this));
+			btnList.get(i).addActionListener(new TableauActionListener(this));
 			yAxis += 25;
 		}
 	}
@@ -55,23 +55,23 @@ public class Controller {
 	
 	public void createGui() {
 		
-
-		
-		//Instantiate card buttons
+		//Init buttons
 		deckBtn = new CardButton(Constants.backSideImg);
-		wasteBtn = new CardButton(gameBoard.getWastePile().getTopCardImage());
+		wasteBtn = new CardButton(gameBoard.getWastePile().getTopCardImage(deckIndex));
 		foundationSpadesBtn = new CardButton(gameBoard.getFoundationSpades().getFoundationDisplayImage(Constants.spades));
 		foundationClubsBtn = new CardButton(gameBoard.getFoundationClubs().getFoundationDisplayImage(Constants.clubs));
 		foundationDiamondsBtn = new CardButton(gameBoard.getFoundationDiamonds().getFoundationDisplayImage(Constants.diamonds));
 		foundationHeartsBtn = new CardButton(gameBoard.getFoundationHearts().getFoundationDisplayImage(Constants.hearts));
 		
-		//Adding controllers
+		//Adding listeners
 		deckBtn.addActionListener(new DeckActionListener(this));
 		wasteBtn.addActionListener(new WasteActionListener(this));
 		foundationSpadesBtn.addActionListener(new FoundationActionListener(this, Constants.spades));
 		foundationClubsBtn.addActionListener(new FoundationActionListener(this, Constants.clubs));
 		foundationDiamondsBtn.addActionListener(new FoundationActionListener(this, Constants.diamonds));
 		foundationHeartsBtn.addActionListener(new FoundationActionListener(this, Constants.hearts));
+		
+		
 		
 		//Create deck view
 		gameView.addCardButton(deckBtn, (int)ControllerConstants.deckPoint.getX(), (int)ControllerConstants.deckPoint.getY());
@@ -116,6 +116,14 @@ public class Controller {
 	
 	public GameBoard getGameBoard() {
 		return gameBoard;
+	}
+	
+	public int getDeckIndex() {
+		return deckIndex;
+	}
+	
+	public void setDeckIndex(int deckIndex) {
+		this.deckIndex = deckIndex;
 	}
 	
 	public Foundation getFoundation(String suit) {

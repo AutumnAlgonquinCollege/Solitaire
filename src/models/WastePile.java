@@ -28,9 +28,9 @@ public class WastePile extends CardDeck{
 		return cards.size()-1;
 	}
 	
-	public ImageIcon getTopCardImage() {
+	public ImageIcon getTopCardImage(int index) {
 		ImageIcon imageIcon;
-		if (this.getRemainingDeckSize() != 0) {
+		if (this.getRemainingDeckSize() != 0 && index != 0) {
 			imageIcon = cards.get(cards.size()-1).getImageIcon();
 		} else {
 			imageIcon = Constants.emptyCardImg;

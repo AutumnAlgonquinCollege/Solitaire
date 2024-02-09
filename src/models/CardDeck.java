@@ -64,6 +64,10 @@ public class CardDeck {
 		return cards.get(index);
 	}
 	
+	public int getCardIndexByObject(Card card) {
+		return cards.indexOf(card);
+	}
+	
 	//Removes the card from the deck by index
 	public void removeCardByIndex(int index) {
 		cards.remove(index);
