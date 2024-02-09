@@ -43,13 +43,14 @@ public class Controller {
 		return cardBtnList;
 	}
 	
-	private void displayTableauBtn(List<CardButton> btnList, int xAxis) {
+	private void displayTableauBtn(List<CardButton> btnList, int xAxis, Tableau tableau) {
 		int yAxis = (int) ControllerConstants.tableau1Point.getY();
 		for (int i = 0; i < btnList.size(); i++) {
 			gameView.addTableauCardButton(btnList.get(i), xAxis, yAxis, Integer.valueOf(i));
-			btnList.get(i).addActionListener(new TableauActionListener(gameBoard, this));
+			btnList.get(i).addActionListener(new TableauActionListener(gameBoard, this, tableau));
 			yAxis += 25;
 		}
+		
 	}
 	
 	
@@ -97,13 +98,13 @@ public class Controller {
 		
 		
 		//Create tableau view
-		displayTableauBtn(tableauList1, (int)ControllerConstants.tableau1Point.getX());
-		displayTableauBtn(tableauList2, (int)ControllerConstants.tableau2Point.getX());
-		displayTableauBtn(tableauList3, (int)ControllerConstants.tableau3Point.getX());
-		displayTableauBtn(tableauList4, (int)ControllerConstants.tableau4Point.getX());
-		displayTableauBtn(tableauList5, (int)ControllerConstants.tableau5Point.getX());
-		displayTableauBtn(tableauList6, (int)ControllerConstants.tableau6Point.getX());
-		displayTableauBtn(tableauList7, (int)ControllerConstants.tableau7Point.getX());
+		displayTableauBtn(tableauList1, (int)ControllerConstants.tableau1Point.getX(), gameBoard.getTableau1());
+		displayTableauBtn(tableauList2, (int)ControllerConstants.tableau2Point.getX(), gameBoard.getTableau2());
+		displayTableauBtn(tableauList3, (int)ControllerConstants.tableau3Point.getX(), gameBoard.getTableau3());
+		displayTableauBtn(tableauList4, (int)ControllerConstants.tableau4Point.getX(), gameBoard.getTableau4());
+		displayTableauBtn(tableauList5, (int)ControllerConstants.tableau5Point.getX(), gameBoard.getTableau5());
+		displayTableauBtn(tableauList6, (int)ControllerConstants.tableau6Point.getX(), gameBoard.getTableau6());
+		displayTableauBtn(tableauList7, (int)ControllerConstants.tableau7Point.getX(), gameBoard.getTableau7());
 	}
 	
 	public CardButton getDeckBtn() {
