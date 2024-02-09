@@ -26,9 +26,9 @@ public class Main {
 		CardButton wasteButton = controller.getWasteBtn();
 		CardButton heartsFoundation = controller.getHeartsFoundation();
 		controller.getDeckBtn().addActionListener(new DeckActionListener(deckButton, gameBoard.getCardDeck(), wasteButton, gameBoard.getWastePile()));
-		controller.getWasteBtn().addActionListener(new WasteActionListener());
-		controller.testWasteButton.addActionListener(new WasteActionListener());
-		controller.getHeartsFoundation().addActionListener(new FoundationActionListener(gameBoard.getFoundationHearts(), gameView, gameBoard.getWastePile(), controller, controller.getHeartsFoundation()));
+		controller.getWasteBtn().addActionListener(new WasteActionListener(controller));
+		controller.testWasteButton.addActionListener(new WasteActionListener(controller));
+//		controller.getHeartsFoundation().addActionListener(new FoundationActionListener(gameBoard.getFoundationHearts(), gameView, gameBoard.getWastePile(), controller, controller.getHeartsFoundation()));
 		
 		
 		

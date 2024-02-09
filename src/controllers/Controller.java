@@ -66,6 +66,9 @@ public class Controller {
 		foundationDiamondsBtn = new CardButton(Constants.diamondsFoundationImg);
 		foundationHeartsBtn = new CardButton(Constants.heartsFoundationImg);
 		
+		//Adding controllers
+		wasteBtn.addActionListener(new WasteActionListener(this));
+		
 		//Create deck view
 		gameView.addCardButton(deckBtn, (int)ControllerConstants.deckPoint.getX(), (int)ControllerConstants.deckPoint.getY());
 		
@@ -118,11 +121,17 @@ public class Controller {
 	public List<CardButton> getTableauList5() {	return tableauList5; }
 	public List<CardButton> getTableauList6() {	return tableauList6; }
 	public List<CardButton> getTableauList7() {	return tableauList7; }
+		
+	
+	public void redrawAll() {
+		gameView.getPane().removeAll();
+		gameView.getPane().repaint();
+		createGui();
+	}
 
 	public boolean deckClicked() {
 		gameBoard.getCardDeck().getCardByIndex(0);
 		return false;
 	}
-	
 	
 }

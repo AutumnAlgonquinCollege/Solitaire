@@ -8,27 +8,19 @@ import views.*;
 
 public class FoundationActionListener implements ActionListener{
 
-	GameView gameView;
 	Controller controller;
-	Foundation foundation;
-	WastePile wastePile;
-	CardButton foundationView;
+	GameBoard gameBoard;
 	
 	
-	public FoundationActionListener (Foundation foundation, GameView GV, WastePile wp, Controller controller, CardButton FV) {
-		this.gameView = GV;
-		this.foundation = foundation;
-		this.wastePile = wp;
+	
+	public FoundationActionListener (Controller controller, GameBoard gameBoard) {
 		this.controller = controller;
-		CardButton foundationView = FV;
+		this.gameBoard = gameBoard;
 	}
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if(LastCardSelectedUtility.getLastCardSelected() == controller.getWasteBtn()) {
-			foundation.addCard(wastePile.getLastCard());
-			foundationView.setIcon(wastePile.getLastCard().getImageIcon());
-		}
+//		gameBoard
 		
 	}
 
