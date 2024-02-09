@@ -13,18 +13,14 @@ import views.CardButton;
 
 public class DeckActionListener implements ActionListener{
 
-	CardButton deckView;
-	CardButton wasteView;
-	CardDeck deckModel;
-	WastePile wastePile;
+	Controller controller;
+	CardDeck cardDeck;
 	private int deckIndex;
 	
 	
-	public DeckActionListener(CardButton deckView, CardDeck deckModel, CardButton wasteView, WastePile wastePile) {
-		this.deckView = deckView;
-		this.deckModel = deckModel;
-		this.wasteView = wasteView;
-		this.wastePile = wastePile;
+	public DeckActionListener(Controller controller) {
+		this.controller = controller;
+		cardDeck = controller.getGameBoard().getCardDeck();
 		deckIndex = 0;
 	}
 	
@@ -32,20 +28,13 @@ public class DeckActionListener implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		
-	
-		deckModel.getCardByIndex(deckIndex);
-		wastePile.addCardToWaste(deckModel.getCardByIndex(deckIndex));
-		wasteView.setIcon(deckModel.getCardByIndex(deckIndex).getImageIcon());
-		deckIndex++;
-		if (deckIndex != deckModel.getRemainingDeckSize()) {
-			deckView.setIcon(Constants.backSideImg);
-			
+		controller.gameBoard.getWastePile().addCardToWaste(cardDeck.getCardByIndex(deckIndex));
+		deckIndex ++;
+		if (deckIndex == cardDeck.getRemainingDeckSize()) {
+			deckIndex = 0;
 		}
-		else {
-		deckView.setIcon(Constants.emptyCardImg);
-		wastePile.emptyWaste();
-		deckIndex = 0;
-		}
+		
+		controller.redrawAll();
 		
 		
 		

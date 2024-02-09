@@ -106,6 +106,7 @@ public class Foundation {
 		
 		return imageIcon;
 	}
+	
 	public Integer getFoundationSize() {
 		return cards.size();
 

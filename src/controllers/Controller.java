@@ -51,24 +51,25 @@ public class Controller {
 		}
 	}
 	
-	public CardButton testWasteButton;
 	public void createGui() {
 		
-		//TEST WASTE BUTTONS
-		testWasteButton = new CardButton(new ImageIcon(Constants.heartsImgPath[0]));
-		gameView.addCardButton(testWasteButton,10, 500);
+
 		
 		//Instantiate card buttons
 		deckBtn = new CardButton(Constants.backSideImg);
-		wasteBtn = new CardButton(Constants.emptyCardImg);
-		foundationSpadesBtn = new CardButton(Constants.spadesFoundationImg);
-		foundationClubsBtn = new CardButton(Constants.clubsFoundationImg);
-		foundationDiamondsBtn = new CardButton(Constants.diamondsFoundationImg);
-		foundationHeartsBtn = new CardButton(Constants.heartsFoundationImg);
+		wasteBtn = new CardButton(gameBoard.getWastePile().getTopCardImage());
+		foundationSpadesBtn = new CardButton(gameBoard.getFoundationSpades().getFoundationDisplayImage(Constants.spades));
+		foundationClubsBtn = new CardButton(gameBoard.getFoundationClubs().getFoundationDisplayImage(Constants.clubs));
+		foundationDiamondsBtn = new CardButton(gameBoard.getFoundationDiamonds().getFoundationDisplayImage(Constants.diamonds));
+		foundationHeartsBtn = new CardButton(gameBoard.getFoundationHearts().getFoundationDisplayImage(Constants.hearts));
 		
 		//Adding controllers
+		deckBtn.addActionListener(new DeckActionListener(this));
 		wasteBtn.addActionListener(new WasteActionListener(this));
 		foundationSpadesBtn.addActionListener(new FoundationActionListener(this, Constants.spades));
+		foundationClubsBtn.addActionListener(new FoundationActionListener(this, Constants.clubs));
+		foundationDiamondsBtn.addActionListener(new FoundationActionListener(this, Constants.diamonds));
+		foundationHeartsBtn.addActionListener(new FoundationActionListener(this, Constants.hearts));
 		
 		//Create deck view
 		gameView.addCardButton(deckBtn, (int)ControllerConstants.deckPoint.getX(), (int)ControllerConstants.deckPoint.getY());
