@@ -19,10 +19,7 @@ public class WasteActionListener implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		LastCardSelectedUtility.setCardSelected(wastePile, wastePile.getLastWasteIndex());
-		System.out.println(wastePile.cards.toString());
-		System.out.println(LastCardSelectedUtility.getLastIndexSelected().toString());
 		controller.redrawAll();
-		System.out.println("Successfully redrew.");
 	}
 
 	

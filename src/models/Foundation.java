@@ -29,7 +29,6 @@ public class Foundation {
 	//Checks if the card is the next sequential rank and returns a boolean
 	//Returns true if the card is the next sequential
 	private boolean checkNextValue(Card card) {
-		boolean check = (getLastRank() + 1 == card.getRank()) ? true : false;
 		return (getLastRank() + 1 == card.getRank()) ? true : false;
 	}
 	
@@ -105,7 +104,6 @@ public class Foundation {
 		}
 		else {
 			imageIcon = cards.get(cards.size()-1).getImageIcon();
-			System.out.println("foundation index:" + cards.size());
 		}
 		
 		return imageIcon;

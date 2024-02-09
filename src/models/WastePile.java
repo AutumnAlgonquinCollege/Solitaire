@@ -5,12 +5,16 @@ import java.util.List;
 
 import javax.swing.ImageIcon;
 
-public class WastePile extends CardDeck{
+public class WastePile{
 		
 	public List<Card> cards = new ArrayList<Card>();
 	
 	public WastePile() {
 		
+	}
+	
+	public void removeCardByIndex(int index) {
+		cards.remove(index);
 	}
 	
 	public void addCardToWaste(Card card) {
@@ -22,7 +26,6 @@ public class WastePile extends CardDeck{
 	}
 	
 	public Card getLastCard() {
-		System.out.println(cards.size());
 		return cards.get(cards.size()-1);
 	}
 	
