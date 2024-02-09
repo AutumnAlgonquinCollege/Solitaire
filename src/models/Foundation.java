@@ -1,6 +1,9 @@
 package models;
 
 import java.util.List;
+
+import javax.swing.ImageIcon;
+
 import java.util.ArrayList;
 
 public class Foundation {
@@ -76,6 +79,31 @@ public class Foundation {
 	//Returns true if it is.
 	public boolean isFoundationComplete() {
 		return (getLastRank() == 13) ? true : false;
+	}
+	
+	public ImageIcon getFoundationDisplayImage(String suit) {
+		ImageIcon imageIcon;
+		if (cards.size() == 0) {
+			switch (suit) {
+				case Constants.spades:
+					imageIcon = Constants.spadesFoundationImg;
+					break;
+				case Constants.clubs:
+					imageIcon = Constants.clubsFoundationImg;
+					break;
+				case Constants.diamonds:
+					imageIcon = Constants.diamondsFoundationImg;
+					break;
+				default:
+					imageIcon = Constants.heartsFoundationImg;
+					break;
+			}				
+		}
+		else {
+			imageIcon = cards.get(cards.size() -1).getDisplayImage();
+		}
+		
+		return imageIcon;
 	}
 		
 	
