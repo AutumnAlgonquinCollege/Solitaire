@@ -79,6 +79,10 @@ public class CardDeck {
 	public int getRemainingDeckSize() {
 		return (cards.size() != 0) ? cards.size() - 1 : -1;
 	}
+	
+	public List<Card> getCardList(){
+		return cards;
+	}
 
 	
 }

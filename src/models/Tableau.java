@@ -69,11 +69,6 @@ public class Tableau {
 		return cards.get(cards.size() -1).getCardColor();
 	}
 	
-	//Returns the last card from the tableau
-	private Card getLastCard() {
-		return cards.get(cards.size() -1);
-	}
-	
 	
 	//==================================
 	//          Public Methods
@@ -148,6 +143,11 @@ public class Tableau {
 		if (cards.size() != 0 && getLastCard().getCardVisible() != true) {
 			getLastCard().setCardVisible(true);
 		}
+	}
+	
+	//Returns the last card from the tableau
+	public Card getLastCard() {
+		return cards.get(cards.size() -1);
 	}
 	
 	public Card getCardByIndex(int index) {

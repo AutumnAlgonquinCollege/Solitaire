@@ -44,6 +44,13 @@ public class GameView {
 		
 	}
 	
+	public void addDeckButton(DeckButton card, int x, int y) {
+		pane.add(card);
+		gameButtons.add(card);
+		card.draw(x, y);
+		
+	}
+	
 	public void removeComponent(CardButton card) {
 		pane.remove(card);
 		gameButtons.remove(card);

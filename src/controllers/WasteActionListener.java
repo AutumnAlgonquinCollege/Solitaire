@@ -7,11 +7,15 @@ import views.CardButton;
 
 public class WasteActionListener implements ActionListener{
 
+	private void checkIfCardRemoved() {
 		
+	}
+	
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		
 		LastCardSelectedUtility.setCardSelected((CardButton)e.getSource());
-		System.out.println(LastCardSelectedUtility.getLastCardSelected().toString());
+		System.out.println(LastCardSelectedUtility.getLastCardSelected());
 	}
 
 	

@@ -10,8 +10,9 @@ import models.Constants;
 import models.GameBoard;
 import models.WastePile;
 import views.CardButton;
+import views.DeckButton;
 
-public class DeckActionListener implements ActionListener{
+public class DeckActionListener implements ActionListener {
 
 	CardButton deckView;
 	CardButton wasteView;
@@ -36,6 +37,7 @@ public class DeckActionListener implements ActionListener{
 		deckModel.getCardByIndex(deckIndex);
 		wastePile.addCardToWaste(deckModel.getCardByIndex(deckIndex));
 		wasteView.setIcon(deckModel.getCardByIndex(deckIndex).getImageIcon());
+		wasteView.setCardModel(deckModel.getCardByIndex(deckIndex));
 		deckIndex++;
 		if (deckIndex != deckModel.getRemainingDeckSize()) {
 			deckView.setIcon(Constants.backSideImg);
@@ -46,8 +48,7 @@ public class DeckActionListener implements ActionListener{
 		wastePile.emptyWaste();
 		deckIndex = 0;
 		}
-		
-		
+		LastCardSelectedUtility.clearCardsSelected();
 		
 	}
 

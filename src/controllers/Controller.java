@@ -5,6 +5,7 @@ package controllers;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 
 import models.*;
@@ -16,6 +17,15 @@ public class Controller {
 	GameView gameView;
 	CardButton deckBtn;
 	CardButton wasteBtn;
+	List<ButtonGroup> tableauBtnGList;
+	ButtonGroup tableauBtns1;
+	ButtonGroup tableauBtns2;
+	ButtonGroup tableauBtns3;
+	ButtonGroup tableauBtns4;
+	ButtonGroup tableauBtns5;
+	ButtonGroup tableauBtns6;
+	ButtonGroup tableauBtns7;
+	List<List<CardButton>> tableauLists; 
 	List<CardButton> tableauList1;
 	List<CardButton> tableauList2;
 	List<CardButton> tableauList3;
@@ -33,12 +43,23 @@ public class Controller {
 	public Controller(GameBoard model, GameView view) {
 		this.gameBoard = model;
 		this.gameView = view;
+		tableauLists = new ArrayList<List<CardButton>>();
+		initTableauList();
+		//initButtonGroup();
+		tableauBtns1 = new ButtonGroup();
+		tableauBtns2 = new ButtonGroup();
+		tableauBtns3 = new ButtonGroup();
+		tableauBtns4 = new ButtonGroup();
+		tableauBtns5 = new ButtonGroup();
+		tableauBtns6 = new ButtonGroup();
+		tableauBtns7 = new ButtonGroup();
+		
 	}
 	
 	private List<CardButton> setUpTableauBtn(Tableau tableau){
 		List<CardButton> cardBtnList = new ArrayList<CardButton>();
 		for (int i = 0 ; i <= tableau.getTotalCards(); i++) {
-			cardBtnList.add(new CardButton(tableau.getCardByIndex(i).getDisplayImage()));			
+			cardBtnList.add(new CardButton(tableau.getCardByIndex(i).getDisplayImage(), tableau.getCardByIndex(i), null));			
 		}
 		return cardBtnList;
 	}
@@ -51,20 +72,51 @@ public class Controller {
 		}
 	}
 	
+	private ButtonGroup setUpButtonGroup(ButtonGroup tableauBtns, List<CardButton> tableauList) {
+		for (int i = 0; i < tableauList.size() - 1; i++) {
+			tableauBtns.add(tableauList.get(i));
+		}
+		return tableauBtns;
+	}
+	
+	private void initTableauList() {
+		
+		//Create CardButtons for tableaus
+		//Stores them in a list so that we can add action listeners... Maybe with event.getSource to make sure its only the last element
+		tableauList1 = setUpTableauBtn(gameBoard.getTableau1());
+		tableauList2 = setUpTableauBtn(gameBoard.getTableau2());
+		tableauList3 = setUpTableauBtn(gameBoard.getTableau3());
+		tableauList4 = setUpTableauBtn(gameBoard.getTableau4());
+		tableauList5 = setUpTableauBtn(gameBoard.getTableau5());
+		tableauList6 = setUpTableauBtn(gameBoard.getTableau6());
+		tableauList7 = setUpTableauBtn(gameBoard.getTableau7());
+	}
+	
+	private void initButtonGroup() {
+		//Sets up ButtonGroups for tableaus
+		setUpButtonGroup(tableauBtns1, tableauList1);
+		setUpButtonGroup(tableauBtns2, tableauList2);
+		setUpButtonGroup(tableauBtns3, tableauList3);
+		setUpButtonGroup(tableauBtns4, tableauList4);
+		setUpButtonGroup(tableauBtns5, tableauList5);
+		setUpButtonGroup(tableauBtns6, tableauList6);
+		setUpButtonGroup(tableauBtns7, tableauList7);
+	}
+	
 	public CardButton testWasteButton;
 	public void createGui() {
 		
 		//TEST WASTE BUTTONS
-		testWasteButton = new CardButton(new ImageIcon(Constants.heartsImgPath[0]));
+		testWasteButton = new CardButton(new ImageIcon(Constants.heartsImgPath[0]), null, null);
 		gameView.addCardButton(testWasteButton,10, 500);
 		
 		//Instantiate card buttons
-		deckBtn = new CardButton(Constants.backSideImg);
-		wasteBtn = new CardButton(Constants.emptyCardImg);
-		foundationSpadesBtn = new CardButton(Constants.spadesFoundationImg);
-		foundationClubsBtn = new CardButton(Constants.clubsFoundationImg);
-		foundationDiamondsBtn = new CardButton(Constants.diamondsFoundationImg);
-		foundationHeartsBtn = new CardButton(Constants.heartsFoundationImg);
+		deckBtn = new CardButton(Constants.backSideImg, null, gameBoard.getCardDeck().getCardList());
+		wasteBtn = new CardButton(Constants.emptyCardImg, null, null);
+		foundationSpadesBtn = new CardButton(Constants.spadesFoundationImg, null, null);
+		foundationClubsBtn = new CardButton(Constants.clubsFoundationImg, null, null);
+		foundationDiamondsBtn = new CardButton(Constants.diamondsFoundationImg, null, null);
+		foundationHeartsBtn = new CardButton(Constants.heartsFoundationImg, null, null);
 		
 		//Create deck view
 		gameView.addCardButton(deckBtn, (int)ControllerConstants.deckPoint.getX(), (int)ControllerConstants.deckPoint.getY());
@@ -78,15 +130,6 @@ public class Controller {
 		gameView.addCardButton(foundationDiamondsBtn, (int)ControllerConstants.foundationDiamondsPoint.getX(), (int)ControllerConstants.foundationDiamondsPoint.getY());
 		gameView.addCardButton(foundationHeartsBtn, (int)ControllerConstants.foundationHeartsPoint.getX(), (int)ControllerConstants.foundationHeartsPoint.getY());
 		
-		//Create CardButtons for tableaus
-		//Stores them in a list so that we can add action listeners... Maybe with event.getSource to make sure its only the last element
-		tableauList1 = setUpTableauBtn(gameBoard.getTableau1());
-		tableauList2 = setUpTableauBtn(gameBoard.getTableau2());
-		tableauList3 = setUpTableauBtn(gameBoard.getTableau3());
-		tableauList4 = setUpTableauBtn(gameBoard.getTableau4());
-		tableauList5 = setUpTableauBtn(gameBoard.getTableau5());
-		tableauList6 = setUpTableauBtn(gameBoard.getTableau6());
-		tableauList7 = setUpTableauBtn(gameBoard.getTableau7());
 		
 		//Create tableau view
 		displayTableauBtn(tableauList1, (int)ControllerConstants.tableau1Point.getX());
@@ -111,13 +154,27 @@ public class Controller {
 	}
 	
 	
-	public List<CardButton> getTableauList1() {	return tableauList1; }
-	public List<CardButton> getTableauList2() {	return tableauList2; }
-	public List<CardButton> getTableauList3() {	return tableauList3; }
-	public List<CardButton> getTableauList4() {	return tableauList4; }
-	public List<CardButton> getTableauList5() {	return tableauList5; }
-	public List<CardButton> getTableauList6() {	return tableauList6; }
-	public List<CardButton> getTableauList7() {	return tableauList7; }
+	public List<List <CardButton>> getTableauLists() {
+		tableauLists.add(tableauList1);
+		tableauLists.add(tableauList2);
+		tableauLists.add(tableauList3);
+		tableauLists.add(tableauList4);
+		tableauLists.add(tableauList5);
+		tableauLists.add(tableauList6);
+		tableauLists.add(tableauList7);
+		return tableauLists;
+		}
+	
+	public List<CardButton> getTableauList1() { return tableauList1; }
+	public List<CardButton> getTableauList2() { return tableauList2; }
+	public List<CardButton> getTableauList3() { return tableauList3; }
+	public List<CardButton> getTableauList4() { return tableauList4; }
+	public List<CardButton> getTableauList5() { return tableauList5; }
+	public List<CardButton> getTableauList6() { return tableauList6; }
+	public List<CardButton> getTableauList7() { return tableauList7; }
+	
+	public List<ButtonGroup> getTableauBtnGList() {	return tableauBtnGList; }
+	
 
 	public boolean deckClicked() {
 		gameBoard.getCardDeck().getCardByIndex(0);
