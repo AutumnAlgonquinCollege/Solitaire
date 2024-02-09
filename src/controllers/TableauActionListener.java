@@ -7,6 +7,7 @@ import java.util.List;
 
 import javax.swing.ButtonGroup;
 
+import models.CardDeck;
 import models.GameBoard;
 import models.Tableau;
 import views.CardButton;
@@ -22,6 +23,7 @@ public class TableauActionListener implements ActionListener {
 	private ButtonGroup tableauBtnGroup5;
 	private ButtonGroup tableauBtnGroup6;
 	private ButtonGroup tableauBtnGroup7;
+	private CardDeck deckModel;
 	private CardButton deck;
 	private CardButton wastePile;
 	private List<List<CardButton>> tableauLists;
@@ -41,11 +43,12 @@ public class TableauActionListener implements ActionListener {
 	private Tableau tableau7;
 	
 
-	public TableauActionListener(GameBoard gameBoard, List<List<CardButton>> tableauLists, CardButton deck, GameView gameView) {
+	public TableauActionListener(GameBoard gameBoard, List<List<CardButton>> tableauLists, CardButton wastePile, CardButton deck, GameView gameView) {
 		this.gameView = gameView;
 		this.wastePile = wastePile;
 		this.deck = deck;
 		this.tableauLists = tableauLists;
+		this.deckModel = gameBoard.getCardDeck();
 		initTableauModels(gameBoard);	
 		initBtnTableauLists(tableauLists);
 	}
@@ -152,8 +155,8 @@ public class TableauActionListener implements ActionListener {
 	private void checkFirstCardOrigin() {
 		CardButton cardBtn = LastCardSelectedUtility.getFirstCardSelected();
 		if (checkWastePile(cardBtn)) {
-			wastePile.remove(cardBtn);
 			deck.remove(cardBtn);
+			deckModel.removeCardByObject(cardBtn.getCardModel());
 			System.out.println("Deleted card from origin");
 		}
 		else if (checkSource(cardBtn) == "Tableau1") {
@@ -201,15 +204,21 @@ public class TableauActionListener implements ActionListener {
 	}
 	
 	private void updateUI(List<CardButton> tableauList) {
-		CardButton secondBtn = getLastButton(tableauList);
 		CardButton firstBtn = LastCardSelectedUtility.getFirstCardSelected();
-		if (checkSource(firstBtn) == "Waste") {
-			
-		}
+		CardButton secondBtn = getLastButton(tableauList);		
+		CardButton newCardBtn = new CardButton(firstBtn.getCardModel().getImageIcon(), firstBtn.getCardModel(), null);	
 		Point secondBtnPoint = secondBtn.getLocation();
+		int lastIndex = tableauList.size() -1;
 		int xAxis = secondBtnPoint.x;
 		int yAxis = secondBtnPoint.y;
-		firstBtn.setLocation(xAxis, yAxis+25);
+		if (checkSource(firstBtn) == "Waste") {
+			//deckModel.removeCardByObject(firstBtn.getCardModel());
+			tableauList.add(newCardBtn);
+			gameView.addTableauCardButton(tableauList.get(tableauList.size() -1), xAxis, yAxis, Integer.valueOf(lastIndex + 1));
+			tableauList.get(tableauList.size() -1).getCardModel().setCardVisible(true);
+		}
+		
+		newCardBtn.setLocation(xAxis, yAxis+25);
 		
 	}
 	

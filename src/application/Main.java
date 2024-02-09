@@ -32,25 +32,25 @@ public class Main {
 		controller.getHeartsFoundation().addActionListener(new FoundationActionListener(gameBoard.getFoundationHearts(), gameView, gameBoard.getWastePile(), controller, controller.getHeartsFoundation()));
 		
 		for (int i = 0; i < controller.getTableauList1().size(); i++) {
-			controller.getTableauList1().get(i).addActionListener(new TableauActionListener(gameBoard, controller.getTableauLists(), wasteButton, gameView));
+			controller.getTableauList1().get(i).addActionListener(new TableauActionListener(gameBoard, controller.getTableauLists(), wasteButton, deckButton, gameView));
 		}
 		for (int i = 0; i < controller.getTableauList2().size(); i++) {
-			controller.getTableauList2().get(i).addActionListener(new TableauActionListener(gameBoard, controller.getTableauLists(), wasteButton, gameView));
+			controller.getTableauList2().get(i).addActionListener(new TableauActionListener(gameBoard, controller.getTableauLists(), wasteButton, deckButton, gameView));
 		}
 		for (int i = 0; i < controller.getTableauList3().size(); i++) {
-			controller.getTableauList3().get(i).addActionListener(new TableauActionListener(gameBoard, controller.getTableauLists(), wasteButton, gameView));
+			controller.getTableauList3().get(i).addActionListener(new TableauActionListener(gameBoard, controller.getTableauLists(), wasteButton, deckButton, gameView));
 		}
 		for (int i = 0; i < controller.getTableauList4().size(); i++) {
-			controller.getTableauList4().get(i).addActionListener(new TableauActionListener(gameBoard, controller.getTableauLists(), wasteButton, gameView));
+			controller.getTableauList4().get(i).addActionListener(new TableauActionListener(gameBoard, controller.getTableauLists(), wasteButton, deckButton, gameView));
 		}
 		for (int i = 0; i < controller.getTableauList5().size(); i++) {
-			controller.getTableauList5().get(i).addActionListener(new TableauActionListener(gameBoard, controller.getTableauLists(), wasteButton, gameView));
+			controller.getTableauList5().get(i).addActionListener(new TableauActionListener(gameBoard, controller.getTableauLists(), wasteButton, deckButton, gameView));
 		}
 		for (int i = 0; i < controller.getTableauList6().size(); i++) {
-			controller.getTableauList6().get(i).addActionListener(new TableauActionListener(gameBoard, controller.getTableauLists(), wasteButton, gameView));
+			controller.getTableauList6().get(i).addActionListener(new TableauActionListener(gameBoard, controller.getTableauLists(), wasteButton, deckButton, gameView));
 		}
 		for (int i = 0; i < controller.getTableauList7().size(); i++) {
-			controller.getTableauList7().get(i).addActionListener(new TableauActionListener(gameBoard, controller.getTableauLists(), wasteButton, gameView));
+			controller.getTableauList7().get(i).addActionListener(new TableauActionListener(gameBoard, controller.getTableauLists(), wasteButton, deckButton, gameView));
 		}
 		
 		
