@@ -15,8 +15,8 @@ public class WasteActionListener implements ActionListener{
 		
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		
-		
+		LastCardSelectedUtility.setCardSelected(this, LastCardSelectedUtility.indexNull);
+		System.out.println(LastCardSelectedUtility.getLastCardSelected().toString());
 		controller.redrawAll();
 		System.out.println("Successfully redrew.");
 	}
