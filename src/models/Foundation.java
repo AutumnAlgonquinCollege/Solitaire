@@ -41,7 +41,7 @@ public class Foundation {
 	//Checks if the list is empty and if the card is an ace and returns a boolean
 	//Returns true if the list is empty and the next card is an ace
 	private boolean checkFirstCard(Card card) {
-		return (cards.size() == 0 && card.getRank() == 1) ? true : false; 
+		return (cards.isEmpty() && card.getRank() == 1) ? true : false; 
 	}
 	
 	//Returns the rank value for the last card in the List
