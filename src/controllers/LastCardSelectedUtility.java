@@ -21,6 +21,7 @@ public class LastCardSelectedUtility {
 	}
 	
 	public static Object getLastCardSelected() {
+		
 		return cards.get(cards.size() - 1);
 	}
 	
@@ -37,6 +38,10 @@ public class LastCardSelectedUtility {
 	}
 	
 	public static void setCardSelected(Object selectedModel, Integer index) {
+		if (cards.size() == 2) {
+			cards.removeAll(cards);
+			indexes.removeAll(indexes);
+		}
 		cards.add(selectedModel);	
 		indexes.add(index);
 	}

@@ -81,6 +81,7 @@ public class Foundation {
 		return (getLastRank() == 13) ? true : false;
 	}
 	
+<<<<<<< Upstream, based on origin/LastCastSelectedUtility_Implementation
 	public ImageIcon getFoundationDisplayImage(String suit) {
 		ImageIcon imageIcon;
 		if (cards.size() == 0) {
@@ -104,6 +105,10 @@ public class Foundation {
 		}
 		
 		return imageIcon;
+=======
+	public Integer getFoundationSize() {
+		return cards.size();
+>>>>>>> 7db2f62 FoundationListener now clickable
 	}
 		
 	

@@ -9,18 +9,21 @@ import views.*;
 public class FoundationActionListener implements ActionListener{
 
 	Controller controller;
-	GameBoard gameBoard;
+	Foundation foundation;
+	String suit;
 	
 	
-	
-	public FoundationActionListener (Controller controller, GameBoard gameBoard) {
+	public FoundationActionListener (Controller controller, String suit) {
 		this.controller = controller;
-		this.gameBoard = gameBoard;
-	}
+		this.suit = suit;
+		}
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-//		gameBoard
+		foundation = controller.getFoundation(suit);
+		LastCardSelectedUtility.setCardSelected(foundation, foundation.getFoundationSize());
+		System.out.println("This was chosen");
+		System.out.println(LastCardSelectedUtility.getLastIndexSelected());
 		
 	}
 

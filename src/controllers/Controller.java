@@ -68,6 +68,7 @@ public class Controller {
 		
 		//Adding controllers
 		wasteBtn.addActionListener(new WasteActionListener(this));
+		foundationSpadesBtn.addActionListener(new FoundationActionListener(this, Constants.spades));
 		
 		//Create deck view
 		gameView.addCardButton(deckBtn, (int)ControllerConstants.deckPoint.getX(), (int)ControllerConstants.deckPoint.getY());
@@ -109,8 +110,24 @@ public class Controller {
 		return wasteBtn;
 	}
 	
-	public CardButton getHeartsFoundation() {
-		return foundationHeartsBtn;
+	public GameBoard getGameBoard() {
+		return gameBoard;
+	}
+	
+	public Foundation getFoundation(String suit) {
+		switch(suit) {
+		case Constants.spades:
+			return gameBoard.getFoundationSpades();
+		case Constants.clubs:
+			return gameBoard.getFoundationClubs();
+		case Constants.diamonds:
+			return gameBoard.getFoundationDiamonds();
+		case Constants.hearts:
+			return gameBoard.getFoundationDiamonds();
+		default:
+			return gameBoard.getFoundationClubs();
+		
+		}
 	}
 	
 	

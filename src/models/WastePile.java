@@ -21,4 +21,7 @@ public class WastePile extends CardDeck{
 		return cards.get(cards.size()-1);
 	}
 	
+	public Integer getLastWasteIndex() {
+		return cards.size()-1;
+	}
 }
