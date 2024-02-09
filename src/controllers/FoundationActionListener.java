@@ -22,9 +22,11 @@ public class FoundationActionListener implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		foundation = controller.getFoundation(suit);
 		LastCardSelectedUtility.setCardSelected(foundation, foundation.getFoundationSize());
-		
+		System.out.println(LastCardSelectedUtility.getLastCardSelected());
+		System.out.println(controller.getGameBoard().getWastePile());
 		if (LastCardSelectedUtility.getLastCardSelected() == controller.getGameBoard().getWastePile()) {
-			foundation.addCard(controller.gameBoard.getWastePile().getLastWasteIndex());
+			System.out.println("True");
+			foundation.addCard(controller.gameBoard.getWastePile().getCardByIndex(LastCardSelectedUtility.getLastIndexSelected()));
 		}
 		
 		System.out.println("This was chosen:" + suit);

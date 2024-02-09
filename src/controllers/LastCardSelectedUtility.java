@@ -10,8 +10,14 @@ import views.CardButton;
 
 public class LastCardSelectedUtility {
 
-	public static List<Object> cards = new ArrayList<Object>();
-	public static List<Integer> indexes = new ArrayList<Integer>();
+//	public static List<Object> cards = new ArrayList<Object>();
+//	public static List<Integer> indexes = new ArrayList<Integer>();
+	
+	public static Object currentCard;
+	public static Integer currentIndex;
+	
+	public static Object lastCard;
+	public static Integer lastIndex;
 	
 	//because an index of -1 is impossible, this will result in an error.
 	public static final Integer indexNull = -1;
@@ -22,37 +28,48 @@ public class LastCardSelectedUtility {
 	
 	public static Object getLastCardSelected() {
 		
-		return cards.get(cards.size() - 1);
+		return lastCard;
 	}
 	
 	public static Integer getLastIndexSelected() {
-		return indexes.get(indexes.size() - 1);
+		return lastIndex;
 	}
 	
 	public static Object getFirstCardSelected() {
-		return cards.get(0);
+		return currentCard;
 	}
 	
 	public static Integer getFirstCardIndex() {
-		return indexes.get(0);
+		return currentIndex;
 	}
 	
 	public static void setCardSelected(Object selectedModel, Integer index) {
-		if (cards.size() == 2) {
-			cards.removeAll(cards);
-			indexes.removeAll(indexes);
+//		if (cards.size() == 2) {
+//			cards.removeAll(cards);
+//			indexes.removeAll(indexes);
+//		}
+//		cards.add(selectedModel);	
+//		indexes.add(index);
+		if (lastCard == null) {
+			lastCard = selectedModel;
+			lastIndex = index;
+			currentCard = selectedModel;
+			currentIndex = index;
+		} else {
+			lastCard = currentCard;
+			lastIndex = currentIndex;
+			currentCard = selectedModel;
+			currentIndex = index;
 		}
-		cards.add(selectedModel);	
-		indexes.add(index);
 	}
 	
-	public static void clearCardsSelected() {
-		cards.removeAll(cards);
-		indexes.removeAll(indexes);
-	}
+//	public static void clearCardsSelected() {
+//		cards.removeAll(cards);
+//		indexes.removeAll(indexes);
+//	}
 
-	public static int getSize() {
-		return cards.size();
-	}
+//	public static int getSize() {
+//		return cards.size();
+//	}
 	
 }
