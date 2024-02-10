@@ -61,9 +61,9 @@ public class TableauActionListener implements ActionListener {
 	private void moveCardFromTableauToTableau(Tableau tableauOrigin, int tableauDestinationNum, int tableauIndex) {
 		Card card;
 		List<Card> cards;
-		System.out.println("Geno");
-		System.out.println(tableauIndex);
-		System.out.println(tableauOrigin.getTableauSize());
+		
+		System.out.println("TableauIndex" +tableauIndex);
+		System.out.println("Tableau Size" +tableauOrigin.getTableauSize());
 		switch (tableauDestinationNum) {
 				
 			case 0:				
@@ -183,19 +183,26 @@ public class TableauActionListener implements ActionListener {
 						System.out.println("Deleted Card Stack");
 					}
 				}
+				break;
 			default:
 				break;		
 		}
 	}
 
 	private void checkTableauModified(Tableau tableau, Object first, Object second, int tableauCardIndex, int tableauDestination) {
-		if (tableau == second) {
+		boolean result = false;
+		if (tableau == second && first != second) {
 			if (gameBoard.getWastePile() == first) {
 				moveCardFromDeckToTableau(tableau, gameBoard.getWastePile().getLastCard());
+				result = true;
 			}
 			else if (LastCardSelectedUtility.getLastIndexSelected() != tableauCardIndex){
 				moveCardFromTableauToTableau(tableau, tableauDestination, tableauCardIndex);
+				result = true;
 			}
+		}
+		if (result) {
+			controller.redrawAll();
 		}
 	}
 	
@@ -207,7 +214,8 @@ public class TableauActionListener implements ActionListener {
 		Object firstSelected = LastCardSelectedUtility.getLastCardSelected();
 		Object secondSelected = LastCardSelectedUtility.getCurrentCardSelected();		
 		int tableauDestination = LastCardSelectedUtility.getCurrentCardIndex();
-		int tableauCardIndex = controller.getCardIndexes(0);		
+		int tableauCardIndex = controller.getCardIndexes(0);
+		
 		
 		checkTableauModified(tableau1, firstSelected, secondSelected, tableauCardIndex, tableauDestination);
 		checkTableauModified(tableau2, firstSelected, secondSelected, tableauCardIndex, tableauDestination);
@@ -218,16 +226,15 @@ public class TableauActionListener implements ActionListener {
 		checkTableauModified(tableau7, firstSelected, secondSelected, tableauCardIndex, tableauDestination);		
 		
 		
-		/*
+		
 		System.out.println(LastCardSelectedUtility.getLastCardSelected().toString());
 		System.out.println(LastCardSelectedUtility.getLastIndexSelected().toString());
 		
 		System.out.println(LastCardSelectedUtility.getCurrentCardSelected().toString());
 		System.out.println(LastCardSelectedUtility.getCurrentCardIndex().toString());
-		*/
 		
-		controller.redrawAll();
-
+		
+		
 		
 	}
 

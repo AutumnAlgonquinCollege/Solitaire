@@ -145,7 +145,6 @@ public class Tableau {
 		List<Card> newCards = new ArrayList<Card>();
 		for (int i = index ; index < cards.size(); index++) {
 			newCards.add(this.cards.get(i));
-			cards.remove(i);
 		}
 		return newCards;
 	}

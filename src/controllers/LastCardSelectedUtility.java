@@ -19,24 +19,11 @@ public class LastCardSelectedUtility {
 	public static Object lastCard;
 	public static Integer lastIndex;
 	
-	public static List<CardButton> cardBtns = new ArrayList<CardButton>();
-	
 	//because an index of -1 is impossible, this will result in an error.
 	public static final Integer indexNull = -1;
 	
 	public LastCardSelectedUtility() {
 		
-	}
-	
-	public static void setSelectedCardBtn(CardButton cardBtn) {
-		if (cardBtns.size() == 2) {
-			cardBtns.removeAll(cardBtns);
-		}
-		cardBtns.add(cardBtn);
-	}
-	
-	public static CardButton getFirstCardButton() {
-		return cardBtns.get(0);
 	}
 
 	public static Object getLastCardSelected() {
