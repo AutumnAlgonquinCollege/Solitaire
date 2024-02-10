@@ -111,9 +111,9 @@ public class Tableau {
 			cards.addAll(cards);
 			cardsAdded = true;
 		}
-		else if (cards.size() != 0) {
+		else if (this.cards.size() != 0) {
 			if (checkPreviousValue(cards.get(0)) && checkNextColor(cards.get(0))) {
-				cards.addAll(cards);
+				this.cards.addAll(cards);
 				cardsAdded = true;
 			}
 		}
@@ -138,7 +138,7 @@ public class Tableau {
 	//Removes a stack of cards from the tableau
 	public void removeCardStack(List<Card> cards) {
 		this.cards.removeAll(cards);
-		if (cards.size() != 0 && getFirstVisibleCard() == -1) {
+		if (this.cards.size() != 0 && getFirstVisibleCard() == -1) {
 			getLastCard().setCardVisible(true);
 		}
 	}
@@ -146,8 +146,8 @@ public class Tableau {
 	//Returns a collection of cards for every object after the selected index
 	public List<Card> splitCardStack(int index) {
 		List<Card> newCards = new ArrayList<Card>();
-		for (int i = index ; index < cards.size(); index++) {
-			newCards.add(this.cards.get(i));
+		for (int i = index; index < cards.size(); index++) { //Index++ needs to be changed to i++ but it throws an out of bounds error.
+			newCards.add(cards.get(i));
 		}
 		return newCards;
 	}
