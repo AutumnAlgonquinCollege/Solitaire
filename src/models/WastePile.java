@@ -26,7 +26,12 @@ public class WastePile{
 	}
 	
 	public Card getLastCard() {
-		return cards.get(cards.size()-1);
+		if (!cards.isEmpty()) {
+			return cards.get(cards.size()-1);
+		}
+		else {
+			return null;
+		}
 	}
 	
 	public Integer getLastWasteIndex() {

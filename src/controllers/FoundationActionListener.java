@@ -29,7 +29,9 @@ public class FoundationActionListener implements ActionListener{
 			}
 		} else {
 			Tableau tableau = (Tableau)LastCardSelectedUtility.getLastCardSelected();
-			foundation.addCard(tableau.getCardByIndex(LastCardSelectedUtility.getLastIndexSelected()));
+			if (foundation.addCard(tableau.getCardByIndex(LastCardSelectedUtility.getLastIndexSelected()))) {
+				tableau.removeCard(tableau.getCardByIndex(LastCardSelectedUtility.getLastIndexSelected()));
+			}
 		}
 		
 		

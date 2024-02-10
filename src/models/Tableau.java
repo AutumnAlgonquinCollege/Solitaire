@@ -36,7 +36,7 @@ public class Tableau {
 	//Checks if the card is the previous sequential rank and returns a boolean
 	//Returns true if the card is the previous sequential rank
 	private boolean checkPreviousValue(Card card) {
-		return (cards.get(getFirstVisibleCard()).getRank() == card.getRank() + 1) ? true : false;
+		return (cards.get(cards.size()-1).getRank() == card.getRank() + 1) ? true : false;
 	}
 		
 	//Checks if the previous card is the same as the new card and returns a boolean
@@ -94,6 +94,7 @@ public class Tableau {
 		}
 		else if (cards.size() != 0) {
 			if (checkPreviousValue(card) && checkNextColor(card)) {
+				System.out.println("Inside cards.size");
 				cards.add(card);
 				cardAdded = true;
 			}

@@ -60,9 +60,9 @@ public class TableauActionListener implements ActionListener {
 	public Boolean getFromWaste() {
 		Boolean didGet = false;
 		if (tableau.addCard(controller.getGameBoard().getWastePile().getLastCard())) {
-			controller.getGameBoard().getWastePile().getLastCard().setCardVisible(true);
-			controller.getGameBoard().getWastePile().removeCardByObject(controller.getGameBoard().getWastePile().getLastCard());
+			tableau.getCardByIndex(tableau.getTableauSize()).setCardVisible(true);
 			controller.getGameBoard().getCardDeck().removeCardByObject(controller.getGameBoard().getWastePile().getLastCard());
+			controller.getGameBoard().getWastePile().removeCardByObject(controller.getGameBoard().getWastePile().getLastCard());
 			didGet = true;
 			System.out.println("True");
 		}
