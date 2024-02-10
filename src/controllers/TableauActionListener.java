@@ -27,13 +27,14 @@ public class TableauActionListener implements ActionListener {
 	
 	public int checkLastClick() {
 		//returns 0 if it's a tableau, 1 if it's the WastePile, -1 if anything else
+		int oldObject = -1;
 		if (LastCardSelectedUtility.getLastCardSelected() instanceof Tableau) {
-			return 0;
+			oldObject = 0;
 		} else if (LastCardSelectedUtility.getLastCardSelected() instanceof WastePile) {
-			return 1;
-		} else {
-			return -1;
+			oldObject = 1;
 		}
+		System.out.println(oldObject);
+		return oldObject;
 	}
 	
 	public Boolean getFromTableau() {
@@ -79,11 +80,7 @@ public class TableauActionListener implements ActionListener {
 		}
 		
 		controller.redrawAll();
-		LastCardSelectedUtility.setCardSelected(tableau, tableau.getTotalCards());
-		LastCardSelectedUtility.setCardSelected(tableau, tableau.getTotalCards());
-		
-		
-		
+			
 	}
 
 }

@@ -43,4 +43,9 @@ public class WastePile{
 		}
 		return imageIcon;
 	}
+
+	public void removeCardByObject(Card card) {
+		cards.remove(card);
+	}
+	
 }
