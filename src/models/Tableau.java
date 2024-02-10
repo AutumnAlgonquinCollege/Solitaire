@@ -3,6 +3,8 @@ package models;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.ImageIcon;
+
 public class Tableau {
 
 	//==================================
@@ -171,6 +173,14 @@ public class Tableau {
 	
 	public int getTableauSize() {
 		return cards.size() -1;
+	}
+
+	public ImageIcon getEmptyDisplayImage() {
+		return Constants.emptyCardImg;
+	}
+
+	public boolean isEmpty() {
+		return cards.isEmpty();
 	}
 	
 	//Don't think these are useful but keeping just in case

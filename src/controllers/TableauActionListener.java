@@ -29,7 +29,10 @@ public class TableauActionListener implements ActionListener {
 		//returns 0 if it's a tableau, 1 if it's the WastePile, -1 if anything else
 		int oldObject = -1;
 		if (LastCardSelectedUtility.getLastCardSelected() instanceof Tableau) {
-			oldObject = 0;
+			Tableau lastTableau = (Tableau)LastCardSelectedUtility.getLastCardSelected();
+			if (!lastTableau.isEmpty()) {
+				oldObject = 0;
+			}
 		} else if (LastCardSelectedUtility.getLastCardSelected() instanceof WastePile) {
 			oldObject = 1;
 		}

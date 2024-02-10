@@ -40,6 +40,9 @@ public class Controller {
 		for (int i = 0 ; i <= tableau.getTotalCards(); i++) {
 			cardBtnList.add(new CardButton(tableau.getCardByIndex(i).getDisplayImage()));
 		}
+		if (cardBtnList.isEmpty()) {
+			cardBtnList.add(new CardButton(tableau.getEmptyDisplayImage()));
+		}
 		return cardBtnList;
 	}
 	
