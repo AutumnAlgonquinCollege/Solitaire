@@ -27,6 +27,9 @@ public class FoundationActionListener implements ActionListener{
 				controller.getGameBoard().getCardDeck().removeCardByObject(controller.getGameBoard().getWastePile().getLastCard());
 				controller.getGameBoard().getWastePile().removeCardByIndex(LastCardSelectedUtility.getLastIndexSelected());
 			}
+		} else {
+			Tableau tableau = (Tableau)LastCardSelectedUtility.getLastCardSelected();
+			foundation.addCard(tableau.getCardByIndex(LastCardSelectedUtility.getLastIndexSelected()));
 		}
 		
 		

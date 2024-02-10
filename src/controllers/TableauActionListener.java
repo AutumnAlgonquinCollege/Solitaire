@@ -20,7 +20,7 @@ public class TableauActionListener implements ActionListener {
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-
+		LastCardSelectedUtility.setCardSelected(tableau, tableau.getTotalCards());
 		
 		
 	}
