@@ -27,7 +27,7 @@ public class Controller {
 	CardButton foundationClubsBtn;
 	CardButton foundationDiamondsBtn;
 	CardButton foundationHeartsBtn;
-	
+	List<Integer> cardIndexes = new ArrayList<Integer>(); 
 	private int deckIndex;
 	
 	public Controller(GameBoard model, GameView view) {
@@ -47,7 +47,7 @@ public class Controller {
 		int yAxis = (int) ControllerConstants.tableau1Point.getY();
 		for (int i = 0; i < btnList.size(); i++) {
 			gameView.addTableauCardButton(btnList.get(i), xAxis, yAxis, Integer.valueOf(i));
-			btnList.get(i).addActionListener(new TableauActionListener(this, tableau));
+			btnList.get(i).addActionListener(new TableauActionListener(this, tableau, i));
 			yAxis += 25;
 		}
 		
@@ -143,6 +143,16 @@ public class Controller {
 		}
 	}
 	
+	public void setCardIndexes(Integer cardIndex) {
+		if (cardIndexes.size() >= 2) {
+			cardIndexes.removeAll(cardIndexes);
+		}
+		cardIndexes.add(cardIndex);
+	}
+	
+	public int getCardIndexes(int cardIndex) {
+		return cardIndexes.get(cardIndex);
+	}
 	
 	public List<CardButton> getTableauList1() {	return tableauList1; }
 	public List<CardButton> getTableauList2() {	return tableauList2; }

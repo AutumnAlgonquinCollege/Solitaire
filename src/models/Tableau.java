@@ -51,19 +51,6 @@ public class Tableau {
 		return (cards.size() == 0 && card.getRank() == 13) ? true : false; 
 	}
 	
-	//Gets the index of the first card in the list that is visible
-	//Returns -1 if there is no visible cards
-	private int getFirstVisibleCard() {
-		int index = -1;
-		for (Card card : cards) {
-			if (card.getCardVisible()) {
-				index = cards.indexOf(card);
-				break;
-			}
-		}
-		return index;
-	}
-	
 	//Returns the color of the last card in the List
 	private String getLastColor() {
 		return cards.get(cards.size() -1).getCardColor();
@@ -78,6 +65,19 @@ public class Tableau {
 	//==================================
 	//          Public Methods
 	//==================================
+	
+	//Gets the index of the first card in the list that is visible
+	//Returns -1 if there is no visible cards
+	public int getFirstVisibleCard() {
+		int index = -1;
+		for (Card card : cards) {
+			if (card.getCardVisible()) {
+				index = cards.indexOf(card);
+				break;
+			}
+		}
+		return index;
+	}
 	
 	//Only used when dealing the card to the tableau
 	public void dealCard(Card card) {
