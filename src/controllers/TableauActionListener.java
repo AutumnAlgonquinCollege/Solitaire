@@ -2,7 +2,6 @@ package controllers;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.List;
 
 import models.Card;
 import models.GameBoard;
@@ -80,6 +79,8 @@ public class TableauActionListener implements ActionListener {
 		}
 		
 		controller.redrawAll();
+		LastCardSelectedUtility.setCardSelected(tableau, tableau.getTotalCards());
+		LastCardSelectedUtility.setCardSelected(tableau, tableau.getTotalCards());
 		
 		
 		
