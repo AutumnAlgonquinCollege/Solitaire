@@ -47,7 +47,7 @@ public class Controller {
 		int yAxis = (int) ControllerConstants.tableau1Point.getY();
 		for (int i = 0; i < btnList.size(); i++) {
 			gameView.addTableauCardButton(btnList.get(i), xAxis, yAxis, Integer.valueOf(i));
-			btnList.get(i).addActionListener(new TableauActionListener(this, tableau));
+			btnList.get(i).addActionListener(new TableauActionListener(this, tableau, i));
 			yAxis += 25;
 		}
 		

@@ -19,12 +19,14 @@ public class TableauActionListener implements ActionListener {
 	private Tableau tableau5;
 	private Tableau tableau6;
 	private Tableau tableau7;
+	private Integer index;
 
 
-	public TableauActionListener(Controller controller, Tableau tableau) {
+	public TableauActionListener(Controller controller, Tableau tableau, int index) {
 		this.controller = controller;
 		gameBoard = controller.getGameBoard();
 		this.tableau = tableau;
+		this.index = Integer.valueOf(index);
 		initTableauModels(gameBoard);
 	}
 	
@@ -90,40 +92,40 @@ public class TableauActionListener implements ActionListener {
 		}
 	}
 	
-	private int getCardIndexFromOriginTableau(int originTableau) {
-		int tableauCardIndex = -1;
+	private int getCardIndexFromOriginTableau() {
+		int tableauCardIndex = (int)LastCardSelectedUtility.lastIndex;
 		
-		switch (originTableau) {
-		
-			case 0:
-				//HOWWWW
-				//tableauCardIndex = ;
-				break;
-			case 1:
-				//tableauCardIndex = ;
-				break;
-			case 2:
-				
-				//tableauCardIndex = ;
-				break;
-			case 3:
-				
-				//tableauCardIndex = ;
-				break;
-			case 4:
-				
-				//tableauCardIndex = ;
-				break;
-			case 5:
-				
-				//tableauCardIndex = ;
-				break;
-			case 6:
-				
-				//tableauCardIndex = ;
-			default:
-				break;
-		}
+//		switch (originTableau) {
+//		
+//			case 0:
+//				//HOWWWW
+//				//tableauCardIndex = ;
+//				break;
+//			case 1:
+//				//tableauCardIndex = ;
+//				break;
+//			case 2:
+//				
+//				//tableauCardIndex = ;
+//				break;
+//			case 3:
+//				
+//				//tableauCardIndex = ;
+//				break;
+//			case 4:
+//				
+//				//tableauCardIndex = ;
+//				break;
+//			case 5:
+//				
+//				//tableauCardIndex = ;
+//				break;
+//			case 6:
+//				
+//				//tableauCardIndex = ;
+//			default:
+//				break;
+//		}
 		return tableauCardIndex;
 	}
 	
@@ -131,7 +133,7 @@ public class TableauActionListener implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		
-		LastCardSelectedUtility.setCardSelected(tableau, tableau.getUndiscoveredCards());
+		LastCardSelectedUtility.setCardSelected(tableau, index);
 
 		Object firstSelected = LastCardSelectedUtility.getLastCardSelected();
 		Object secondSelected = LastCardSelectedUtility.getCurrentCardSelected();		
