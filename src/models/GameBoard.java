@@ -1,5 +1,7 @@
 package models;
 
+import java.util.ArrayList;
+
 public class GameBoard {
 	
 	//==================================
@@ -18,6 +20,7 @@ public class GameBoard {
 	private Foundation foundationClubs;
 	private Foundation foundationDiamonds;
 	private Foundation foundationHearts;
+	private ArrayList<Tableau> tableauList;
 	
 	
 	//==================================
@@ -33,6 +36,16 @@ public class GameBoard {
 		tableau5 = new Tableau(4);
 		tableau6 = new Tableau(5);
 		tableau7 = new Tableau(6);
+		
+		tableauList = new ArrayList<Tableau>();
+		tableauList.add(tableau1);
+		tableauList.add(tableau2);
+		tableauList.add(tableau3);
+		tableauList.add(tableau4);
+		tableauList.add(tableau5);
+		tableauList.add(tableau6);
+		tableauList.add(tableau7);
+		
 		foundationSpades = new Foundation(Constants.spades);
 		foundationClubs = new Foundation(Constants.clubs);
 		foundationDiamonds = new Foundation(Constants.diamonds);
@@ -94,6 +107,10 @@ public class GameBoard {
 	
 	public Foundation getFoundationHearts() {
 		return foundationHearts;
+	}
+	
+	public ArrayList<Tableau> getTableauList() {
+		return tableauList;
 	}
 	
 	
