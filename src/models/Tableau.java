@@ -125,6 +125,13 @@ public class Tableau {
 		}
 	}
 	
+	public void removeCardByIndex(int index) {
+		cards.remove(index);
+		if (cards.size() != 0 && getFirstVisibleCard() == -1) {
+			getLastCard().setCardVisible(true);
+		}
+	}
+	
 	//Removes a stack of cards from the tableau
 	public void removeCardStack(List<Card> cards) {
 		this.cards.removeAll(cards);
@@ -160,6 +167,10 @@ public class Tableau {
 	
 	public int getTotalCards() {
 		return (cards.size() != 0) ? cards.size() -1 : -1;
+	}
+	
+	public int getTableauSize() {
+		return cards.size() -1;
 	}
 	
 	//Don't think these are useful but keeping just in case

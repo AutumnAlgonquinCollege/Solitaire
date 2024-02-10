@@ -11,6 +11,7 @@ public class TableauActionListener implements ActionListener {
 
 	private GameBoard gameBoard;
 	private Controller controller;
+	private Tableau tableau;
 	private Tableau tableau1;
 	private Tableau tableau2;
 	private Tableau tableau3;
@@ -18,12 +19,15 @@ public class TableauActionListener implements ActionListener {
 	private Tableau tableau5;
 	private Tableau tableau6;
 	private Tableau tableau7;
-	
-	public TableauActionListener(Controller controller) {
+
+
+	public TableauActionListener(Controller controller, Tableau tableau) {
 		this.controller = controller;
 		gameBoard = controller.getGameBoard();
+		this.tableau = tableau;
 		initTableauModels(gameBoard);
 	}
+	
 	
 	private void initTableauModels(GameBoard gameBoard) {
 		//Tableau models
@@ -36,93 +40,210 @@ public class TableauActionListener implements ActionListener {
 		tableau7 = gameBoard.getTableau7();
 	}
 	
-	private boolean checkWastePile(Card card) {
-		boolean result = false;
-		if (gameBoard.getCardDeck().getCardIndexByObject(card) != -1) {
-			result = true;
-		}
-		return result;
+	private void moveCardFromDeckToTableau(Tableau tableau, Card card) {
+		gameBoard.getCardDeck().removeCardByObject(card);
+		card.setCardVisible(true);
+		gameBoard.getTableau1().addCard(card);
 	}
 	
-	/*
-	private String checkTableauSource(Card card) {
-		String result = "";
+	
+	private void moveCardFromTableauToTableau(Tableau tableauOrigin, int tableauDestinationNum, int tableauIndex) {
+		Card card;
+		switch (tableauDestinationNum) {
+			
+			case 0:
+				card = tableauOrigin.getCardByIndex(tableauIndex);
+				tableauOrigin.removeCard(card);
+				gameBoard.getTableau1().addCard(card);
+				break;
+			case 1:
+				card = tableauOrigin.getCardByIndex(tableauIndex);
+				tableauOrigin.removeCard(card);
+				gameBoard.getTableau2().addCard(card);
+				break;
+			case 2:
+				card = tableauOrigin.getCardByIndex(tableauIndex);
+				tableauOrigin.removeCard(card);
+				gameBoard.getTableau3().addCard(card);
+				break;
+			case 3:
+				card = tableauOrigin.getCardByIndex(tableauIndex);
+				tableauOrigin.removeCard(card);
+				gameBoard.getTableau4().addCard(card);
+				break;
+			case 4:
+				card = tableauOrigin.getCardByIndex(tableauIndex);
+				tableauOrigin.removeCard(card);
+				gameBoard.getTableau5().addCard(card);
+				break;
+			case 5:
+				card = tableauOrigin.getCardByIndex(tableauIndex);
+				tableauOrigin.removeCard(card);
+				gameBoard.getTableau6().addCard(card);
+				break;
+			case 6:
+				card = tableauOrigin.getCardByIndex(tableauIndex);
+				tableauOrigin.removeCard(card);
+				gameBoard.getTableau7().addCard(card);
+			default:
+				break;		
+		}
+	}
+	
+	private int getCardIndexFromOriginTableau(int originTableau) {
+		int tableauCardIndex = -1;
 		
-		if (tableau1.) {
-			result = "Tableau1";
+		switch (originTableau) {
+		
+			case 0:
+				//HOWWWW
+				//tableauCardIndex = ;
+				break;
+			case 1:
+				//tableauCardIndex = ;
+				break;
+			case 2:
+				
+				//tableauCardIndex = ;
+				break;
+			case 3:
+				
+				//tableauCardIndex = ;
+				break;
+			case 4:
+				
+				//tableauCardIndex = ;
+				break;
+			case 5:
+				
+				//tableauCardIndex = ;
+				break;
+			case 6:
+				
+				//tableauCardIndex = ;
+			default:
+				break;
 		}
-		else if (tableauList2.contains(cardBtn)) {
-			result = "Tableau2";
-		}
-		else if (tableauList3.contains(cardBtn)) {
-			result = "Tableau3";
-		}
-		else if (tableauList4.contains(cardBtn)) {
-			result = "Tableau4";
-		}
-		else if (tableauList5.contains(cardBtn)) {
-			result = "Tableau5";
-		}
-		else if (tableauList6.contains(cardBtn)) {
-			result = "Tableau6";
-		}
-		else if (tableauList7.contains(cardBtn)) {
-			result = "Tableau7";
-		}
-		return result;
-	}
-	*/
-	
-	private void checkFirstCardOrigin() {
-		Card card = (Card) LastCardSelectedUtility.getFirstCardSelected();
-		if (checkWastePile(card)) {
-			gameBoard.getCardDeck().removeCardByObject(card);
-			System.out.println("Deleted card from deck");
-		}
-		/*
-		else if (checkSource(cardBtn) == "Tableau1") {
-			controller.getTableauList1().remove(cardBtn);
-		}
-		else if (checkSource(cardBtn) == "Tableau2") {
-			tableauList2.remove(cardBtn);
-		}
-		else if (checkSource(cardBtn) == "Tableau3") {
-			tableauList3.remove(cardBtn);
-		}
-		else if (checkSource(cardBtn) == "Tableau4") {
-			tableauList4.remove(cardBtn);
-		}
-		else if (checkSource(cardBtn) == "Tableau5") {
-			tableauList5.remove(cardBtn);
-		}
-		else if (checkSource(cardBtn) == "Tableau6") {
-			tableauList6.remove(cardBtn);
-		}
-		else if (checkSource(cardBtn) == "Tableau7") {
-			tableauList7.remove(cardBtn);
-		}
-		*/
+		return tableauCardIndex;
 	}
 	
-	private void moveCardToTableau(Tableau tableau) {
-		Card firstCard = (Card)LastCardSelectedUtility.getFirstCardSelected();
-		Card secondCard = (Card) LastCardSelectedUtility.getLastCardSelected();
-		if (tableau.getCardIndexByObject(secondCard) != -1) {
-			if (tableau.addCard(firstCard)) {
-				checkFirstCardOrigin();
-				System.out.println("Card has been added to tableau"); 
-			}
-		}
-	}
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		
-		LastCardSelectedUtility.setCardSelected(this, LastCardSelectedUtility.indexNull);
-		if (controller.getTableauList1().contains(LastCardSelectedUtility.getLastCardSelected())) {
-			moveCardToTableau(tableau1);
-			controller.redrawAll();
+		LastCardSelectedUtility.setCardSelected(tableau, tableau.getUndiscoveredCards());
+
+		Object firstSelected = LastCardSelectedUtility.getLastCardSelected();
+		Object secondSelected = LastCardSelectedUtility.getCurrentCardSelected();		
+		int tableauDestination = LastCardSelectedUtility.getCurrentCardIndex();
+		int tableauCardIndex;
+		
+		//Tableau 1		
+		if (tableau1 == secondSelected) {
+			
+			if (gameBoard.getWastePile() == firstSelected) {
+				moveCardFromDeckToTableau(tableau1, gameBoard.getWastePile().getLastCard());
+			}
+			else if (LastCardSelectedUtility.getLastIndexSelected() != 0){
+				tableauCardIndex = getCardIndexFromOriginTableau();
+				System.out.println(tableauCardIndex);
+				moveCardFromTableauToTableau(tableau1, tableauDestination, tableauCardIndex);
+			}
 		}
+		
+		//Tableau 2
+		if (tableau2 == secondSelected) {
+			if (gameBoard.getWastePile() == firstSelected) {
+				moveCardFromDeckToTableau(tableau2, gameBoard.getWastePile().getLastCard());
+			}
+			else if (LastCardSelectedUtility.getLastIndexSelected() != 1){
+				tableauCardIndex = getCardIndexFromOriginTableau();
+				System.out.println(tableauCardIndex);
+				moveCardFromTableauToTableau(tableau2, tableauDestination, tableauCardIndex);
+			}
+		}
+		
+		
+		//Tableau 3
+		if (tableau3 == secondSelected) {
+			if (gameBoard.getWastePile() == firstSelected) {
+				moveCardFromDeckToTableau(tableau3, gameBoard.getWastePile().getLastCard());
+			}
+			else if (LastCardSelectedUtility.getLastIndexSelected() != 2){
+				tableauCardIndex = getCardIndexFromOriginTableau();
+				System.out.println(tableauCardIndex);
+				moveCardFromTableauToTableau(tableau3, tableauDestination, tableauCardIndex);
+			}
+		}
+		
+		//Tableau 4
+		if (tableau4 == secondSelected) {
+			if (gameBoard.getWastePile() == firstSelected) {
+				moveCardFromDeckToTableau(tableau4, gameBoard.getWastePile().getLastCard());
+			}
+			else if (LastCardSelectedUtility.getLastIndexSelected() != 3){
+				tableauCardIndex = getCardIndexFromOriginTableau();
+				System.out.println(tableauCardIndex);
+				moveCardFromTableauToTableau(tableau4, tableauDestination, tableauCardIndex);
+			}
+		}
+		
+		//Tableau 5
+		if (tableau5 == secondSelected) {
+			if (gameBoard.getWastePile() == firstSelected) {
+				moveCardFromDeckToTableau(tableau5, gameBoard.getWastePile().getLastCard());
+			}
+			else if (LastCardSelectedUtility.getLastIndexSelected() != 4){
+				tableauCardIndex = getCardIndexFromOriginTableau();
+				System.out.println(tableauCardIndex);
+				moveCardFromTableauToTableau(tableau5, tableauDestination, tableauCardIndex);
+			}
+		}
+		
+		//Tableau 6
+		if (tableau6 == secondSelected) {
+			if (gameBoard.getWastePile() == firstSelected) {
+				moveCardFromDeckToTableau(tableau6, gameBoard.getWastePile().getLastCard());
+			}
+			else if (LastCardSelectedUtility.getLastIndexSelected() != 5){
+				tableauCardIndex = getCardIndexFromOriginTableau();
+				System.out.println(tableauCardIndex);
+				moveCardFromTableauToTableau(tableau6, tableauDestination, tableauCardIndex);
+			}
+		}
+		
+		//Tableau 7
+		if (tableau7 == secondSelected) {
+			if (gameBoard.getWastePile() == firstSelected) {
+				moveCardFromDeckToTableau(tableau7, gameBoard.getWastePile().getLastCard());
+			}
+			else if (LastCardSelectedUtility.getLastIndexSelected() != 6){
+				tableauCardIndex = getCardIndexFromOriginTableau();
+				System.out.println(tableauCardIndex);
+				moveCardFromTableauToTableau(tableau7, tableauDestination, tableauCardIndex);
+			}
+		}
+		
+		
+		
+		
+		
+		
+		
+		System.out.println(LastCardSelectedUtility.getLastCardSelected().toString());
+		System.out.println(LastCardSelectedUtility.getLastIndexSelected().toString());
+		
+		System.out.println(LastCardSelectedUtility.getCurrentCardSelected().toString());
+		System.out.println(LastCardSelectedUtility.getCurrentCardIndex().toString());
+		
+		controller.redrawAll();
+		
+		/*
+		if (tableau1.getCardIndexByObject(LastCardSelectedUtility.getLastCardSelected()) {
+			moveCardToTableau(tableau1);
+			
+		}
+		*/
 		
 	}
 

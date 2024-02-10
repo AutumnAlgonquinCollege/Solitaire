@@ -7,6 +7,8 @@ import javax.swing.ImageIcon;
 
 public class WastePile extends CardDeck{
 		
+	private List<Card> cards = new ArrayList<Card>();
+	
 	public WastePile() {
 		
 	}
@@ -28,9 +30,10 @@ public class WastePile extends CardDeck{
 		return cards.size()-1;
 	}
 	
-	public ImageIcon getTopCardImage(int index) {
+	public ImageIcon getTopCardImage() {
 		ImageIcon imageIcon;
-		if (this.getRemainingDeckSize() != 0 && index != 0) {
+		
+		if (!cards.isEmpty()) {
 			imageIcon = cards.get(cards.size()-1).getImageIcon();
 		} else {
 			imageIcon = Constants.emptyCardImg;
