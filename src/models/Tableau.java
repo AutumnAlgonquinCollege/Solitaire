@@ -108,7 +108,7 @@ public class Tableau {
 	public boolean addCardStack(List<Card> cards) {
 		boolean cardsAdded = false;
 		if (this.cards.size() == 0 && checkFirstCard(cards.get(0))) {
-			cards.addAll(cards);
+			this.cards.addAll(cards);
 			cardsAdded = true;
 		}
 		else if (this.cards.size() != 0) {
