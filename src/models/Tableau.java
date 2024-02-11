@@ -146,7 +146,7 @@ public class Tableau {
 	//Returns a collection of cards for every object after the selected index
 	public List<Card> splitCardStack(int index) {
 		List<Card> newCards = new ArrayList<Card>();
-		for (int i = index; index < cards.size(); index++) { //Index++ needs to be changed to i++ but it throws an out of bounds error.
+		for (int i = index; i < cards.size(); i++) {
 			newCards.add(cards.get(i));
 		}
 		return newCards;

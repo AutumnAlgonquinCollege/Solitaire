@@ -139,7 +139,7 @@ public class GameBoard {
 		}
 		
 		tableau.dealCard(cardDeck.getCardByIndex(i));
-		cardDeck.removeCardByIndex(i);
+		cardDeck.removeCardByIndex(i+1);
 		tableau.setLastTableauCardVisible();	
 	}
 	

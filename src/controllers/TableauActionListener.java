@@ -50,10 +50,6 @@ public class TableauActionListener implements ActionListener {
 				lastTableau.removeCard(lastTableau.getCardByIndex(LastCardSelectedUtility.getLastIndexSelected()));
 			}
 		} else {
-			List<Card> cards = lastTableau.splitCardStack(LastCardSelectedUtility.getLastIndexSelected());
-			for (Card card: cards) {
-				System.out.println("Cards:" + card.getRank());
-			}
 			if (tableau.addCardStack(lastTableau.splitCardStack(LastCardSelectedUtility.getLastIndexSelected()))) {
 				didGet = true;
 				lastTableau.removeCardStack(lastTableau.splitCardStack(LastCardSelectedUtility.getLastIndexSelected()));

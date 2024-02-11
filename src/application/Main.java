@@ -14,24 +14,11 @@ public class Main {
 
 	public static void main(String[] args) {
 		
-		//ImageIcon deckIcon = new ImageIcon(models.Constants.backSideImg);
-		
 		GameBoard gameBoard = new GameBoard();
 		GameView gameView = new GameView();
 		Controller controller = new Controller(gameBoard, gameView);
 		
-		controller.createGui();
-		
-		CardButton deckButton = controller.getDeckBtn();
-		CardButton wasteButton = controller.getWasteBtn();
-		
-		
-//		controller.getHeartsFoundation().addActionListener(new FoundationActionListener(gameBoard.getFoundationHearts(), gameView, gameBoard.getWastePile(), controller, controller.getHeartsFoundation()));
-		
-		
-		
-		
-		
+		controller.createGui();		
 		gameView.setViewVisible();
 
 	}
