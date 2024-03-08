@@ -3,6 +3,8 @@ package models;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.ImageIcon;
+
 public class Tableau {
 
 	//==================================
@@ -36,7 +38,7 @@ public class Tableau {
 	//Checks if the card is the previous sequential rank and returns a boolean
 	//Returns true if the card is the previous sequential rank
 	private boolean checkPreviousValue(Card card) {
-		return (cards.get(getFirstVisibleCard()).getRank() == card.getRank() + 1) ? true : false;
+		return (cards.get(cards.size()-1).getRank() == card.getRank() + 1) ? true : false;
 	}
 		
 	//Checks if the previous card is the same as the new card and returns a boolean
@@ -49,19 +51,6 @@ public class Tableau {
 	//Returns true if the list is empty and the next card is an ace
 	private boolean checkFirstCard(Card card) {
 		return (cards.size() == 0 && card.getRank() == 13) ? true : false; 
-	}
-	
-	//Gets the index of the first card in the list that is visible
-	//Returns -1 if there is no visible cards
-	private int getFirstVisibleCard() {
-		int index = -1;
-		for (Card card : cards) {
-			if (card.getCardVisible()) {
-				index = cards.indexOf(card);
-				break;
-			}
-		}
-		return index;
 	}
 	
 	//Returns the color of the last card in the List
@@ -79,6 +68,24 @@ public class Tableau {
 	//          Public Methods
 	//==================================
 	
+	//Gets the index of the first card in the list that is visible
+	//Returns -1 if there is no visible cards
+	public int getFirstVisibleCard() {
+		int index = -1;
+		for (Card card : cards) {
+			if (card.getCardVisible()) {
+				index = cards.indexOf(card);
+				break;
+			}
+		}
+		return index;
+	}
+	
+	//Only used when dealing the card to the tableau
+	public void dealCard(Card card) {
+		cards.add(card);
+	}
+	
 	//Adds a single card to the tableau
 	public boolean addCard(Card card) {
 		boolean cardAdded = false;
@@ -89,6 +96,7 @@ public class Tableau {
 		}
 		else if (cards.size() != 0) {
 			if (checkPreviousValue(card) && checkNextColor(card)) {
+				System.out.println("Inside cards.size");
 				cards.add(card);
 				cardAdded = true;
 			}
@@ -100,12 +108,12 @@ public class Tableau {
 	public boolean addCardStack(List<Card> cards) {
 		boolean cardsAdded = false;
 		if (this.cards.size() == 0 && checkFirstCard(cards.get(0))) {
-			cards.addAll(cards);
+			this.cards.addAll(cards);
 			cardsAdded = true;
 		}
-		else if (cards.size() != 0) {
+		else if (this.cards.size() != 0) {
 			if (checkPreviousValue(cards.get(0)) && checkNextColor(cards.get(0))) {
-				cards.addAll(cards);
+				this.cards.addAll(cards);
 				cardsAdded = true;
 			}
 		}
@@ -120,10 +128,17 @@ public class Tableau {
 		}
 	}
 	
+	public void removeCardByIndex(int index) {
+		cards.remove(index);
+		if (cards.size() != 0 && getFirstVisibleCard() == -1) {
+			getLastCard().setCardVisible(true);
+		}
+	}
+	
 	//Removes a stack of cards from the tableau
 	public void removeCardStack(List<Card> cards) {
 		this.cards.removeAll(cards);
-		if (cards.size() != 0 && getFirstVisibleCard() == -1) {
+		if (this.cards.size() != 0 && getFirstVisibleCard() == -1) {
 			getLastCard().setCardVisible(true);
 		}
 	}
@@ -131,9 +146,8 @@ public class Tableau {
 	//Returns a collection of cards for every object after the selected index
 	public List<Card> splitCardStack(int index) {
 		List<Card> newCards = new ArrayList<Card>();
-		for (int i = index ; index < cards.size(); index++) {
-			newCards.add(this.cards.get(i));
-			cards.remove(i);
+		for (int i = index; i < cards.size(); i++) {
+			newCards.add(cards.get(i));
 		}
 		return newCards;
 	}
@@ -145,7 +159,29 @@ public class Tableau {
 		}
 	}
 	
+	public Card getCardByIndex(int index) {
+		return cards.get(index);
+	}
 	
+	public int getCardIndexByObject(Card card) {
+		return cards.indexOf(card);
+	}
+	
+	public int getTotalCards() {
+		return (cards.size() != 0) ? cards.size() -1 : -1;
+	}
+	
+	public int getTableauSize() {
+		return cards.size() -1;
+	}
+
+	public ImageIcon getEmptyDisplayImage() {
+		return Constants.emptyCardImg;
+	}
+
+	public boolean isEmpty() {
+		return cards.isEmpty();
+	}
 	
 	//Don't think these are useful but keeping just in case
 	

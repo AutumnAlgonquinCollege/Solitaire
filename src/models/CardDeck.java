@@ -60,8 +60,12 @@ public class CardDeck {
 	//==================================
 	
 	//Returns the card object by the index.
-	public Card drawCard(int index) {
+	public Card getCardByIndex(int index) {
 		return cards.get(index);
+	}
+	
+	public int getCardIndexByObject(Card card) {
+		return cards.indexOf(card);
 	}
 	
 	//Removes the card from the deck by index

@@ -1,11 +1,14 @@
 package models;
 
+import java.util.ArrayList;
+
 public class GameBoard {
 	
 	//==================================
 	//          Attributes
 	//==================================
 	private CardDeck cardDeck;
+	private WastePile wastePile;
 	private Tableau tableau1;
 	private Tableau tableau2;
 	private Tableau tableau3;
@@ -17,6 +20,7 @@ public class GameBoard {
 	private Foundation foundationClubs;
 	private Foundation foundationDiamonds;
 	private Foundation foundationHearts;
+	private ArrayList<Tableau> tableauList;
 	
 	
 	//==================================
@@ -24,6 +28,7 @@ public class GameBoard {
 	//==================================
 	public GameBoard() {
 		cardDeck = new CardDeck();
+		wastePile = new WastePile();
 		tableau1 = new Tableau(0);
 		tableau2 = new Tableau(1);
 		tableau3 = new Tableau(2);
@@ -31,6 +36,16 @@ public class GameBoard {
 		tableau5 = new Tableau(4);
 		tableau6 = new Tableau(5);
 		tableau7 = new Tableau(6);
+		
+		tableauList = new ArrayList<Tableau>();
+		tableauList.add(tableau1);
+		tableauList.add(tableau2);
+		tableauList.add(tableau3);
+		tableauList.add(tableau4);
+		tableauList.add(tableau5);
+		tableauList.add(tableau6);
+		tableauList.add(tableau7);
+		
 		foundationSpades = new Foundation(Constants.spades);
 		foundationClubs = new Foundation(Constants.clubs);
 		foundationDiamonds = new Foundation(Constants.diamonds);
@@ -44,6 +59,10 @@ public class GameBoard {
 	
 	public CardDeck getCardDeck() {
 		return cardDeck;
+	}
+	
+	public WastePile getWastePile() {
+		return wastePile;
 	}
 	
 	public Tableau getTableau1() {
@@ -90,6 +109,10 @@ public class GameBoard {
 		return foundationHearts;
 	}
 	
+	public ArrayList<Tableau> getTableauList() {
+		return tableauList;
+	}
+	
 	
 	//==================================
 	//          Private Methods
@@ -108,15 +131,16 @@ public class GameBoard {
 	
 	//Deals all the required undiscovered cards to the tableau object along with the last visible card.
 	private void dealCardsToTableau(Tableau tableau) {
-		int i;
+		
+		int i = 0;
 		for (i = 0; i < tableau.getUndiscoveredCards(); i++) {
-			tableau.addCard(cardDeck.drawCard(i));
+			tableau.dealCard(cardDeck.getCardByIndex(i));
 			cardDeck.removeCardByIndex(i);
 		}
 		
-		tableau.addCard(cardDeck.drawCard(i + 1));
-		cardDeck.removeCardByIndex(i + 1);
+		tableau.dealCard(cardDeck.getCardByIndex(i));
+		cardDeck.removeCardByIndex(i);
 		tableau.setLastTableauCardVisible();	
-	}	
+	}
 	
 }
