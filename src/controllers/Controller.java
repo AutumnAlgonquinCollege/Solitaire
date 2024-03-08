@@ -35,6 +35,11 @@ public class Controller {
 		this.gameView = view;
 	}
 	
+	public void resetGame(GameBoard model) {
+		this.gameBoard = model;
+		this.redrawAll();
+	}
+	
 	private List<CardButton> setUpTableauBtn(Tableau tableau){
 		List<CardButton> cardBtnList = new ArrayList<CardButton>();
 		for (int i = 0 ; i <= tableau.getTotalCards(); i++) {

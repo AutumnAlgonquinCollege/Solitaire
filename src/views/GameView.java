@@ -32,6 +32,10 @@ public class GameView {
 		frame.add(panel);
 	}
 	
+	public void closeFrame() {
+		frame.dispose();
+	}
+	
 	
 	public void addComponent(JComponent component) {
 		pane.add(component);
