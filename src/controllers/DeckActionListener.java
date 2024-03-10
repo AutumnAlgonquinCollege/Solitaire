@@ -15,23 +15,26 @@ public class DeckActionListener implements ActionListener{
 
 	Controller controller;
 	CardDeck cardDeck;
-	private static int deckIndex = 0;
+	private int deckIndex;
 	
 	
 	public DeckActionListener(Controller controller) {
 		this.controller = controller;
 		cardDeck = controller.getGameBoard().getCardDeck();
+		deckIndex = controller.getDeckIndex();
 	}
 	
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		deckIndex = controller.getDeckIndex();
-		controller.gameBoard.getWastePile().addCardToWaste(cardDeck.getCardByIndex(deckIndex));
-		deckIndex ++;
+		controller.gameBoard.getWastePile().addCardToWaste(cardDeck.getCardByIndex(deckIndex));	
 		if (deckIndex == cardDeck.getRemainingDeckSize()) {
 			deckIndex = 0;
 			controller.gameBoard.getWastePile().emptyWaste();
+		}
+		else {
+			deckIndex ++;
 		}
 		controller.setDeckIndex(deckIndex);
 		controller.redrawAll();

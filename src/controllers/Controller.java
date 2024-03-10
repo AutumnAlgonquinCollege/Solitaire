@@ -35,7 +35,8 @@ public class Controller {
 	CardButton foundationDiamondsBtn;
 	CardButton foundationHeartsBtn;
 	List<Integer> cardIndexes = new ArrayList<Integer>(); 
-	private int deckIndex;
+	private int deckIndex = 0;
+	TimerTask timerTask;
 	
 	
 	public Controller(GameBoard model, GameView view) {
@@ -200,15 +201,20 @@ public class Controller {
 		return false;
 	}	
 	
-	public void initTimer(JLabel label) {
+	public synchronized void initTimer(JLabel label) {
 		if (!gameBoard.getIsTimerRunning()) {
-		gameBoard.getGameTimer().scheduleAtFixedRate(new TimerTask() {
-			public void run() {
-				gameBoard.setTime(gameBoard.getTime() + 1);
-				label.setText(ControllerConstants.timerLabel + gameBoard.getFormattedTime());
-			}
-		}, Constants.timeDelay, Constants.timePeriod); 
-		gameBoard.setIsTimerRunning(true);
+			// cancel existing timertask if game is restarted
+	        if (timerTask != null) {
+	            timerTask.cancel();
+	        }
+			timerTask = new TimerTask() {
+				public void run() {
+					gameBoard.setTime(gameBoard.getTime() + 1);
+					label.setText(ControllerConstants.timerLabel + gameBoard.getFormattedTime());
+				}
+			};
+			gameBoard.getGameTimer().scheduleAtFixedRate(timerTask, Constants.timeDelay, Constants.timePeriod);
+			gameBoard.setIsTimerRunning(true);
 		}
 	}
 	
