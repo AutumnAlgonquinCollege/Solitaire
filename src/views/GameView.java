@@ -67,5 +67,11 @@ public class GameView {
 		frame.setVisible(true);
 		panel.setVisible(true);
 	}
+	
+	public void addLabel(JLabel label, int x, int y) {
+		pane.add(label);
+		Dimension size = label.getPreferredSize();
+		label.setBounds(x, y, size.width, size.height);
+	}
 
 }

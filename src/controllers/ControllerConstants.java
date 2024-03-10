@@ -21,4 +21,15 @@ public class ControllerConstants {
 	public static final Point tableau6Point = new Point(585,165);
 	public static final Point tableau7Point = new Point(700,165);
 	
+	public static final Point scoreLabelPoint = new Point(50, 600);
+	public static final Point scorePoint = new Point(100,600);
+	public static final String scoreLabel = "Score: ";
+	
+	public static final Point timerLabelPoint = new Point(250, 600);
+	public static final Point timerPoint = new Point(300, 600);
+	public static final String timerLabel = "Timer: ";
+	
+	
+	
+	
 }

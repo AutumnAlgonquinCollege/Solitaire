@@ -14,6 +14,9 @@ public class Constants {
 	public static final String diamonds = "DIAMONDS";
 	public static final String hearts = "HEARTS";
 	
+	public static final long timeDelay = 1000;
+	public static final long timePeriod = 1000;
+	
 	
 	public static final ImageIcon emptyCardImg = new ImageIcon("ImageAssets/Misc/empty_frame.png");
 	public static final ImageIcon backSideImg = new ImageIcon("ImageAssets/Backs/back_0.png");

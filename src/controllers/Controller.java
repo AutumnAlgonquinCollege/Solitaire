@@ -2,10 +2,15 @@ package controllers;
 
 
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 
 import models.*;
 import views.*;
@@ -14,6 +19,8 @@ public class Controller {
 
 	GameBoard gameBoard;
 	GameView gameView;
+	JLabel timerLabel;
+	JLabel scoreLabel;
 	CardButton deckBtn;
 	CardButton wasteBtn;
 	List<CardButton> tableauList1;
@@ -30,13 +37,16 @@ public class Controller {
 	List<Integer> cardIndexes = new ArrayList<Integer>(); 
 	private int deckIndex;
 	
+	
 	public Controller(GameBoard model, GameView view) {
 		this.gameBoard = model;
 		this.gameView = view;
+		timerLabel = new JLabel(ControllerConstants.timerLabel + gameBoard.getFormattedTime());
 	}
 	
 	public void resetGame(GameBoard model) {
 		this.gameBoard = model;
+		timerLabel = new JLabel(ControllerConstants.timerLabel + gameBoard.getFormattedTime());
 		this.redrawAll();
 	}
 	
@@ -61,8 +71,9 @@ public class Controller {
 		
 	}
 	
-	
 	public void createGui() {
+			
+		scoreLabel = new JLabel(ControllerConstants.scoreLabel + String.valueOf(gameBoard.getScore()));
 		
 		//Init buttons
 		deckBtn = new CardButton(Constants.backSideImg);
@@ -113,6 +124,13 @@ public class Controller {
 		displayTableauBtn(tableauList5, (int)ControllerConstants.tableau5Point.getX(), gameBoard.getTableau5());
 		displayTableauBtn(tableauList6, (int)ControllerConstants.tableau6Point.getX(), gameBoard.getTableau6());
 		displayTableauBtn(tableauList7, (int)ControllerConstants.tableau7Point.getX(), gameBoard.getTableau7());
+		
+		//display score
+		gameView.addLabel(scoreLabel, (int)ControllerConstants.scorePoint.getX(), (int)ControllerConstants.scorePoint.getY());
+		
+		//display timer
+		gameView.addLabel(timerLabel, (int)ControllerConstants.timerPoint.getX(), (int)ControllerConstants.timerPoint.getY());
+		initTimer(timerLabel);
 	}
 	
 	public CardButton getDeckBtn() {
@@ -180,6 +198,19 @@ public class Controller {
 	public boolean deckClicked() {
 		gameBoard.getCardDeck().getCardByIndex(0);
 		return false;
+	}	
+	
+	public void initTimer(JLabel label) {
+		if (!gameBoard.getIsTimerRunning()) {
+		gameBoard.getGameTimer().scheduleAtFixedRate(new TimerTask() {
+			public void run() {
+				gameBoard.setTime(gameBoard.getTime() + 1);
+				label.setText(ControllerConstants.timerLabel + gameBoard.getFormattedTime());
+			}
+		}, Constants.timeDelay, Constants.timePeriod); 
+		gameBoard.setIsTimerRunning(true);
+		}
 	}
+	
 	
 }

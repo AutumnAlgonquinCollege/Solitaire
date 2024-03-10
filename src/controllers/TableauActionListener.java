@@ -47,12 +47,16 @@ public class TableauActionListener implements ActionListener {
 		if (lastTableau.getTableauSize() == LastCardSelectedUtility.getLastIndexSelected()) {
 			if (tableau.addCard(lastTableau.getCardByIndex(LastCardSelectedUtility.getLastIndexSelected()))) {
 				didGet = true;
-				lastTableau.removeCard(lastTableau.getCardByIndex(LastCardSelectedUtility.getLastIndexSelected()));
+				if(lastTableau.removeCard(lastTableau.getCardByIndex(LastCardSelectedUtility.getLastIndexSelected())) == true) {
+					controller.getGameBoard().setScore(controller.getGameBoard().getScore() + 5);
+				}
 			}
 		} else {
 			if (tableau.addCardStack(lastTableau.splitCardStack(LastCardSelectedUtility.getLastIndexSelected()))) {
 				didGet = true;
-				lastTableau.removeCardStack(lastTableau.splitCardStack(LastCardSelectedUtility.getLastIndexSelected()));
+				if(lastTableau.removeCardStack(lastTableau.splitCardStack(LastCardSelectedUtility.getLastIndexSelected())) == true) {
+					controller.getGameBoard().setScore(controller.getGameBoard().getScore() + 5);
+				}
 			}
 		}
 		
@@ -67,6 +71,7 @@ public class TableauActionListener implements ActionListener {
 			tableau.getCardByIndex(tableau.getTableauSize()).setCardVisible(true);
 			controller.getGameBoard().getCardDeck().removeCardByObject(controller.getGameBoard().getWastePile().getLastCard());
 			controller.getGameBoard().getWastePile().removeCardByObject(controller.getGameBoard().getWastePile().getLastCard());
+			controller.getGameBoard().setScore(controller.getGameBoard().getScore() + 5);
 			didGet = true;
 			System.out.println("True");
 		}

@@ -1,6 +1,16 @@
 package models;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
+
+import java.util.Timer;
+
+import java.util.TimerTask;
+
+import javax.swing.JLabel;
+
+import controllers.ControllerConstants;
 
 public class GameBoard {
 	
@@ -21,12 +31,21 @@ public class GameBoard {
 	private Foundation foundationDiamonds;
 	private Foundation foundationHearts;
 	private ArrayList<Tableau> tableauList;
+	private int score;
+	private int time;
+	private Timer gameTimer;
+	boolean isTimerRunning;
+	
 	
 	
 	//==================================
 	//          Constructor
 	//==================================
 	public GameBoard() {
+		score = 0;
+		time = 0;
+		gameTimer = new Timer();
+		isTimerRunning = false;
 		cardDeck = new CardDeck();
 		wastePile = new WastePile();
 		tableau1 = new Tableau(0);
@@ -113,6 +132,41 @@ public class GameBoard {
 		return tableauList;
 	}
 	
+	public int getScore() {
+		return score;
+	}
+	
+	public void setScore(int score) {
+		this.score = score;
+	}
+	
+	
+	public String getFormattedTime() {
+		int hours = time / 3600;
+		int minutes = (time % 3600) / 60;
+		int seconds = time % 60;
+		return String.format("%02d:%02d:%02d", hours, minutes, seconds);
+	}
+	
+	public void setTime(int time) {
+		this.time = time;
+	}
+	
+	public int getTime() {
+		return time;
+	}
+	
+	public Timer getGameTimer() {
+		return gameTimer;
+	}
+	
+	public boolean getIsTimerRunning() {
+		return isTimerRunning;
+	}
+	
+	public void setIsTimerRunning(boolean isTimerRunning) {
+		this.isTimerRunning = isTimerRunning;		
+	}
 	
 	//==================================
 	//          Private Methods

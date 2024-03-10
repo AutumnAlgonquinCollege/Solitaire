@@ -23,7 +23,7 @@ public class Main {
 		GameView gameView = new GameView();
 		controller = new Controller(gameBoard, gameView);
 		
-		controller.createGui();		
+		controller.createGui();
 		gameView.setViewVisible();
 	}
 	

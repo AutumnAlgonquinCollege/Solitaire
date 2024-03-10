@@ -53,4 +53,7 @@ public class WastePile{
 		cards.remove(card);
 	}
 	
+	public int getWasteSize() {
+		return cards.size() - 1;
+	}
 }

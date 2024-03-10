@@ -121,11 +121,14 @@ public class Tableau {
 	}
 	
 	//Removes a card from the tableau
-	public void removeCard(Card card) {
+	public boolean removeCard(Card card) {
+		boolean cardFlipped = false;
 		cards.remove(card);
 		if (cards.size() != 0 && getFirstVisibleCard() == -1) {
 			getLastCard().setCardVisible(true);
+			cardFlipped = true;
 		}
+		return cardFlipped;
 	}
 	
 	public void removeCardByIndex(int index) {
@@ -136,11 +139,14 @@ public class Tableau {
 	}
 	
 	//Removes a stack of cards from the tableau
-	public void removeCardStack(List<Card> cards) {
+	public boolean removeCardStack(List<Card> cards) {
+		boolean cardFlipped = false;
 		this.cards.removeAll(cards);
 		if (this.cards.size() != 0 && getFirstVisibleCard() == -1) {
 			getLastCard().setCardVisible(true);
+			cardFlipped = true;
 		}
+		return cardFlipped;
 	}
 	
 	//Returns a collection of cards for every object after the selected index
