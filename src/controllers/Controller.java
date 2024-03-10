@@ -35,19 +35,21 @@ public class Controller {
 	CardButton foundationDiamondsBtn;
 	CardButton foundationHeartsBtn;
 	List<Integer> cardIndexes = new ArrayList<Integer>(); 
-	private int deckIndex = 0;
+	private int deckIndex;
 	TimerTask timerTask;
 	
 	
 	public Controller(GameBoard model, GameView view) {
 		this.gameBoard = model;
 		this.gameView = view;
+		deckIndex = -1;
 		timerLabel = new JLabel(ControllerConstants.timerLabel + gameBoard.getFormattedTime());
 	}
 	
 	public void resetGame(GameBoard model) {
 		this.gameBoard = model;
 		timerLabel = new JLabel(ControllerConstants.timerLabel + gameBoard.getFormattedTime());
+		deckIndex = -1;
 		this.redrawAll();
 	}
 	
@@ -77,7 +79,13 @@ public class Controller {
 		scoreLabel = new JLabel(ControllerConstants.scoreLabel + String.valueOf(gameBoard.getScore()));
 		
 		//Init buttons
-		deckBtn = new CardButton(Constants.backSideImg);
+		if (deckIndex == gameBoard.getCardDeck().getRemainingDeckSize()) {
+			deckBtn = new CardButton(Constants.emptyCardImg);
+		}
+		else {
+			deckBtn = new CardButton(Constants.backSideImg);
+		}
+		
 		wasteBtn = new CardButton(gameBoard.getWastePile().getTopCardImage());
 		foundationSpadesBtn = new CardButton(gameBoard.getFoundationSpades().getFoundationDisplayImage(Constants.spades));
 		foundationClubsBtn = new CardButton(gameBoard.getFoundationClubs().getFoundationDisplayImage(Constants.clubs));
@@ -91,8 +99,6 @@ public class Controller {
 		foundationClubsBtn.addActionListener(new FoundationActionListener(this, Constants.clubs));
 		foundationDiamondsBtn.addActionListener(new FoundationActionListener(this, Constants.diamonds));
 		foundationHeartsBtn.addActionListener(new FoundationActionListener(this, Constants.hearts));
-		
-		
 		
 		//Create deck view
 		gameView.addCardButton(deckBtn, (int)ControllerConstants.deckPoint.getX(), (int)ControllerConstants.deckPoint.getY());
