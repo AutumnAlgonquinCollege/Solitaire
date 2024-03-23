@@ -28,7 +28,7 @@ public class FoundationActionListener implements ActionListener{
 				controller.getGameBoard().getWastePile().removeCardByIndex(LastCardSelectedUtility.getLastIndexSelected());
 				controller.getGameBoard().setScore(controller.getGameBoard().getScore() + 10);
 			}
-		} else {
+		} else if (LastCardSelectedUtility.getLastCardSelected() instanceof Tableau){
 			Tableau tableau = (Tableau)LastCardSelectedUtility.getLastCardSelected();
 			if (foundation.addCard(tableau.getCardByIndex(LastCardSelectedUtility.getLastIndexSelected()))) {
 				if (tableau.removeCard(tableau.getCardByIndex(LastCardSelectedUtility.getLastIndexSelected())) == true) {
@@ -37,8 +37,7 @@ public class FoundationActionListener implements ActionListener{
 				controller.getGameBoard().setScore(controller.getGameBoard().getScore() + 10);
 			}
 		}
-		
-		
+				
 		controller.redrawAll();
 		
 	}

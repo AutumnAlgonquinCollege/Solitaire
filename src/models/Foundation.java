@@ -73,9 +73,27 @@ public class Foundation {
 	}
 	
 	//Removes the card from the foundation pile
-	public void removeCard(Card card) {
+	public void removeCardByObject(Card card) {
 		cards.remove(card);
 	}
+	
+	public void removeCardByIndex(int index) {
+		cards.remove(index);
+	}
+	
+	//get card object
+	public Card getCardByIndex(int index) {
+		return cards.get(index);
+	}
+	
+	public int getCardIndexByObject(Card card) {
+		return cards.indexOf(card);
+	}
+	
+	public Card getLastCardInFoundation() {
+		return cards.get(cards.size() -1);
+	}
+	
 	
 	//Checks if the foundation pile has been completed.
 	//Returns true if it is.

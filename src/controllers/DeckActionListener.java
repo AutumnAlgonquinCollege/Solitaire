@@ -33,6 +33,10 @@ public class DeckActionListener implements ActionListener{
 		if (deckIndex >= cardDeck.getRemainingDeckSize() + 1) {
 			deckIndex = -1;
 			controller.gameBoard.getWastePile().emptyWaste();
+			controller.gameBoard.incrementDeckPass();
+			if (controller.gameBoard.getDeckPasses() > 1) {
+				controller.gameBoard.setScore(controller.gameBoard.getScore() - 100);
+			}
 		}
 		else {
 			controller.gameBoard.getWastePile().addCardToWaste(cardDeck.getCardByIndex(deckIndex));

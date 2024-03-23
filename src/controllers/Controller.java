@@ -2,6 +2,7 @@ package controllers;
 
 
 
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -79,7 +80,7 @@ public class Controller {
 		scoreLabel = new JLabel(ControllerConstants.scoreLabel + String.valueOf(gameBoard.getScore()));
 		
 		//Init buttons
-		if (deckIndex == gameBoard.getCardDeck().getRemainingDeckSize()) {
+		if (deckIndex == gameBoard.getCardDeck().getRemainingDeckSize() || gameBoard.getCardDeck().getRemainingDeckSize() == -1) {
 			deckBtn = new CardButton(Constants.emptyCardImg);
 		}
 		else {
@@ -138,6 +139,18 @@ public class Controller {
 		//display timer
 		gameView.addLabel(timerLabel, (int)ControllerConstants.timerPoint.getX(), (int)ControllerConstants.timerPoint.getY());
 		initTimer(timerLabel);
+		
+	}
+	
+	private void updateScore() {
+		if (gameBoard.getTime() % 60 % 10 == 0 && gameBoard.getTime() != 0) {
+			gameBoard.setScore(gameBoard.getScore() - 2);
+			scoreLabel.setText(ControllerConstants.scoreLabel + String.valueOf(gameBoard.getScore()));
+			Dimension size = scoreLabel.getPreferredSize();
+			scoreLabel.setBounds((int)ControllerConstants.scorePoint.getX(), (int)ControllerConstants.scorePoint.getY(), size.width, size.height);
+			scoreLabel.repaint();
+			System.out.println(ControllerConstants.scoreLabel + String.valueOf(gameBoard.getScore()));
+		}
 	}
 	
 	public CardButton getDeckBtn() {
@@ -217,6 +230,7 @@ public class Controller {
 				public void run() {
 					gameBoard.setTime(gameBoard.getTime() + 1);
 					label.setText(ControllerConstants.timerLabel + gameBoard.getFormattedTime());
+					updateScore();
 				}
 			};
 			gameBoard.getGameTimer().scheduleAtFixedRate(timerTask, Constants.timeDelay, Constants.timePeriod);

@@ -35,6 +35,7 @@ public class GameBoard {
 	private int time;
 	private Timer gameTimer;
 	boolean isTimerRunning;
+	private int deckPasses;
 	
 	
 	
@@ -44,6 +45,7 @@ public class GameBoard {
 	public GameBoard() {
 		score = 0;
 		time = 0;
+		deckPasses = 0;
 		gameTimer = new Timer();
 		isTimerRunning = false;
 		cardDeck = new CardDeck();
@@ -166,6 +168,14 @@ public class GameBoard {
 	
 	public void setIsTimerRunning(boolean isTimerRunning) {
 		this.isTimerRunning = isTimerRunning;		
+	}
+	
+	public int getDeckPasses() {
+		return deckPasses;
+	}
+	
+	public void incrementDeckPass() {
+		deckPasses += 1;
 	}
 	
 	//==================================
