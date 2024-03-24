@@ -13,6 +13,8 @@ public class MenuBar {
 
 	private URI rules;
 	private String credits;
+	private String gameMode;
+	private String drawMode;
 	
 	public MenuBar() {
 		try {
@@ -30,8 +32,8 @@ public class MenuBar {
 		System.exit(0);
 	}
 	
-	public void newGame() {
-		Main.restartGame();
+	public void newGame(String gameMode, String drawMode) {
+		Main.restartGame(gameMode, drawMode);
 	}
 	
 	public String credits() {
@@ -45,6 +47,20 @@ public class MenuBar {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+	}
+
+	public void setGameMode(String currentGameMode, String newGameMode) {
+		if (currentGameMode != newGameMode) {
+			this.gameMode = newGameMode;
+			newGame(gameMode, drawMode);
+		}		
+	}
+
+	public void setDrawMode(String currentDrawMode, String newDrawMode) {
+		if (currentDrawMode != newDrawMode) {
+			this.drawMode = newDrawMode;
+			newGame(gameMode, drawMode);
+		}		
 	}
 	
 }

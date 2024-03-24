@@ -149,7 +149,6 @@ public class Controller {
 			Dimension size = scoreLabel.getPreferredSize();
 			scoreLabel.setBounds((int)ControllerConstants.scorePoint.getX(), (int)ControllerConstants.scorePoint.getY(), size.width, size.height);
 			scoreLabel.repaint();
-			System.out.println(ControllerConstants.scoreLabel + String.valueOf(gameBoard.getScore()));
 		}
 	}
 	

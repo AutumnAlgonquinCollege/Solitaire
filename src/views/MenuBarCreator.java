@@ -4,14 +4,19 @@ import java.awt.MenuBar;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.ButtonGroup;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JRadioButtonMenuItem;
 
 public class MenuBarCreator {
+	
+	private String gameMode;
+	private String drawMode;
 	
 	MenuBarCreator() {
 		super();
@@ -21,8 +26,11 @@ public class MenuBarCreator {
 	public JMenuBar createMenuBar() {
 		//Creating all objects
 		JMenuBar menuBar;
-		JMenu fileMenu, helpMenu;
-		JMenuItem newGame, credits, exit, rules;
+		JMenu fileMenu, gameModeMenu, drawMenu, helpMenu;
+		JMenuItem newGame, credits, exit, rules, draw, mode;
+		JRadioButtonMenuItem standardMenuItem,  vegasMenuItem, d1MenuItem, d3MenuItem;
+		String gameMode = "STANDARD";
+		String drawMode = "DRAW 1";
 		
 		//instantiating the first menu
 		models.MenuBar menuBarModel = new models.MenuBar();
@@ -40,7 +48,7 @@ public class MenuBarCreator {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				menuBarModel.newGame();
+				menuBarModel.newGame(gameMode, drawMode);
 				
 			}
 		});
@@ -64,6 +72,71 @@ public class MenuBarCreator {
 		});
 		fileMenu.add(exit);
 		
+		//Create Game mode
+		gameModeMenu = new JMenu("Game Mode");
+		menuBar.add(gameModeMenu);		
+		
+		ButtonGroup modeGroup = new ButtonGroup();	
+		
+		standardMenuItem = new JRadioButtonMenuItem("Standard");		
+		vegasMenuItem = new JRadioButtonMenuItem("Vegas");
+					
+		//Set the default mode
+		standardMenuItem.setSelected(true);		
+		
+		modeGroup.add(standardMenuItem);
+		modeGroup.add(vegasMenuItem);
+		
+		gameModeMenu.add(standardMenuItem);
+		gameModeMenu.add(vegasMenuItem);
+		
+		standardMenuItem.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				menuBarModel.setGameMode(gameMode.toUpperCase(), standardMenuItem.getText().toUpperCase());				
+			}
+		});
+		
+		vegasMenuItem.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				menuBarModel.setDrawMode(gameMode.toUpperCase(), vegasMenuItem.getText().toUpperCase());				
+			}
+		});
+		
+		//Create Draw menu
+		
+		drawMenu = new JMenu("Draw options");
+		menuBar.add(drawMenu);
+		
+		ButtonGroup drawGroup = new ButtonGroup();
+		d1MenuItem = new JRadioButtonMenuItem("Draw 1");		
+		d3MenuItem = new JRadioButtonMenuItem("Draw 3");
+		
+		d1MenuItem.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				menuBarModel.setDrawMode(drawMode.toUpperCase(), d1MenuItem.getText().toUpperCase());				
+			}
+		});
+		
+		d3MenuItem.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				menuBarModel.setDrawMode(drawMode.toUpperCase(), d1MenuItem.getText().toUpperCase());				
+			}
+		});
+		
+		//Add radio buttons to button groups
+		drawGroup.add(d1MenuItem);
+		drawGroup.add(d3MenuItem);
+		
+		//Set the default modes
+		d1MenuItem.setSelected(true);
+		
+		drawMenu.add(d1MenuItem);
+		drawMenu.add(d3MenuItem);		
+
 		//Creating the Help menu and adding it
 		helpMenu = new JMenu("Help");
 		menuBar.add(helpMenu);

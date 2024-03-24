@@ -36,13 +36,17 @@ public class GameBoard {
 	private Timer gameTimer;
 	boolean isTimerRunning;
 	private int deckPasses;
+	private String gameMode;
+	private String drawMode;
 	
 	
 	
 	//==================================
 	//          Constructor
 	//==================================
-	public GameBoard() {
+	public GameBoard(String gameMode, String drawMode) {
+		this.gameMode = gameMode;
+		this.drawMode = drawMode;
 		score = 0;
 		time = 0;
 		deckPasses = 0;

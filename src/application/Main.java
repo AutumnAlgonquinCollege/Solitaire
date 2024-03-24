@@ -19,7 +19,7 @@ public class Main {
 	}
 	
 	public static void newGame() {		
-		GameBoard gameBoard = new GameBoard();
+		GameBoard gameBoard = new GameBoard("STANDARD", "DRAW 1");
 		GameView gameView = new GameView();
 		controller = new Controller(gameBoard, gameView);
 		
@@ -27,8 +27,8 @@ public class Main {
 		gameView.setViewVisible();
 	}
 	
-	public static void restartGame() {
-		GameBoard gameBoard = new GameBoard();
+	public static void restartGame(String gameMode, String drawMode) {
+		GameBoard gameBoard = new GameBoard(gameMode, drawMode);
 		controller.resetGame(gameBoard);
 	}
 	
