@@ -32,7 +32,7 @@ public class MenuBar {
 		System.exit(0);
 	}
 	
-	public void newGame(String gameMode, String drawMode) {
+	public void newGame() {
 		Main.restartGame(gameMode, drawMode);
 	}
 	
@@ -50,16 +50,16 @@ public class MenuBar {
 	}
 
 	public void setGameMode(String currentGameMode, String newGameMode) {
-		if (currentGameMode != newGameMode) {
+		if (!currentGameMode.equals(newGameMode)) {
 			this.gameMode = newGameMode;
-			newGame(gameMode, drawMode);
+			newGame();
 		}		
 	}
 
 	public void setDrawMode(String currentDrawMode, String newDrawMode) {
-		if (currentDrawMode != newDrawMode) {
+		if (!currentDrawMode.equals(newDrawMode)) {
 			this.drawMode = newDrawMode;
-			newGame(gameMode, drawMode);
+			newGame();
 		}		
 	}
 	

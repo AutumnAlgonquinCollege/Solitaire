@@ -20,6 +20,8 @@ public class MenuBarCreator {
 	
 	MenuBarCreator() {
 		super();
+		gameMode = "STANDARD";
+		drawMode = "DRAW 1";
 	}
 	
 	//this menu creates a menu bar, then will pass it back to the gameFrame
@@ -27,11 +29,9 @@ public class MenuBarCreator {
 		//Creating all objects
 		JMenuBar menuBar;
 		JMenu fileMenu, gameModeMenu, drawMenu, helpMenu;
-		JMenuItem newGame, credits, exit, rules, draw, mode;
+		JMenuItem newGame, credits, exit, rules;
 		JRadioButtonMenuItem standardMenuItem,  vegasMenuItem, d1MenuItem, d3MenuItem;
-		String gameMode = "STANDARD";
-		String drawMode = "DRAW 1";
-		
+
 		//instantiating the first menu
 		models.MenuBar menuBarModel = new models.MenuBar();
 		menuBar = new JMenuBar();
@@ -48,7 +48,7 @@ public class MenuBarCreator {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				menuBarModel.newGame(gameMode, drawMode);
+				menuBarModel.newGame();
 				
 			}
 		});
@@ -93,14 +93,18 @@ public class MenuBarCreator {
 		standardMenuItem.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				menuBarModel.setGameMode(gameMode.toUpperCase(), standardMenuItem.getText().toUpperCase());				
+				String currentMode = getGameMode();
+				setGameMode(standardMenuItem.getText().toUpperCase());
+				menuBarModel.setGameMode(currentMode, standardMenuItem.getText().toUpperCase());				
 			}
 		});
 		
 		vegasMenuItem.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				menuBarModel.setDrawMode(gameMode.toUpperCase(), vegasMenuItem.getText().toUpperCase());				
+				String currentMode = getGameMode();
+				setGameMode(vegasMenuItem.getText().toUpperCase());
+				menuBarModel.setGameMode(currentMode, vegasMenuItem.getText().toUpperCase());				
 			}
 		});
 		
@@ -116,14 +120,18 @@ public class MenuBarCreator {
 		d1MenuItem.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				menuBarModel.setDrawMode(drawMode.toUpperCase(), d1MenuItem.getText().toUpperCase());				
+				String currentMode = getDrawMode();
+				setDrawMode(d1MenuItem.getText().toUpperCase());
+				menuBarModel.setDrawMode(currentMode, d1MenuItem.getText().toUpperCase());				
 			}
 		});
 		
 		d3MenuItem.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				menuBarModel.setDrawMode(drawMode.toUpperCase(), d1MenuItem.getText().toUpperCase());				
+				String currentMode = getDrawMode();
+				setDrawMode(d3MenuItem.getText().toUpperCase());
+				menuBarModel.setDrawMode(currentMode, d3MenuItem.getText().toUpperCase());				
 			}
 		});
 		
@@ -152,10 +160,26 @@ public class MenuBarCreator {
 		});
 		helpMenu.add(rules);
 		
-
+		
 		
 		
 		return menuBar;
+	}
+	
+	public void setGameMode(String gameMode) {
+		this.gameMode = gameMode;
+	}
+	
+	public String getGameMode() {
+		return gameMode;
+	}
+	
+	public void setDrawMode(String drawMode) {
+		this.drawMode = drawMode;
+	}
+	
+	public String getDrawMode() {
+		return drawMode;
 	}
 
 }
