@@ -78,11 +78,19 @@ public class CardDeck {
 		cards.remove(card);
 	}
 	
-	//Returns the index size of the remaining cards.
-	//Returns -1 if the deck is empty.
-	public int getRemainingDeckSize() {
-		return (cards.size() != 0) ? cards.size() - 1 : -1;
+	public boolean isDeckEmpty() {
+		return cards.isEmpty();
 	}
-
+	
+	public void copyCardsFromWaste(List<Card> cards) {
+		for (int i = 0; i < cards.size(); i++) {
+			this.cards.add(cards.get(i));
+		}
+		
+	}
+	
+	public int getRemainingDeckSize() {
+		return cards.size();
+	}
 	
 }

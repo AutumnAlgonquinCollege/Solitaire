@@ -3,7 +3,7 @@ package models;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-
+import java.util.List;
 import java.util.Timer;
 
 import java.util.TimerTask;
@@ -85,7 +85,7 @@ public class GameBoard {
 	public CardDeck getCardDeck() {
 		return cardDeck;
 	}
-	
+		
 	public WastePile getWastePile() {
 		return wastePile;
 	}
@@ -180,6 +180,14 @@ public class GameBoard {
 	
 	public void incrementDeckPass() {
 		deckPasses += 1;
+	}
+	
+	public String getGameMode() {
+		return gameMode;
+	}
+	
+	public String getDrawMode() {
+		return drawMode;
 	}
 	
 	//==================================

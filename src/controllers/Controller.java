@@ -23,7 +23,9 @@ public class Controller {
 	JLabel timerLabel;
 	JLabel scoreLabel;
 	CardButton deckBtn;
-	CardButton wasteBtn;
+	CardButton wasteBtn1;
+	CardButton wasteBtn2;
+	CardButton wasteBtn3;
 	List<CardButton> tableauList1;
 	List<CardButton> tableauList2;
 	List<CardButton> tableauList3;
@@ -36,21 +38,19 @@ public class Controller {
 	CardButton foundationDiamondsBtn;
 	CardButton foundationHeartsBtn;
 	List<Integer> cardIndexes = new ArrayList<Integer>(); 
-	private int deckIndex;
 	TimerTask timerTask;
 	
 	
 	public Controller(GameBoard model, GameView view) {
-		this.gameBoard = model;
+		this.gameBoard = model;		
 		this.gameView = view;
-		deckIndex = -1;
 		timerLabel = new JLabel(ControllerConstants.timerLabel + gameBoard.getFormattedTime());
 	}
 	
 	public void resetGame(GameBoard model) {
 		this.gameBoard = model;
 		timerLabel = new JLabel(ControllerConstants.timerLabel + gameBoard.getFormattedTime());
-		deckIndex = -1;
+		LastCardSelectedUtility.clearSelectedCards();
 		this.redrawAll();
 	}
 	
@@ -80,14 +80,30 @@ public class Controller {
 		scoreLabel = new JLabel(ControllerConstants.scoreLabel + String.valueOf(gameBoard.getScore()));
 		
 		//Init buttons
-		if (deckIndex == gameBoard.getCardDeck().getRemainingDeckSize() || gameBoard.getCardDeck().getRemainingDeckSize() == -1) {
+		if (gameBoard.getCardDeck().isDeckEmpty()) {
 			deckBtn = new CardButton(Constants.emptyCardImg);
 		}
 		else {
 			deckBtn = new CardButton(Constants.backSideImg);
 		}
 		
-		wasteBtn = new CardButton(gameBoard.getWastePile().getTopCardImage());
+		if (gameBoard.getWastePile().isWasteEmpty()) {
+			wasteBtn1 = new CardButton(gameBoard.getWastePile().getTopCardImage());
+		}
+		else if (gameBoard.getDrawMode().equals("DRAW 1")) {
+			wasteBtn1 = new CardButton(gameBoard.getWastePile().getTopCardImage());
+		}
+		else if (gameBoard.getDrawMode().equals("DRAW 3")) {
+			List<ImageIcon> wasteIcons = gameBoard.getWastePile().getTop3CardImages();
+			if (!gameBoard.getWastePile().isWasteEmpty()) {
+				wasteBtn1 = new CardButton(wasteIcons.get(0));
+				wasteBtn2 = new CardButton(wasteIcons.get(1));
+				wasteBtn3 = new CardButton(wasteIcons.get(2));
+			}
+		}
+		
+		
+		
 		foundationSpadesBtn = new CardButton(gameBoard.getFoundationSpades().getFoundationDisplayImage(Constants.spades));
 		foundationClubsBtn = new CardButton(gameBoard.getFoundationClubs().getFoundationDisplayImage(Constants.clubs));
 		foundationDiamondsBtn = new CardButton(gameBoard.getFoundationDiamonds().getFoundationDisplayImage(Constants.diamonds));
@@ -95,7 +111,15 @@ public class Controller {
 		
 		//Adding listeners
 		deckBtn.addActionListener(new DeckActionListener(this));
-		wasteBtn.addActionListener(new WasteActionListener(this));
+		wasteBtn1.addActionListener(new WasteActionListener(this));
+		
+		if (gameBoard.getDrawMode().equals("DRAW 3")) {
+			if (!gameBoard.getWastePile().isWasteEmpty()) {
+				wasteBtn2.addActionListener(new WasteActionListener(this));
+				wasteBtn3.addActionListener(new WasteActionListener(this));
+			}
+		}
+		
 		foundationSpadesBtn.addActionListener(new FoundationActionListener(this, Constants.spades));
 		foundationClubsBtn.addActionListener(new FoundationActionListener(this, Constants.clubs));
 		foundationDiamondsBtn.addActionListener(new FoundationActionListener(this, Constants.diamonds));
@@ -105,7 +129,14 @@ public class Controller {
 		gameView.addCardButton(deckBtn, (int)ControllerConstants.deckPoint.getX(), (int)ControllerConstants.deckPoint.getY());
 		
 		//Create waste view
-		gameView.addCardButton(wasteBtn, (int)ControllerConstants.wastePoint.getX(), (int)ControllerConstants.wastePoint.getY());
+		gameView.addCardButton(wasteBtn1, (int)ControllerConstants.wastePoint.getX(), (int)ControllerConstants.wastePoint.getY());
+		
+		if (gameBoard.getDrawMode().equals("DRAW 3")) {
+			if (!gameBoard.getWastePile().isWasteEmpty()) {
+				gameView.addCardButton(wasteBtn2, (int)ControllerConstants.wastePoint.getX() + 30, (int)ControllerConstants.wastePoint.getY());
+				gameView.addCardButton(wasteBtn3, (int)ControllerConstants.wastePoint.getX() + 60, (int)ControllerConstants.wastePoint.getY());
+			}
+		}
 		
 		//Create foundation view
 		gameView.addCardButton(foundationSpadesBtn, (int)ControllerConstants.foundationSpadesPoint.getX(), (int)ControllerConstants.foundationSpadesPoint.getY());
@@ -150,26 +181,21 @@ public class Controller {
 			scoreLabel.setBounds((int)ControllerConstants.scorePoint.getX(), (int)ControllerConstants.scorePoint.getY(), size.width, size.height);
 			scoreLabel.repaint();
 		}
+		
 	}
 	
+	/*
 	public CardButton getDeckBtn() {
 		return deckBtn;
-	}
+	}	
 	
 	public CardButton getWasteBtn() {
 		return wasteBtn;
 	}
+	*/
 	
 	public GameBoard getGameBoard() {
 		return gameBoard;
-	}
-	
-	public int getDeckIndex() {
-		return deckIndex;
-	}
-	
-	public void setDeckIndex(int deckIndex) {
-		this.deckIndex = deckIndex;
 	}
 	
 	public Foundation getFoundation(String suit) {
@@ -188,17 +214,6 @@ public class Controller {
 		}
 	}
 	
-	public void setCardIndexes(Integer cardIndex) {
-		if (cardIndexes.size() >= 2) {
-			cardIndexes.removeAll(cardIndexes);
-		}
-		cardIndexes.add(cardIndex);
-	}
-	
-	public int getCardIndexes(int cardIndex) {
-		return cardIndexes.get(cardIndex);
-	}
-	
 	public List<CardButton> getTableauList1() {	return tableauList1; }
 	public List<CardButton> getTableauList2() {	return tableauList2; }
 	public List<CardButton> getTableauList3() {	return tableauList3; }
@@ -214,12 +229,22 @@ public class Controller {
 		createGui();
 	}
 
-	public boolean deckClicked() {
-		gameBoard.getCardDeck().getCardByIndex(0);
-		return false;
-	}	
+	private boolean isGameComplete() {
+		boolean gameCompleted = false;
+		
+		if (getFoundation(Constants.spades).isFoundationComplete() 
+				&& getFoundation(Constants.clubs).isFoundationComplete() 
+				&& getFoundation(Constants.hearts).isFoundationComplete() 
+				&& getFoundation(Constants.diamonds).isFoundationComplete()) {
+			
+			gameCompleted = true;
+		}
+		
+		return gameCompleted;
+	}
 	
-	public synchronized void initTimer(JLabel label) {
+	private synchronized void initTimer(JLabel label) {
+		
 		if (!gameBoard.getIsTimerRunning()) {
 			// cancel existing timertask if game is restarted
 	        if (timerTask != null) {
@@ -229,12 +254,13 @@ public class Controller {
 				public void run() {
 					gameBoard.setTime(gameBoard.getTime() + 1);
 					label.setText(ControllerConstants.timerLabel + gameBoard.getFormattedTime());
-					updateScore();
+					updateScore();					
 				}
 			};
 			gameBoard.getGameTimer().scheduleAtFixedRate(timerTask, Constants.timeDelay, Constants.timePeriod);
 			gameBoard.setIsTimerRunning(true);
 		}
+		
 	}
 	
 	

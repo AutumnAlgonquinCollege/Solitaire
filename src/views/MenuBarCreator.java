@@ -33,7 +33,7 @@ public class MenuBarCreator {
 		JRadioButtonMenuItem standardMenuItem,  vegasMenuItem, d1MenuItem, d3MenuItem;
 
 		//instantiating the first menu
-		models.MenuBar menuBarModel = new models.MenuBar();
+		models.MenuBar menuBarModel = new models.MenuBar(gameMode, drawMode);
 		menuBar = new JMenuBar();
 		
 		//instantiating the menu and 

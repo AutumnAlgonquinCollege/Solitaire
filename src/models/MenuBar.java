@@ -16,7 +16,9 @@ public class MenuBar {
 	private String gameMode;
 	private String drawMode;
 	
-	public MenuBar() {
+	public MenuBar(String gameMode, String drawMode) {
+		this.gameMode = gameMode;
+		this.drawMode = drawMode;
 		try {
 			rules = new URI("https://bicyclecards.com/how-to-play/solitaire/");
 		} catch (URISyntaxException e) {

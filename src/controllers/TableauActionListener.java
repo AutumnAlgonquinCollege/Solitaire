@@ -42,7 +42,7 @@ public class TableauActionListener implements ActionListener {
 		else if (LastCardSelectedUtility.getLastCardSelected() instanceof Foundation) {
 			oldObject = 2;
 		}
-		System.out.println(oldObject);
+		
 		return oldObject;
 	}
 	
@@ -74,11 +74,10 @@ public class TableauActionListener implements ActionListener {
 		Boolean didGet = false;
 		if (tableau.addCard(controller.getGameBoard().getWastePile().getLastCard())) {
 			tableau.getCardByIndex(tableau.getTableauSize()).setCardVisible(true);
-			controller.getGameBoard().getCardDeck().removeCardByObject(controller.getGameBoard().getWastePile().getLastCard());
+			//controller.getGameBoard().getCardDeck().removeCardByObject(controller.getGameBoard().getWastePile().getLastCard());
 			controller.getGameBoard().getWastePile().removeCardByObject(controller.getGameBoard().getWastePile().getLastCard());
 			controller.getGameBoard().setScore(controller.getGameBoard().getScore() + 5);
-			didGet = true;
-			System.out.println("True");
+			didGet = true;			
 		}
 		return didGet;
 	}
@@ -100,15 +99,19 @@ public class TableauActionListener implements ActionListener {
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		controller.setCardIndexes(cardIndex);
+		boolean cardMoved = false;
 		LastCardSelectedUtility.setCardSelected(tableau, cardIndex);
 		if (checkLastClick() == 0) {
-			System.out.println(getFromTableau());
+			cardMoved = getFromTableau();
 		} else if (checkLastClick() == 1) {
-			getFromWaste();
+			cardMoved = getFromWaste();
 		}
 		else if (checkLastClick() == 2) {
-			getFromFoundation();
+			cardMoved = getFromFoundation();
+		}
+		
+		if (cardMoved) {
+			LastCardSelectedUtility.clearSelectedCards();
 		}
 				
 		controller.redrawAll();
