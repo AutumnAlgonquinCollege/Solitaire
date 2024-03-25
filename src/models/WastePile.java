@@ -53,20 +53,20 @@ public class WastePile {
 		return imageIcon;
 	}
 	
-	public List<ImageIcon> getTop3CardImages(){
+	public List<ImageIcon> getTop3CardImages(int cardsDealt){
 		List<ImageIcon> imageIcons = new ArrayList<>();
 		
 		if (!cards.isEmpty()) {
-			if (cards.size() >= 3) {
+			if (cardsDealt == 3) {
 				imageIcons.add(cards.get(cards.size()-3).getImageIcon());
 				imageIcons.add(cards.get(cards.size()-2).getImageIcon());
 				imageIcons.add(cards.get(cards.size()-1).getImageIcon());
 			}
-			else if (cards.size() == 2) {
+			else if (cardsDealt == 2) {
 				imageIcons.add(cards.get(cards.size()-2).getImageIcon());
 				imageIcons.add(cards.get(cards.size()-1).getImageIcon());
 			}
-			else if (cards.size() == 1) {
+			else if (cardsDealt == 1) {
 				imageIcons.add(cards.get(cards.size()-1).getImageIcon());
 			}
 		}

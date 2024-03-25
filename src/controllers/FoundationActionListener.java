@@ -37,13 +37,15 @@ public class FoundationActionListener implements ActionListener{
 			}
 		} else if (LastCardSelectedUtility.getLastCardSelected() instanceof Tableau){
 			Tableau tableau = (Tableau)LastCardSelectedUtility.getLastCardSelected();
-			if (foundation.addCard(tableau.getCardByIndex(LastCardSelectedUtility.getLastIndexSelected()))) {
-				if (tableau.removeCard(tableau.getCardByIndex(LastCardSelectedUtility.getLastIndexSelected())) == true) {
-					controller.getGameBoard().setScore(controller.getGameBoard().getScore() + 5);
+			if (tableau.getTableauSize() == LastCardSelectedUtility.getCurrentCardIndex()) {
+				if (foundation.addCard(tableau.getCardByIndex(LastCardSelectedUtility.getLastIndexSelected()))) {
+					if (tableau.removeCard(tableau.getCardByIndex(LastCardSelectedUtility.getLastIndexSelected())) == true) {
+						controller.getGameBoard().setScore(controller.getGameBoard().getScore() + 5);
+					}
+					controller.getGameBoard().setScore(controller.getGameBoard().getScore() + 10);
+					cardMoved = true;
 				}
-				controller.getGameBoard().setScore(controller.getGameBoard().getScore() + 10);
-				cardMoved = true;
-			}
+			}			
 		}
 		
 		if (cardMoved) {

@@ -190,6 +190,10 @@ public class GameBoard {
 		return drawMode;
 	}
 	
+	public List<Tableau> getAllTableaus() {
+		return tableauList;
+	}
+	
 	//==================================
 	//          Private Methods
 	//==================================

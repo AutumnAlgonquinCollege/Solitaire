@@ -25,7 +25,7 @@ public class DeckActionListener implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		
-		LastCardSelectedUtility.clearSelectedCards();
+		LastCardSelectedUtility.clearSelectedCards();		
 		
 		if (gameBoard.getDrawMode().equals("DRAW 1") && !cardDeck.isDeckEmpty()) {
 			wastePile.addCardToWaste(cardDeck.getCardByIndex(0));
@@ -67,7 +67,7 @@ public class DeckActionListener implements ActionListener{
 				gameBoard.setScore(gameBoard.getScore() - 20);
 			}
 		}
-		
+
 		controller.redrawAll();
 	}
 

@@ -76,7 +76,8 @@ public class Controller {
 	}
 	
 	public void createGui() {
-			
+		
+		System.out.println(cardsDealt);
 		scoreLabel = new JLabel(ControllerConstants.scoreLabel + String.valueOf(gameBoard.getScore()));
 		
 		//Init buttons
@@ -95,7 +96,7 @@ public class Controller {
 			wasteBtn1 = new CardButton(gameBoard.getWastePile().getTopCardImage());
 		}
 		else if (gameBoard.getDrawMode().equals("DRAW 3")) {
-			List<ImageIcon> wasteIcons = gameBoard.getWastePile().getTop3CardImages();
+			List<ImageIcon> wasteIcons = gameBoard.getWastePile().getTop3CardImages(cardsDealt);
 			if (!gameBoard.getWastePile().isWasteEmpty() && cardsDealt == 3){
 				wasteBtn1 = new CardButton(wasteIcons.get(0));
 				wasteBtn2 = new CardButton(wasteIcons.get(1));
@@ -197,6 +198,13 @@ public class Controller {
 		gameView.addLabel(timerLabel, (int)ControllerConstants.timerPoint.getX(), (int)ControllerConstants.timerPoint.getY());
 		initTimer(timerLabel);
 		
+		if (isGameComplete()) {
+			timerTask.cancel();
+            gameBoard.getGameTimer().purge();
+            
+            //todo: Add time bonus to score
+		}
+		
 	}
 	
 	private void updateScore() {
@@ -278,14 +286,16 @@ public class Controller {
 			// cancel existing timertask if game is restarted
 	        if (timerTask != null) {
 	            timerTask.cancel();
+	            gameBoard.getGameTimer().purge();
+	            gameBoard.setIsTimerRunning(false);
 	        }
 			timerTask = new TimerTask() {
-				public void run() {
+				public void run() {					
 					gameBoard.setTime(gameBoard.getTime() + 1);
 					label.setText(ControllerConstants.timerLabel + gameBoard.getFormattedTime());
 					updateScore();					
 				}
-			};
+			};	        
 			gameBoard.getGameTimer().scheduleAtFixedRate(timerTask, Constants.timeDelay, Constants.timePeriod);
 			gameBoard.setIsTimerRunning(true);
 		}

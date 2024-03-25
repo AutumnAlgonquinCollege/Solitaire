@@ -9,9 +9,6 @@ import models.Card;
 import views.CardButton;
 
 public class LastCardSelectedUtility {
-
-//	public static List<Object> cards = new ArrayList<Object>();
-//	public static List<Integer> indexes = new ArrayList<Integer>();
 	
 	public static Object currentCard;
 	public static Integer currentIndex;

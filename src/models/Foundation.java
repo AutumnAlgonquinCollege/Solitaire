@@ -98,7 +98,7 @@ public class Foundation {
 	//Checks if the foundation pile has been completed.
 	//Returns true if it is.
 	public boolean isFoundationComplete() {
-		return (getLastRank() == 13) ? true : false;
+		return (!cards.isEmpty() && getLastRank() == 13) ? true : false;
 	}
 	
 

@@ -15,12 +15,14 @@ import views.CardButton;
 public class TableauActionListener implements ActionListener {
 
 	private Controller controller;
+	private GameBoard gameBoard;
 	private Tableau tableau;
 	private int cardIndex;
 
 
 	public TableauActionListener(Controller controller, Tableau tableau, int cardIndex) {
 		this.controller = controller;
+		this.gameBoard = controller.getGameBoard();
 		this.tableau = tableau;
 		this.cardIndex = cardIndex;
 		
@@ -31,6 +33,7 @@ public class TableauActionListener implements ActionListener {
 	public int checkLastClick() {
 		//returns 0 if it's a tableau, 1 if it's the WastePile, 2 if its foundation, -1 if anything else
 		int oldObject = -1;
+		
 		if (LastCardSelectedUtility.getLastCardSelected() instanceof Tableau) {
 			Tableau lastTableau = (Tableau)LastCardSelectedUtility.getLastCardSelected();
 			if (!lastTableau.isEmpty()) {
@@ -48,15 +51,50 @@ public class TableauActionListener implements ActionListener {
 	
 	public Boolean getFromTableau() {
 		Boolean didGet = false;
-		Tableau lastTableau = (Tableau)LastCardSelectedUtility.getLastCardSelected();
-		if (lastTableau.getTableauSize() == LastCardSelectedUtility.getLastIndexSelected()) {
+		Tableau lastTableau = (Tableau)LastCardSelectedUtility.getLastCardSelected();		
+		
+		if (tableau == lastTableau && LastCardSelectedUtility.getCurrentCardSelected() != null) {
+			Card card = tableau.getCardByIndex(LastCardSelectedUtility.getCurrentCardIndex());
+			Foundation foundation = controller.getFoundation(card.getSuit());
+			if (tableau.getTableauSize() == LastCardSelectedUtility.getCurrentCardIndex()) {
+				if (foundation.addCard(card)) {
+					if (tableau.removeCard(tableau.getCardByIndex(LastCardSelectedUtility.getLastIndexSelected()))) {
+						controller.getGameBoard().setScore(controller.getGameBoard().getScore() + 5);
+					}
+					controller.getGameBoard().setScore(controller.getGameBoard().getScore() + 10);
+					didGet = true;
+				}
+			}			
+			if (!didGet) {
+				for (int i = 0; i < gameBoard.getAllTableaus().size(); i++) {
+					if (tableau.getTableauSize() == LastCardSelectedUtility.getCurrentCardIndex()) {
+						if (gameBoard.getAllTableaus().get(i).addCard(card) ) {							
+							tableau.removeCardByIndex(LastCardSelectedUtility.getCurrentCardIndex());
+							controller.getGameBoard().setScore(controller.getGameBoard().getScore() + 3);
+							didGet = true;
+							break;
+						}
+					}
+					else if (tableau.getTableauSize() >= LastCardSelectedUtility.getCurrentCardIndex()){
+						if (gameBoard.getAllTableaus().get(i).addCardStack(tableau.splitCardStack(LastCardSelectedUtility.getLastIndexSelected()))) {
+							if (tableau.removeCardStack(lastTableau.splitCardStack(LastCardSelectedUtility.getLastIndexSelected()))) {
+								controller.getGameBoard().setScore(controller.getGameBoard().getScore() + 3);
+								didGet = true;
+								break;
+							}
+						}
+					}					
+				}
+			}
+		}
+		else if (lastTableau.getTableauSize() == LastCardSelectedUtility.getLastIndexSelected()) {
 			if (tableau.addCard(lastTableau.getCardByIndex(LastCardSelectedUtility.getLastIndexSelected()))) {
 				didGet = true;
 				if(lastTableau.removeCard(lastTableau.getCardByIndex(LastCardSelectedUtility.getLastIndexSelected())) == true) {
 					controller.getGameBoard().setScore(controller.getGameBoard().getScore() + 3);
 				}
 			}
-		} else {
+		} else if (tableau.getTableauSize() >= LastCardSelectedUtility.getLastIndexSelected()){
 				if (tableau.addCardStack(lastTableau.splitCardStack(LastCardSelectedUtility.getLastIndexSelected()))) {
 					didGet = true;
 					if(lastTableau.removeCardStack(lastTableau.splitCardStack(LastCardSelectedUtility.getLastIndexSelected())) == true) {
