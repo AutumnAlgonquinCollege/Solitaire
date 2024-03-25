@@ -58,13 +58,13 @@ public class WastePile {
 		
 		if (!cards.isEmpty()) {
 			if (cards.size() >= 3) {
-				imageIcons.add(cards.get(cards.size()-1).getImageIcon());
-				imageIcons.add(cards.get(cards.size()-2).getImageIcon());
 				imageIcons.add(cards.get(cards.size()-3).getImageIcon());
+				imageIcons.add(cards.get(cards.size()-2).getImageIcon());
+				imageIcons.add(cards.get(cards.size()-1).getImageIcon());
 			}
 			else if (cards.size() == 2) {
-				imageIcons.add(cards.get(cards.size()-1).getImageIcon());
 				imageIcons.add(cards.get(cards.size()-2).getImageIcon());
+				imageIcons.add(cards.get(cards.size()-1).getImageIcon());
 			}
 			else if (cards.size() == 1) {
 				imageIcons.add(cards.get(cards.size()-1).getImageIcon());

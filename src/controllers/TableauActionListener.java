@@ -78,6 +78,7 @@ public class TableauActionListener implements ActionListener {
 			//controller.getGameBoard().getCardDeck().removeCardByObject(controller.getGameBoard().getWastePile().getLastCard());
 			controller.getGameBoard().getWastePile().removeCardByObject(controller.getGameBoard().getWastePile().getLastCard());
 			controller.getGameBoard().setScore(controller.getGameBoard().getScore() + 5);
+			controller.decrementCardsDealt();
 			didGet = true;			
 		}
 		return didGet;
@@ -107,8 +108,7 @@ public class TableauActionListener implements ActionListener {
 		if (checkLastClick() == 0) {
 			cardMoved = getFromTableau();
 		} else if (checkLastClick() == 1) {
-			cardMoved = getFromWaste();
-			controller.decrementCardsDealt();
+			cardMoved = getFromWaste();			
 		}
 		else if (checkLastClick() == 2) {
 			cardMoved = getFromFoundation();

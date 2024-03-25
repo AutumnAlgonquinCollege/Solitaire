@@ -97,13 +97,13 @@ public class Controller {
 		else if (gameBoard.getDrawMode().equals("DRAW 3")) {
 			List<ImageIcon> wasteIcons = gameBoard.getWastePile().getTop3CardImages();
 			if (!gameBoard.getWastePile().isWasteEmpty() && cardsDealt == 3){
-				wasteBtn1 = new CardButton(wasteIcons.get(2));
+				wasteBtn1 = new CardButton(wasteIcons.get(0));
 				wasteBtn2 = new CardButton(wasteIcons.get(1));
-				wasteBtn3 = new CardButton(wasteIcons.get(0));
+				wasteBtn3 = new CardButton(wasteIcons.get(2));
 			}
 			else if (!gameBoard.getWastePile().isWasteEmpty() && cardsDealt == 2) {
-				wasteBtn1 = new CardButton(wasteIcons.get(1));
-				wasteBtn2 = new CardButton(wasteIcons.get(0));	
+				wasteBtn1 = new CardButton(wasteIcons.get(0));
+				wasteBtn2 = new CardButton(wasteIcons.get(1));	
 			}
 			else if (!gameBoard.getWastePile().isWasteEmpty() && cardsDealt == 1) {
 				wasteBtn1 = new CardButton(wasteIcons.get(0));
