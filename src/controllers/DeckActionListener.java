@@ -60,10 +60,10 @@ public class DeckActionListener implements ActionListener{
 			cardDeck.copyCardsFromWaste(wastePile.getWasteCards());			
 			wastePile.emptyWaste();
 			gameBoard.incrementDeckPass();
-			if (gameBoard.getDeckPasses() > 1 && gameBoard.getDrawMode().equals("DRAW 1")) {
+			if (!wastePile.isWasteEmpty() && gameBoard.getDeckPasses() > 1 && gameBoard.getDrawMode().equals("DRAW 1")) {
 				gameBoard.setScore(gameBoard.getScore() - 100);
 			}
-			else if (gameBoard.getDeckPasses() > 4 && gameBoard.getDrawMode().equals("DRAW 3")) {
+			else if (!wastePile.isWasteEmpty() && gameBoard.getDeckPasses() > 4 && gameBoard.getDrawMode().equals("DRAW 3")) {
 				gameBoard.setScore(gameBoard.getScore() - 20);
 			}
 		}

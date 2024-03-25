@@ -43,8 +43,8 @@ public class LastCardSelectedUtility {
 	public static void setCardSelected(Object selectedModel, Integer index) {
 
 		if (currentCard == null) {
-			//lastCard = selectedModel;
-			//lastIndex = index;			
+			lastCard = null;
+			lastIndex = null;			
 			currentCard = selectedModel;
 			currentIndex = index;
 		} else {			
