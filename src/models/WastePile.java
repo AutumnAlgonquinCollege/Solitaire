@@ -69,9 +69,10 @@ public class WastePile {
 			else if (cards.size() == 1) {
 				imageIcons.add(cards.get(cards.size()-1).getImageIcon());
 			}
-			else {
-				imageIcons.add(Constants.emptyCardImg);
-			}
+		}
+		
+		else {
+			imageIcons.add(Constants.emptyCardImg);
 		}
 		
 		return imageIcons;
@@ -85,7 +86,9 @@ public class WastePile {
 		cards.remove(card);
 	}
 	
+	
 	public int getWasteSize() {
-		return cards.size() - 1;
+		return cards.size();
 	}
+	
 }

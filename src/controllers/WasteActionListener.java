@@ -18,7 +18,7 @@ public class WasteActionListener implements ActionListener{
 		
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		LastCardSelectedUtility.setCardSelected(wastePile, wastePile.getLastWasteIndex());
+		LastCardSelectedUtility.setCardSelected(wastePile, wastePile.getLastWasteIndex());		
 	}
 
 	

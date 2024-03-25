@@ -33,22 +33,27 @@ public class DeckActionListener implements ActionListener{
 		}
 		else if (gameBoard.getDrawMode().equals("DRAW 3") && !cardDeck.isDeckEmpty()) {
 			if (gameBoard.getCardDeck().getRemainingDeckSize() >= 3) {
+				System.out.println("Deck: "+ cardDeck.getCardByIndex(0).getRank());
+				System.out.println("Deck: "+ cardDeck.getCardByIndex(0).getSuit());
 				wastePile.addCardToWaste(cardDeck.getCardByIndex(0));
 				wastePile.addCardToWaste(cardDeck.getCardByIndex(1));
 				wastePile.addCardToWaste(cardDeck.getCardByIndex(2));
 				cardDeck.removeCardByIndex(2);
 				cardDeck.removeCardByIndex(1);
 				cardDeck.removeCardByIndex(0);
+				controller.setCardsDealt(3);
 			}
 			else if (gameBoard.getCardDeck().getRemainingDeckSize() == 2) {
 				wastePile.addCardToWaste(cardDeck.getCardByIndex(0));
 				wastePile.addCardToWaste(cardDeck.getCardByIndex(1));
 				cardDeck.removeCardByIndex(1);
 				cardDeck.removeCardByIndex(0);
+				controller.setCardsDealt(2);
 			}
 			else {
 				wastePile.addCardToWaste(cardDeck.getCardByIndex(0));
 				cardDeck.removeCardByIndex(0);
+				controller.setCardsDealt(1);
 			}
 		}
 		else if (cardDeck.isDeckEmpty()) {			

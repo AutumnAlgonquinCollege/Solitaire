@@ -53,7 +53,7 @@ public class GameView {
 		gameButtons.remove(card);
 	}
 	
-	public void addTableauCardButton(CardButton card, int x, int y, Integer z) {
+	public void addCardButtonWithZ(CardButton card, int x, int y, Integer z) {
 		pane.add(card, z);
 		gameButtons.add(card);
 		card.draw(x, y);

@@ -33,6 +33,7 @@ public class FoundationActionListener implements ActionListener{
 				controller.getGameBoard().getWastePile().removeCardByIndex(LastCardSelectedUtility.getLastIndexSelected());
 				controller.getGameBoard().setScore(controller.getGameBoard().getScore() + 10);
 				cardMoved = true;
+				controller.decrementCardsDealt();
 			}
 		} else if (LastCardSelectedUtility.getLastCardSelected() instanceof Tableau){
 			Tableau tableau = (Tableau)LastCardSelectedUtility.getLastCardSelected();

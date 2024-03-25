@@ -39,7 +39,7 @@ public class Controller {
 	CardButton foundationHeartsBtn;
 	List<Integer> cardIndexes = new ArrayList<Integer>(); 
 	TimerTask timerTask;
-	
+	private int cardsDealt;
 	
 	public Controller(GameBoard model, GameView view) {
 		this.gameBoard = model;		
@@ -68,7 +68,7 @@ public class Controller {
 	private void displayTableauBtn(List<CardButton> btnList, int xAxis, Tableau tableau) {
 		int yAxis = (int) ControllerConstants.tableau1Point.getY();
 		for (int i = 0; i < btnList.size(); i++) {
-			gameView.addTableauCardButton(btnList.get(i), xAxis, yAxis, Integer.valueOf(i));
+			gameView.addCardButtonWithZ(btnList.get(i), xAxis, yAxis, Integer.valueOf(i));
 			btnList.get(i).addActionListener(new TableauActionListener(this, tableau, i));
 			yAxis += 25;
 		}
@@ -87,6 +87,7 @@ public class Controller {
 			deckBtn = new CardButton(Constants.backSideImg);
 		}
 		
+		
 		if (gameBoard.getWastePile().isWasteEmpty()) {
 			wasteBtn1 = new CardButton(gameBoard.getWastePile().getTopCardImage());
 		}
@@ -95,10 +96,20 @@ public class Controller {
 		}
 		else if (gameBoard.getDrawMode().equals("DRAW 3")) {
 			List<ImageIcon> wasteIcons = gameBoard.getWastePile().getTop3CardImages();
-			if (!gameBoard.getWastePile().isWasteEmpty()) {
-				wasteBtn1 = new CardButton(wasteIcons.get(0));
+			if (!gameBoard.getWastePile().isWasteEmpty() && cardsDealt == 3){
+				wasteBtn1 = new CardButton(wasteIcons.get(2));
 				wasteBtn2 = new CardButton(wasteIcons.get(1));
-				wasteBtn3 = new CardButton(wasteIcons.get(2));
+				wasteBtn3 = new CardButton(wasteIcons.get(0));
+			}
+			else if (!gameBoard.getWastePile().isWasteEmpty() && cardsDealt == 2) {
+				wasteBtn1 = new CardButton(wasteIcons.get(1));
+				wasteBtn2 = new CardButton(wasteIcons.get(0));	
+			}
+			else if (!gameBoard.getWastePile().isWasteEmpty() && cardsDealt == 1) {
+				wasteBtn1 = new CardButton(wasteIcons.get(0));
+			}
+			else {
+				wasteBtn1 = new CardButton(Constants.emptyCardImg);
 			}
 		}
 		
@@ -129,12 +140,27 @@ public class Controller {
 		gameView.addCardButton(deckBtn, (int)ControllerConstants.deckPoint.getX(), (int)ControllerConstants.deckPoint.getY());
 		
 		//Create waste view
-		gameView.addCardButton(wasteBtn1, (int)ControllerConstants.wastePoint.getX(), (int)ControllerConstants.wastePoint.getY());
-		
-		if (gameBoard.getDrawMode().equals("DRAW 3")) {
+		if (gameBoard.getDrawMode().equals("DRAW 1")) {
+			gameView.addCardButton(wasteBtn1, (int)ControllerConstants.wastePoint.getX(), (int)ControllerConstants.wastePoint.getY());
+		} 
+		else if (gameBoard.getDrawMode().equals("DRAW 3")) {
 			if (!gameBoard.getWastePile().isWasteEmpty()) {
-				gameView.addCardButton(wasteBtn2, (int)ControllerConstants.wastePoint.getX() + 30, (int)ControllerConstants.wastePoint.getY());
-				gameView.addCardButton(wasteBtn3, (int)ControllerConstants.wastePoint.getX() + 60, (int)ControllerConstants.wastePoint.getY());
+				if (cardsDealt == 3) {
+					gameView.addCardButtonWithZ(wasteBtn1, (int)ControllerConstants.wastePoint.getX(), (int)ControllerConstants.wastePoint.getY(), 0);
+					gameView.addCardButtonWithZ(wasteBtn2, (int)ControllerConstants.wastePoint.getX() + 30, (int)ControllerConstants.wastePoint.getY(), 1);
+					gameView.addCardButtonWithZ(wasteBtn3, (int)ControllerConstants.wastePoint.getX() + 60, (int)ControllerConstants.wastePoint.getY(), 2);
+				}
+				else if (cardsDealt == 2) {
+					gameView.addCardButtonWithZ(wasteBtn1, (int)ControllerConstants.wastePoint.getX(), (int)ControllerConstants.wastePoint.getY(), 0);
+					gameView.addCardButtonWithZ(wasteBtn2, (int)ControllerConstants.wastePoint.getX() + 30, (int)ControllerConstants.wastePoint.getY(), 1);
+				}
+				else if (cardsDealt == 1 || cardsDealt == 0) {
+					gameView.addCardButtonWithZ(wasteBtn1, (int)ControllerConstants.wastePoint.getX(), (int)ControllerConstants.wastePoint.getY(), 0);
+				}
+				
+			}
+			else {
+				gameView.addCardButtonWithZ(wasteBtn1, (int)ControllerConstants.wastePoint.getX(), (int)ControllerConstants.wastePoint.getY(), 0);
 			}
 		}
 		
@@ -184,15 +210,17 @@ public class Controller {
 		
 	}
 	
-	/*
-	public CardButton getDeckBtn() {
-		return deckBtn;
-	}	
-	
-	public CardButton getWasteBtn() {
-		return wasteBtn;
+	public int getCardsDealt() {
+		return cardsDealt;
 	}
-	*/
+	
+	public void setCardsDealt(int cardsDealt) {
+		this.cardsDealt = cardsDealt;
+	}
+	
+	public void decrementCardsDealt() {
+		this.cardsDealt--;
+	}
 	
 	public GameBoard getGameBoard() {
 		return gameBoard;
@@ -226,6 +254,7 @@ public class Controller {
 	public void redrawAll() {
 		gameView.getPane().removeAll();
 		gameView.getPane().repaint();
+		gameView.getPane().revalidate();
 		createGui();
 	}
 

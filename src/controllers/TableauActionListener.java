@@ -57,14 +57,13 @@ public class TableauActionListener implements ActionListener {
 				}
 			}
 		} else {
-			if (tableau.addCardStack(lastTableau.splitCardStack(LastCardSelectedUtility.getLastIndexSelected()))) {
-				didGet = true;
-				if(lastTableau.removeCardStack(lastTableau.splitCardStack(LastCardSelectedUtility.getLastIndexSelected())) == true) {
-					controller.getGameBoard().setScore(controller.getGameBoard().getScore() + 3);
+				if (tableau.addCardStack(lastTableau.splitCardStack(LastCardSelectedUtility.getLastIndexSelected()))) {
+					didGet = true;
+					if(lastTableau.removeCardStack(lastTableau.splitCardStack(LastCardSelectedUtility.getLastIndexSelected())) == true) {
+						controller.getGameBoard().setScore(controller.getGameBoard().getScore() + 3);
+					}
 				}
-			}
-		}
-		
+			}		
 		
 		return didGet;
 		
@@ -72,6 +71,8 @@ public class TableauActionListener implements ActionListener {
 	
 	public Boolean getFromWaste() {
 		Boolean didGet = false;
+		System.out.println("Tableau Listener: " + controller.getGameBoard().getWastePile().getLastCard().getRank());
+		System.out.println("Tableau Listener: " + controller.getGameBoard().getWastePile().getLastCard().getSuit());
 		if (tableau.addCard(controller.getGameBoard().getWastePile().getLastCard())) {
 			tableau.getCardByIndex(tableau.getTableauSize()).setCardVisible(true);
 			//controller.getGameBoard().getCardDeck().removeCardByObject(controller.getGameBoard().getWastePile().getLastCard());
@@ -100,22 +101,24 @@ public class TableauActionListener implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		boolean cardMoved = false;
-		LastCardSelectedUtility.setCardSelected(tableau, cardIndex);
+		if (tableau.isEmpty() || tableau.getCardByIndex(cardIndex).getCardVisible() == true) {
+			LastCardSelectedUtility.setCardSelected(tableau, cardIndex);
+		}
 		if (checkLastClick() == 0) {
 			cardMoved = getFromTableau();
 		} else if (checkLastClick() == 1) {
 			cardMoved = getFromWaste();
+			controller.decrementCardsDealt();
 		}
 		else if (checkLastClick() == 2) {
 			cardMoved = getFromFoundation();
 		}
 		
 		if (cardMoved) {
-			LastCardSelectedUtility.clearSelectedCards();
+			LastCardSelectedUtility.clearSelectedCards();			
 		}
-				
+		
 		controller.redrawAll();
-			
 	}
 
 }

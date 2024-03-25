@@ -45,17 +45,23 @@ public class LastCardSelectedUtility {
 	
 	public static void setCardSelected(Object selectedModel, Integer index) {
 
-		if (lastCard == null) {
-			lastCard = selectedModel;
-			lastIndex = index;
+		if (currentCard == null) {
+			//lastCard = selectedModel;
+			//lastIndex = index;			
 			currentCard = selectedModel;
 			currentIndex = index;
-		} else {
+		} else {			
 			lastCard = currentCard;
 			lastIndex = currentIndex;
 			currentCard = selectedModel;
 			currentIndex = index;
+			
 		}
+	}
+	
+	public static void clearLastSelectedCard() {
+		lastCard = null;
+		lastIndex = null;
 	}
 	
 	public static void clearSelectedCards() {
