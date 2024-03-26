@@ -200,14 +200,18 @@ public class Controller {
 		
 		if (isGameComplete()) {
 			timerTask.cancel();
-            gameBoard.getGameTimer().purge();
-            
-            //todo: Add time bonus to score
+            gameBoard.getGameTimer().purge();            
 		}
 		
 	}
 	
 	private void updateScore() {
+		
+		if (isGameComplete()) {
+			int timeBonus = 1000 - (gameBoard.getTime() * 1); //The time multiplier can be changed. I left it as 1.            
+            gameBoard.setScore(gameBoard.getScore() + timeBonus);
+		}
+		
 		if (gameBoard.getTime() % 60 % 10 == 0 && gameBoard.getTime() != 0) {
 			gameBoard.setScore(gameBoard.getScore() - 2);
 			scoreLabel.setText(ControllerConstants.scoreLabel + String.valueOf(gameBoard.getScore()));

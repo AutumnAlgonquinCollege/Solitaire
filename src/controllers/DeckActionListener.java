@@ -25,6 +25,8 @@ public class DeckActionListener implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		
+		System.out.println(gameBoard.getGameMode());
+		
 		LastCardSelectedUtility.clearSelectedCards();		
 		
 		if (gameBoard.getDrawMode().equals("DRAW 1") && !cardDeck.isDeckEmpty()) {
@@ -57,15 +59,26 @@ public class DeckActionListener implements ActionListener{
 			}
 		}
 		else if (cardDeck.isDeckEmpty()) {			
-			cardDeck.copyCardsFromWaste(wastePile.getWasteCards());			
-			wastePile.emptyWaste();
+			cardDeck.copyCardsFromWaste(wastePile.getWasteCards());				
 			gameBoard.incrementDeckPass();
 			if (!wastePile.isWasteEmpty() && gameBoard.getDeckPasses() > 1 && gameBoard.getDrawMode().equals("DRAW 1")) {
-				gameBoard.setScore(gameBoard.getScore() - 100);
+				if (gameBoard.getGameMode().equals("STANDARD")) {
+					controller.getGameBoard().setScore(controller.getGameBoard().getScore() - 100);
+				}
+				else {
+					//vegas score stuff
+				}				
 			}
 			else if (!wastePile.isWasteEmpty() && gameBoard.getDeckPasses() > 4 && gameBoard.getDrawMode().equals("DRAW 3")) {
-				gameBoard.setScore(gameBoard.getScore() - 20);
+				
+				if (gameBoard.getGameMode().equals("STANDARD")) {
+					controller.getGameBoard().setScore(controller.getGameBoard().getScore() - 20);
+				}
+				else {
+					//vegas score stuff
+				}				
 			}
+			wastePile.emptyWaste();
 		}
 
 		controller.redrawAll();

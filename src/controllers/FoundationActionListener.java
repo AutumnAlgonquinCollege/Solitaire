@@ -31,7 +31,14 @@ public class FoundationActionListener implements ActionListener{
 			if (foundation.addCard(controller.getGameBoard().getWastePile().getLastCard())) {
 				//controller.getGameBoard().getCardDeck().removeCardByObject(controller.getGameBoard().getWastePile().getLastCard());
 				controller.getGameBoard().getWastePile().removeCardByIndex(LastCardSelectedUtility.getLastIndexSelected());
-				controller.getGameBoard().setScore(controller.getGameBoard().getScore() + 10);
+				
+				if (gameBoard.getGameMode().equals("STANDARD")) {
+					controller.getGameBoard().setScore(controller.getGameBoard().getScore() + 10);
+				}
+				else {
+					//vegas score stuff
+				}
+				
 				cardMoved = true;
 				controller.decrementCardsDealt();
 			}
@@ -40,9 +47,20 @@ public class FoundationActionListener implements ActionListener{
 			if (tableau.getTableauSize() == LastCardSelectedUtility.getCurrentCardIndex()) {
 				if (foundation.addCard(tableau.getCardByIndex(LastCardSelectedUtility.getLastIndexSelected()))) {
 					if (tableau.removeCard(tableau.getCardByIndex(LastCardSelectedUtility.getLastIndexSelected())) == true) {
-						controller.getGameBoard().setScore(controller.getGameBoard().getScore() + 5);
+						if (gameBoard.getGameMode().equals("STANDARD")) {
+							controller.getGameBoard().setScore(controller.getGameBoard().getScore() + 5);
+						}
+						else {
+							//vegas score stuff
+						}
 					}
-					controller.getGameBoard().setScore(controller.getGameBoard().getScore() + 10);
+					
+					if (gameBoard.getGameMode().equals("STANDARD")) {
+						controller.getGameBoard().setScore(controller.getGameBoard().getScore() + 10);
+					}
+					else {
+						//vegas score stuff
+					}
 					cardMoved = true;
 				}
 			}			

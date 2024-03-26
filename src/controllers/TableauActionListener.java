@@ -59,9 +59,26 @@ public class TableauActionListener implements ActionListener {
 			if (tableau.getTableauSize() == LastCardSelectedUtility.getCurrentCardIndex()) {
 				if (foundation.addCard(card)) {
 					if (tableau.removeCard(tableau.getCardByIndex(LastCardSelectedUtility.getLastIndexSelected()))) {
+						tableau.setUndiscoveredCards(tableau.getUndiscoveredCards() - 1);
+						
+						//Add points for discovering a card
+						if (gameBoard.getGameMode().equals("STANDARD")) {
+							controller.getGameBoard().setScore(controller.getGameBoard().getScore() + 5);
+						}
+						else {
+							//vegas score stuff
+						}
 						controller.getGameBoard().setScore(controller.getGameBoard().getScore() + 5);
 					}
-					controller.getGameBoard().setScore(controller.getGameBoard().getScore() + 10);
+					
+					//Add points for moving card to foundation
+					if (gameBoard.getGameMode().equals("STANDARD")) {
+						controller.getGameBoard().setScore(controller.getGameBoard().getScore() + 10);
+					}
+					else {
+						//vegas score stuff
+					}
+					
 					didGet = true;
 				}
 			}			
@@ -70,7 +87,12 @@ public class TableauActionListener implements ActionListener {
 					if (tableau.getTableauSize() == LastCardSelectedUtility.getCurrentCardIndex()) {
 						if (gameBoard.getAllTableaus().get(i).addCard(card) ) {							
 							tableau.removeCardByIndex(LastCardSelectedUtility.getCurrentCardIndex());
-							controller.getGameBoard().setScore(controller.getGameBoard().getScore() + 3);
+							if (gameBoard.getGameMode().equals("STANDARD")) {
+								controller.getGameBoard().setScore(controller.getGameBoard().getScore() + 3);
+							}
+							else {
+								//vegas score stuff
+							}
 							didGet = true;
 							break;
 						}
@@ -78,7 +100,12 @@ public class TableauActionListener implements ActionListener {
 					else if (tableau.getTableauSize() >= LastCardSelectedUtility.getCurrentCardIndex()){
 						if (gameBoard.getAllTableaus().get(i).addCardStack(tableau.splitCardStack(LastCardSelectedUtility.getLastIndexSelected()))) {
 							if (tableau.removeCardStack(lastTableau.splitCardStack(LastCardSelectedUtility.getLastIndexSelected()))) {
-								controller.getGameBoard().setScore(controller.getGameBoard().getScore() + 3);
+								if (gameBoard.getGameMode().equals("STANDARD")) {
+									controller.getGameBoard().setScore(controller.getGameBoard().getScore() + 3);
+								}
+								else {
+									//vegas score stuff
+								}
 								didGet = true;
 								break;
 							}
@@ -98,14 +125,25 @@ public class TableauActionListener implements ActionListener {
 			if (tableau.addCard(lastTableau.getCardByIndex(LastCardSelectedUtility.getLastIndexSelected()))) {
 				didGet = true;
 				if(lastTableau.removeCard(lastTableau.getCardByIndex(LastCardSelectedUtility.getLastIndexSelected())) == true) {
-					controller.getGameBoard().setScore(controller.getGameBoard().getScore() + 3);
+					if (gameBoard.getGameMode().equals("STANDARD")) {
+						controller.getGameBoard().setScore(controller.getGameBoard().getScore() + 3);
+					}
+					else {
+						//vegas score stuff
+					}
+					
 				}
 			}
 		} 
 		if (tableau.addCardStack(lastTableau.splitCardStack(LastCardSelectedUtility.getLastIndexSelected()))) {
 			didGet = true;
 			if(lastTableau.removeCardStack(lastTableau.splitCardStack(LastCardSelectedUtility.getLastIndexSelected())) == true) {
-				controller.getGameBoard().setScore(controller.getGameBoard().getScore() + 3);
+				if (gameBoard.getGameMode().equals("STANDARD")) {
+					controller.getGameBoard().setScore(controller.getGameBoard().getScore() + 3);
+				}
+				else {
+					//vegas score stuff
+				}
 			}
 		}
 				
@@ -123,7 +161,12 @@ public class TableauActionListener implements ActionListener {
 			tableau.getCardByIndex(tableau.getTableauSize()).setCardVisible(true);
 			//controller.getGameBoard().getCardDeck().removeCardByObject(controller.getGameBoard().getWastePile().getLastCard());
 			controller.getGameBoard().getWastePile().removeCardByObject(controller.getGameBoard().getWastePile().getLastCard());
-			controller.getGameBoard().setScore(controller.getGameBoard().getScore() + 5);
+			if (gameBoard.getGameMode().equals("STANDARD")) {
+				controller.getGameBoard().setScore(controller.getGameBoard().getScore() + 3);
+			}
+			else {
+				//vegas score stuff
+			}
 			controller.decrementCardsDealt();
 			didGet = true;			
 		}
@@ -138,7 +181,13 @@ public class TableauActionListener implements ActionListener {
 		
 		if (tableau.addCard(card)) {
 			foundation.removeCardByObject(card);
-			controller.getGameBoard().setScore(controller.getGameBoard().getScore() - 15);
+			if (gameBoard.getGameMode().equals("STANDARD")) {
+				controller.getGameBoard().setScore(controller.getGameBoard().getScore() - 15);
+			}
+			else {
+				//vegas score stuff
+			}
+			
 			didGet = true;
 		}
 		
