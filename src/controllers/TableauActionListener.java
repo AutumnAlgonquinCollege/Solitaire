@@ -121,7 +121,7 @@ public class TableauActionListener implements ActionListener {
 		Boolean didGet = false;
 		Tableau lastTableau = (Tableau)LastCardSelectedUtility.getLastCardSelected();		
 		
-		if (lastTableau.getTableauSize() == LastCardSelectedUtility.getLastIndexSelected()) {
+		if (lastTableau.getTableauSize() == LastCardSelectedUtility.getCurrentCardIndex()) {
 			if (tableau.addCard(lastTableau.getCardByIndex(LastCardSelectedUtility.getLastIndexSelected()))) {
 				didGet = true;
 				if(lastTableau.removeCard(lastTableau.getCardByIndex(LastCardSelectedUtility.getLastIndexSelected())) == true) {

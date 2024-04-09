@@ -44,7 +44,7 @@ public class FoundationActionListener implements ActionListener{
 			}
 		} else if (LastCardSelectedUtility.getLastCardSelected() instanceof Tableau){
 			Tableau tableau = (Tableau)LastCardSelectedUtility.getLastCardSelected();
-			if (tableau.getTableauSize() == LastCardSelectedUtility.getCurrentCardIndex()) {
+			if (tableau.getTableauSize() == LastCardSelectedUtility.getLastIndexSelected()) {
 				if (foundation.addCard(tableau.getCardByIndex(LastCardSelectedUtility.getLastIndexSelected()))) {
 					if (tableau.removeCard(tableau.getCardByIndex(LastCardSelectedUtility.getLastIndexSelected())) == true) {
 						if (gameBoard.getGameMode().equals("STANDARD")) {
