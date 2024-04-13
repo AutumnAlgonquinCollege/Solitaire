@@ -25,12 +25,14 @@ public class WasteActionListener implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		LastCardSelectedUtility.setCardSelected(wastePile, wastePile.getLastWasteIndex());	
+		boolean cardMoved = false;
 		
 		if (LastCardSelectedUtility.getLastCardSelected() instanceof WastePile && LastCardSelectedUtility.getCurrentCardSelected() instanceof WastePile) {
 			
 			Card card = wastePile.getLastCard();			
 			Foundation foundation = controller.getFoundation(card.getSuit());
 			if (foundation.addCard(card)) {
+				cardMoved = true;
 				wastePile.removeCardByObject(wastePile.getLastCard());
 				if (gameBoard.getDrawMode().equals("DRAW 3")) {
 					
@@ -49,6 +51,7 @@ public class WasteActionListener implements ActionListener{
 					
 					if (gameBoard.getAllTableaus().get(i).addCard(card) ) {
 						card.setCardVisible(true);
+						cardMoved = true;
 						wastePile.removeCardByObject(wastePile.getLastCard());
 						if (gameBoard.getDrawMode().equals("DRAW 3")) {
 							if (gameBoard.getGameMode().equals("STANDARD")) {
@@ -63,9 +66,11 @@ public class WasteActionListener implements ActionListener{
 					}
 				}
 			}
-						
+			
+			if (cardMoved || LastCardSelectedUtility.getLastCardSelected() != null) {
 			LastCardSelectedUtility.clearSelectedCards();	
 			controller.redrawAll();
+			}
 		}
 		
 		

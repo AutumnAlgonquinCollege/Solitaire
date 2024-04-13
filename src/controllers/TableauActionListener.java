@@ -121,8 +121,9 @@ public class TableauActionListener implements ActionListener {
 		Boolean didGet = false;
 		Tableau lastTableau = (Tableau)LastCardSelectedUtility.getLastCardSelected();		
 		
-		if (lastTableau.getTableauSize() == LastCardSelectedUtility.getCurrentCardIndex()) {
+		if (lastTableau.getTableauSize() == LastCardSelectedUtility.getLastIndexSelected()) {
 			if (tableau.addCard(lastTableau.getCardByIndex(LastCardSelectedUtility.getLastIndexSelected()))) {
+				System.out.println("Tableau single card moved");
 				didGet = true;
 				if(lastTableau.removeCard(lastTableau.getCardByIndex(LastCardSelectedUtility.getLastIndexSelected())) == true) {
 					if (gameBoard.getGameMode().equals("STANDARD")) {
@@ -135,18 +136,20 @@ public class TableauActionListener implements ActionListener {
 				}
 			}
 		} 
-		if (tableau.addCardStack(lastTableau.splitCardStack(LastCardSelectedUtility.getLastIndexSelected()))) {
-			didGet = true;
-			if(lastTableau.removeCardStack(lastTableau.splitCardStack(LastCardSelectedUtility.getLastIndexSelected())) == true) {
-				if (gameBoard.getGameMode().equals("STANDARD")) {
-					controller.getGameBoard().setScore(controller.getGameBoard().getScore() + 3);
-				}
-				else {
-					//vegas score stuff
+		else if (lastTableau.getTableauSize() >= LastCardSelectedUtility.getLastIndexSelected()) { //|| tableau.getTableauSize() == -1
+			if (tableau.addCardStack(lastTableau.splitCardStack(LastCardSelectedUtility.getLastIndexSelected()))) {
+				didGet = true;
+				if(lastTableau.removeCardStack(lastTableau.splitCardStack(LastCardSelectedUtility.getLastIndexSelected())) == true) {
+					System.out.println("Tableau stack cards moved");
+					if (gameBoard.getGameMode().equals("STANDARD")) {
+						controller.getGameBoard().setScore(controller.getGameBoard().getScore() + 3);
+					}
+					else {
+						//vegas score stuff
+					}
 				}
 			}
 		}
-				
 		return didGet;
 	}		
 		
@@ -198,9 +201,10 @@ public class TableauActionListener implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		boolean cardMoved = false;
 		if (tableau.isEmpty() || tableau.getCardByIndex(cardIndex).getCardVisible() == true) {
+			System.out.println("Tableau card index: "+cardIndex);
 			LastCardSelectedUtility.setCardSelected(tableau, cardIndex);
 		}
-		if (checkLastClick() == 0) {
+		if (checkLastClick() == 0 && LastCardSelectedUtility.getLastCardSelected() != null) {
 			if (LastCardSelectedUtility.getCurrentCardSelected() instanceof Tableau && LastCardSelectedUtility.getLastCardSelected() instanceof Tableau) {
 				if ((Tableau) LastCardSelectedUtility.getLastCardSelected() != (Tableau) LastCardSelectedUtility.getCurrentCardSelected()) {
 					cardMoved = getFromTableau();
@@ -218,11 +222,12 @@ public class TableauActionListener implements ActionListener {
 			cardMoved = getFromFoundation();
 		}
 		
-		if (cardMoved) {
-			LastCardSelectedUtility.clearSelectedCards();			
+		if (cardMoved || LastCardSelectedUtility.getLastCardSelected() != null) {
+			LastCardSelectedUtility.clearSelectedCards();
+			controller.redrawAll();
 		}
 		
-		controller.redrawAll();
+		
 	}
 
 }

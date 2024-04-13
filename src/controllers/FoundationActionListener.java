@@ -66,11 +66,11 @@ public class FoundationActionListener implements ActionListener{
 			}			
 		}
 		
-		if (cardMoved) {
+		if (cardMoved || LastCardSelectedUtility.getLastCardSelected() != null) {
 			LastCardSelectedUtility.clearSelectedCards();
+			controller.redrawAll();
 		}
-				
-		controller.redrawAll();
+					
 		
 	}
 
