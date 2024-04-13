@@ -136,7 +136,7 @@ public class TableauActionListener implements ActionListener {
 				}
 			}
 		} 
-		else if (lastTableau.getTableauSize() >= LastCardSelectedUtility.getLastIndexSelected()) { //|| tableau.getTableauSize() == -1
+		else if (lastTableau.getTableauSize() >= LastCardSelectedUtility.getLastIndexSelected()) {
 			if (tableau.addCardStack(lastTableau.splitCardStack(LastCardSelectedUtility.getLastIndexSelected()))) {
 				didGet = true;
 				if(lastTableau.removeCardStack(lastTableau.splitCardStack(LastCardSelectedUtility.getLastIndexSelected())) == true) {
@@ -162,7 +162,6 @@ public class TableauActionListener implements ActionListener {
 		System.out.println("Tableau Listener: " + controller.getGameBoard().getWastePile().getLastCard().getSuit());
 		if (tableau.addCard(controller.getGameBoard().getWastePile().getLastCard())) {
 			tableau.getCardByIndex(tableau.getTableauSize()).setCardVisible(true);
-			//controller.getGameBoard().getCardDeck().removeCardByObject(controller.getGameBoard().getWastePile().getLastCard());
 			controller.getGameBoard().getWastePile().removeCardByObject(controller.getGameBoard().getWastePile().getLastCard());
 			if (gameBoard.getGameMode().equals("STANDARD")) {
 				controller.getGameBoard().setScore(controller.getGameBoard().getScore() + 3);
@@ -201,7 +200,6 @@ public class TableauActionListener implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		boolean cardMoved = false;
 		if (tableau.isEmpty() || tableau.getCardByIndex(cardIndex).getCardVisible() == true) {
-			System.out.println("Tableau card index: "+cardIndex);
 			LastCardSelectedUtility.setCardSelected(tableau, cardIndex);
 		}
 		if (checkLastClick() == 0 && LastCardSelectedUtility.getLastCardSelected() != null) {
@@ -210,8 +208,7 @@ public class TableauActionListener implements ActionListener {
 					cardMoved = getFromTableau();
 				}
 				else {
-					cardMoved = getAutoStackFromTableau();
-					LastCardSelectedUtility.clearSelectedCards();	
+					cardMoved = getAutoStackFromTableau();					
 				}
 			}
 			

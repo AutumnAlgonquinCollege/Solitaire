@@ -22,11 +22,8 @@ public class FoundationActionListener implements ActionListener{
 		this.wastePile = controller.getGameBoard().getWastePile();
 		}
 	
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		boolean cardMoved = false;
-		foundation = controller.getFoundation(suit);
-		LastCardSelectedUtility.setCardSelected(foundation, foundation.getFoundationSize());
+	private boolean ManualClick(Foundation foundation) {
+		boolean cardMoved = false;		
 		if (LastCardSelectedUtility.getLastCardSelected() == controller.getGameBoard().getWastePile())	{
 			if (foundation.addCard(controller.getGameBoard().getWastePile().getLastCard())) {
 				//controller.getGameBoard().getCardDeck().removeCardByObject(controller.getGameBoard().getWastePile().getLastCard());
@@ -65,6 +62,48 @@ public class FoundationActionListener implements ActionListener{
 				}
 			}			
 		}
+		return cardMoved;
+	}
+	
+	private boolean AutoStack(Foundation foundation) {
+		boolean cardMoved = false;
+		
+		
+		for (int i = 0; i < gameBoard.getAllTableaus().size(); i++) {
+				if (gameBoard.getAllTableaus().get(i).addCard(foundation.getLastCardInFoundation()) ) {	
+					foundation.getLastCardInFoundation().setCardVisible(true);
+					foundation.removeCardByObject(foundation.getLastCardInFoundation());
+					cardMoved = true;
+					if (gameBoard.getGameMode().equals("STANDARD")) {
+						controller.getGameBoard().setScore(controller.getGameBoard().getScore() - 15);
+					}
+					else {
+						//vegas score stuff
+					}
+					break;
+				}
+			}
+		
+		return cardMoved;
+		}
+		
+		
+		
+	
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		boolean cardMoved = false;
+		
+		foundation = controller.getFoundation(suit);
+		LastCardSelectedUtility.setCardSelected(foundation, foundation.getFoundationSize());
+		
+		if (LastCardSelectedUtility.getCurrentCardSelected() != LastCardSelectedUtility.getLastCardSelected()) {
+			cardMoved = ManualClick(foundation);
+		}
+		else {
+			cardMoved = AutoStack(foundation);
+		}
+		
 		
 		if (cardMoved || LastCardSelectedUtility.getLastCardSelected() != null) {
 			LastCardSelectedUtility.clearSelectedCards();
