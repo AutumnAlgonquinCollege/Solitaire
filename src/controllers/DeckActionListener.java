@@ -24,60 +24,51 @@ public class DeckActionListener implements ActionListener{
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		
 		System.out.println(gameBoard.getGameMode());
 		
-		LastCardSelectedUtility.clearSelectedCards();		
+		LastCardSelectedUtility.clearSelectedCards();
 		
-		if (gameBoard.getDrawMode().equals("DRAW 1") && !cardDeck.isDeckEmpty()) {
-			wastePile.addCardToWaste(cardDeck.getCardByIndex(0));
-			cardDeck.removeCardByIndex(0);
-		}
-		else if (gameBoard.getDrawMode().equals("DRAW 3") && !cardDeck.isDeckEmpty()) {
-			if (gameBoard.getCardDeck().getRemainingDeckSize() >= 3) {
-				System.out.println("Deck: "+ cardDeck.getCardByIndex(0).getRank());
-				System.out.println("Deck: "+ cardDeck.getCardByIndex(0).getSuit());
+		//If deck isn't empty
+		if (!cardDeck.isDeckEmpty()) {
+			//If draw options is set to Draw 1
+			if (gameBoard.getDrawMode().equals("DRAW 1")) {
 				wastePile.addCardToWaste(cardDeck.getCardByIndex(0));
-				wastePile.addCardToWaste(cardDeck.getCardByIndex(1));
-				wastePile.addCardToWaste(cardDeck.getCardByIndex(2));
-				cardDeck.removeCardByIndex(2);
-				cardDeck.removeCardByIndex(1);
 				cardDeck.removeCardByIndex(0);
-				controller.setCardsDealt(3);
 			}
-			else if (gameBoard.getCardDeck().getRemainingDeckSize() == 2) {
-				wastePile.addCardToWaste(cardDeck.getCardByIndex(0));
-				wastePile.addCardToWaste(cardDeck.getCardByIndex(1));
-				cardDeck.removeCardByIndex(1);
-				cardDeck.removeCardByIndex(0);
-				controller.setCardsDealt(2);
-			}
-			else {
-				wastePile.addCardToWaste(cardDeck.getCardByIndex(0));
-				cardDeck.removeCardByIndex(0);
-				controller.setCardsDealt(1);
+			//If draw options is set to Draw 3
+			else if (gameBoard.getDrawMode().equals("DRAW 3")) {
+				int cardsToDeal = Math.min(3, gameBoard.getCardDeck().getRemainingDeckSize());
+				for (int i = 0; i < cardsToDeal; i++) {
+					wastePile.addCardToWaste(cardDeck.getCardByIndex(0));
+					cardDeck.removeCardByIndex(0);
+				}
+				controller.setCardsDealt(cardsToDeal);			
 			}
 		}
-		else if (cardDeck.isDeckEmpty()) {			
+		//If deck is empty
+		else {
 			cardDeck.copyCardsFromWaste(wastePile.getWasteCards());				
 			gameBoard.incrementDeckPass();
-			if (!wastePile.isWasteEmpty() && gameBoard.getDeckPasses() > 1 && gameBoard.getDrawMode().equals("DRAW 1")) {
-				if (gameBoard.getGameMode().equals("STANDARD")) {
-					controller.getGameBoard().setScore(controller.getGameBoard().getScore() - 100);
+			
+			//If draw options is set to Draw 1
+			if (!wastePile.isWasteEmpty() && gameBoard.getDrawMode().equals("DRAW 1")) {
+				if (gameBoard.getGameMode().equals("STANDARD") && gameBoard.getDeckPasses() > 1) {
+					gameBoard.setScore(gameBoard.getScore() - 100);
+				}
+				else {
+					//vegas score stuff
+				}	
+			}
+			//If draw options is set to Draw 3
+			if (!wastePile.isWasteEmpty() && gameBoard.getDrawMode().equals("DRAW 3")) {
+				if (gameBoard.getGameMode().equals("STANDARD") && gameBoard.getDeckPasses() > 4) {
+					gameBoard.setScore(gameBoard.getScore() - 20);
 				}
 				else {
 					//vegas score stuff
 				}				
-			}
-			else if (!wastePile.isWasteEmpty() && gameBoard.getDeckPasses() > 4 && gameBoard.getDrawMode().equals("DRAW 3")) {
-				
-				if (gameBoard.getGameMode().equals("STANDARD")) {
-					controller.getGameBoard().setScore(controller.getGameBoard().getScore() - 20);
-				}
-				else {
-					//vegas score stuff
-				}				
-			}
+			}			
+			
 			wastePile.emptyWaste();
 		}
 
