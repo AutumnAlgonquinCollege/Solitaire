@@ -70,7 +70,7 @@ public class Controller {
 		for (int i = 0; i < btnList.size(); i++) {
 			gameView.addCardButtonWithZ(btnList.get(i), xAxis, yAxis, Integer.valueOf(i));
 			btnList.get(i).addActionListener(new TableauActionListener(this, tableau, i));
-			yAxis += 25;
+			yAxis += 40;
 		}
 		
 	}
@@ -148,12 +148,12 @@ public class Controller {
 			if (!gameBoard.getWastePile().isWasteEmpty()) {
 				if (cardsDealt == 3) {
 					gameView.addCardButtonWithZ(wasteBtn1, (int)ControllerConstants.wastePoint.getX(), (int)ControllerConstants.wastePoint.getY(), 0);
-					gameView.addCardButtonWithZ(wasteBtn2, (int)ControllerConstants.wastePoint.getX() + 30, (int)ControllerConstants.wastePoint.getY(), 1);
-					gameView.addCardButtonWithZ(wasteBtn3, (int)ControllerConstants.wastePoint.getX() + 60, (int)ControllerConstants.wastePoint.getY(), 2);
+					gameView.addCardButtonWithZ(wasteBtn2, (int)ControllerConstants.wastePoint.getX() + 40, (int)ControllerConstants.wastePoint.getY(), 1);
+					gameView.addCardButtonWithZ(wasteBtn3, (int)ControllerConstants.wastePoint.getX() + 80, (int)ControllerConstants.wastePoint.getY(), 2);
 				}
 				else if (cardsDealt == 2) {
 					gameView.addCardButtonWithZ(wasteBtn1, (int)ControllerConstants.wastePoint.getX(), (int)ControllerConstants.wastePoint.getY(), 0);
-					gameView.addCardButtonWithZ(wasteBtn2, (int)ControllerConstants.wastePoint.getX() + 30, (int)ControllerConstants.wastePoint.getY(), 1);
+					gameView.addCardButtonWithZ(wasteBtn2, (int)ControllerConstants.wastePoint.getX() + 40, (int)ControllerConstants.wastePoint.getY(), 1);
 				}
 				else if (cardsDealt == 1 || cardsDealt == 0) {
 					gameView.addCardButtonWithZ(wasteBtn1, (int)ControllerConstants.wastePoint.getX(), (int)ControllerConstants.wastePoint.getY(), 0);
