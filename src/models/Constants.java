@@ -18,17 +18,18 @@ public class Constants {
 	public static final long timePeriod = 1000;
 	
 	
-	public static final ImageIcon emptyCardImg = new ImageIcon("ImageAssets/Misc/empty_frame.png");
-	public static final ImageIcon backSideImg = new ImageIcon("ImageAssets/NewModels/Backs/card-back.png"); 
+	public static final ImageIcon emptyCardImg = new ImageIcon("ImageAssets/NewModels/Backs/empty-frame.png");
+	public static final ImageIcon backSideImg = new ImageIcon("ImageAssets/NewModels/Backs/card-backnew.png"); 
 	
 	//Old image paths
 	/*	
 	public static final ImageIcon backSideImg = new ImageIcon("ImageAssets/Backs/back_0.png"); 
 	*/
-	public static final ImageIcon spadesFoundationImg = new ImageIcon("ImageAssets/Misc/spades_foundation.png");
-	public static final ImageIcon clubsFoundationImg = new ImageIcon("ImageAssets/Misc/clubs_foundation.png");
-	public static final ImageIcon diamondsFoundationImg = new ImageIcon("ImageAssets/Misc/diamonds_foundation.png");
-	public static final ImageIcon heartsFoundationImg = new ImageIcon("ImageAssets/Misc/hearts_foundation.png");
+	public static final ImageIcon spadesFoundationImg = new ImageIcon("ImageAssets/NewModels/Backs/spades-foundation.png");
+	public static final ImageIcon clubsFoundationImg = new ImageIcon("ImageAssets/NewModels/Backs/clubs-foundation.png");
+	public static final ImageIcon diamondsFoundationImg = new ImageIcon("ImageAssets/NewModels/Backs/diamonds-foundation.png");
+	public static final ImageIcon heartsFoundationImg = new ImageIcon("ImageAssets/NewModels/Backs/hearts-foundation.png");
+	
 	
 	//New card images
 	public static final String[] spadesImgPath = 
@@ -46,7 +47,7 @@ public class Constants {
 		"ImageAssets/NewModels/Spades/card-spades-12.png",
 		"ImageAssets/NewModels/Spades/card-spades-13.png" };
 	public static final String[] clubsImgPath = 
-		{"ImageAssets/NewModels/Clubs/card-clubs-1.png",
+		{"ImageAssets/NewModels/Clubs/card-clubs-1new.png",
 		"ImageAssets/NewModels/Clubs/card-clubs-2.png",
 		"ImageAssets/NewModels/Clubs/card-clubs-3.png",
 		"ImageAssets/NewModels/Clubs/card-clubs-4.png",
