@@ -2,10 +2,12 @@ package controllers;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 import models.CardDeck;
 import models.Constants;
 import models.GameBoard;
 import models.WastePile;
+import views.CompletedGamePanel;
 
 
 public class DeckActionListener implements ActionListener{
@@ -25,6 +27,7 @@ public class DeckActionListener implements ActionListener{
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		
 		System.out.println(gameBoard.getGameMode());
 		
 		LastCardSelectedUtility.clearSelectedCards();
@@ -50,7 +53,8 @@ public class DeckActionListener implements ActionListener{
 		else {
 			gameBoard.incrementDeckPass();
 			if (gameBoard.getGameMode() == Constants.standardGameMode) {
-				cardDeck.copyCardsFromWaste(wastePile.getWasteCards());				
+				cardDeck.copyCardsFromWaste(wastePile.getWasteCards());
+				wastePile.emptyWaste();
 			} else {
 				if(gameBoard.getDrawMode() == "DRAW 1") {
 					System.out.println("Deck Passes: " + gameBoard.getDeckPasses());

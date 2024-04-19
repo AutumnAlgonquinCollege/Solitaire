@@ -34,7 +34,8 @@ public class WasteActionListener implements ActionListener{
 			if (foundation.addCard(card)) {
 				cardMoved = true;
 				wastePile.removeCardByObject(wastePile.getLastCard());
-								
+				if (gameBoard.getDrawMode().equals("DRAW 3")) {
+					
 					if (gameBoard.getGameMode().equals("STANDARD")) {
 						controller.getGameBoard().setScore(controller.getGameBoard().getScore() + 10);
 					}
@@ -43,7 +44,15 @@ public class WasteActionListener implements ActionListener{
 					}
 					
 					controller.decrementCardsDealt();
-				
+				}
+				else {
+					if (gameBoard.getGameMode().equals("STANDARD")) {
+						controller.getGameBoard().setScore(controller.getGameBoard().getScore() + 10);
+					}
+					else {
+						controller.getGameBoard().setScore(controller.getGameBoard().getScore() + Constants.vegasScoreFoundation);
+					}
+				}
 			}
 			else {
 				for (int i = 0; i < gameBoard.getAllTableaus().size(); i++) {

@@ -42,4 +42,8 @@ public class Main {
 		controller.resetGame(gameBoard);
 	}
 	
+	public static void restartGame() {
+		restartGame(gameBoard.getGameMode(), gameBoard.getDrawMode());
+	}
+	
 }

@@ -268,7 +268,14 @@ public class Controller {
 		gameView.getPane().removeAll();
 		gameView.getPane().repaint();
 		gameView.getPane().revalidate();
+		completeGameCheck();
 		createGui();
+	}
+	
+	public void completeGameCheck() {
+		if (isGameComplete()) {
+			CompletedGamePanel gameTest = new CompletedGamePanel();
+		}
 	}
 
 	private boolean isGameComplete() {
