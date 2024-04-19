@@ -44,8 +44,11 @@ public class GameView {
 	public void addCardButton(CardButton card, int x, int y) {
 		pane.add(card);
 		gameButtons.add(card);
-		card.draw(x, y);
-		
+		card.draw(x, y);	
+	}
+	
+	public JFrame getFrame() {
+		return frame;
 	}
 	
 	public void removeComponent(CardButton card) {
@@ -73,5 +76,7 @@ public class GameView {
 		Dimension size = label.getPreferredSize();
 		label.setBounds(x, y, size.width, size.height);
 	}
+	
+
 
 }

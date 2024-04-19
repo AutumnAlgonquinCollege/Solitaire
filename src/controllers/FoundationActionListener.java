@@ -33,7 +33,7 @@ public class FoundationActionListener implements ActionListener{
 					controller.getGameBoard().setScore(controller.getGameBoard().getScore() + 10);
 				}
 				else {
-					//vegas score stuff
+					controller.getGameBoard().setScore(controller.getGameBoard().getScore() + Constants.vegasScoreFoundation);
 				}
 				
 				cardMoved = true;
@@ -56,7 +56,7 @@ public class FoundationActionListener implements ActionListener{
 						controller.getGameBoard().setScore(controller.getGameBoard().getScore() + 10);
 					}
 					else {
-						//vegas score stuff
+						controller.getGameBoard().setScore(controller.getGameBoard().getScore() + Constants.vegasScoreFoundation);
 					}
 					cardMoved = true;
 				}
@@ -78,7 +78,7 @@ public class FoundationActionListener implements ActionListener{
 						controller.getGameBoard().setScore(controller.getGameBoard().getScore() - 15);
 					}
 					else {
-						//vegas score stuff
+						controller.getGameBoard().setScore(controller.getGameBoard().getScore() - Constants.vegasScoreFoundation);
 					}
 					break;
 				}

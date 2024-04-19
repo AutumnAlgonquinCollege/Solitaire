@@ -3,6 +3,7 @@ package controllers;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import models.CardDeck;
+import models.Constants;
 import models.GameBoard;
 import models.WastePile;
 
@@ -47,13 +48,32 @@ public class DeckActionListener implements ActionListener{
 		}
 		//If deck is empty
 		else {
-			cardDeck.copyCardsFromWaste(wastePile.getWasteCards());				
 			gameBoard.incrementDeckPass();
+			if (gameBoard.getGameMode() == Constants.standardGameMode) {
+				cardDeck.copyCardsFromWaste(wastePile.getWasteCards());				
+			} else {
+				if(gameBoard.getDrawMode() == "DRAW 1") {
+					System.out.println("Deck Passes: " + gameBoard.getDeckPasses());
+					if (gameBoard.getDeckPasses() < Constants.oneDrawPasses) {
+						System.out.println("Inside deckPassing");
+						cardDeck.copyCardsFromWaste(wastePile.getWasteCards());
+						wastePile.emptyWaste();
+					}
+				}
+				else {
+					System.out.println("Deck Passes: " + gameBoard.getDeckPasses());
+					if (gameBoard.getDeckPasses() < Constants.threeDrawPasses) {
+						cardDeck.copyCardsFromWaste(wastePile.getWasteCards());
+						wastePile.emptyWaste();
+					}
+				}
+			}
 			
 			//If draw options is set to Draw 1
 			if (!wastePile.isWasteEmpty() && gameBoard.getDrawMode().equals("DRAW 1")) {
 				if (gameBoard.getGameMode().equals("STANDARD") && gameBoard.getDeckPasses() > 1) {
 					gameBoard.setScore(gameBoard.getScore() - 100);
+					wastePile.emptyWaste();
 				}
 				else {
 					//vegas score stuff
@@ -63,16 +83,28 @@ public class DeckActionListener implements ActionListener{
 			if (!wastePile.isWasteEmpty() && gameBoard.getDrawMode().equals("DRAW 3")) {
 				if (gameBoard.getGameMode().equals("STANDARD") && gameBoard.getDeckPasses() > 4) {
 					gameBoard.setScore(gameBoard.getScore() - 20);
+					wastePile.emptyWaste();
 				}
 				else {
 					//vegas score stuff
 				}				
 			}			
 			
-			wastePile.emptyWaste();
+//			wastePile.emptyWaste();
 		}
-
-		controller.redrawAll();
+		if (controller.getGameBoard().getGameMode() == Constants.standardGameMode) {
+			controller.redrawAll();
+		}
+		else if (controller.getGameBoard().getDrawMode() == "DRAW 1") {
+			if (controller.getGameBoard().getDeckPasses() != Constants.oneDrawPasses) {
+				controller.redrawAll();
+			}
+		}
+		else {
+			if (controller.getGameBoard().getDeckPasses() != Constants.threeDrawPasses) {
+				controller.redrawAll();
+			}
+		}
 	}
 
 }

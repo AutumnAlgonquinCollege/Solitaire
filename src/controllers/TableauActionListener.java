@@ -76,7 +76,7 @@ public class TableauActionListener implements ActionListener {
 						controller.getGameBoard().setScore(controller.getGameBoard().getScore() + 10);
 					}
 					else {
-						//vegas score stuff
+						controller.getGameBoard().setScore(controller.getGameBoard().getScore() + Constants.vegasScoreFoundation);
 					}
 					
 					didGet = true;
@@ -187,7 +187,7 @@ public class TableauActionListener implements ActionListener {
 				controller.getGameBoard().setScore(controller.getGameBoard().getScore() - 15);
 			}
 			else {
-				//vegas score stuff
+				controller.getGameBoard().setScore(controller.getGameBoard().getScore() - Constants.vegasScoreFoundation);
 			}
 			
 			didGet = true;

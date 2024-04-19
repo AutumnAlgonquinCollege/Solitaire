@@ -13,6 +13,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButtonMenuItem;
 
+import models.Constants;
+
 public class MenuBarCreator {
 	
 	private String gameMode;
@@ -30,7 +32,7 @@ public class MenuBarCreator {
 		JMenuBar menuBar;
 		JMenu fileMenu, gameModeMenu, drawMenu, helpMenu;
 		JMenuItem newGame, credits, exit, rules;
-		JRadioButtonMenuItem standardMenuItem,  vegasMenuItem, d1MenuItem, d3MenuItem;
+		JRadioButtonMenuItem standardMenuItem,  vegasMenuItem, cumulativeVegasMenuItem, d1MenuItem, d3MenuItem;
 
 		//instantiating the first menu
 		models.MenuBar menuBarModel = new models.MenuBar(gameMode, drawMode);
@@ -79,16 +81,19 @@ public class MenuBarCreator {
 		ButtonGroup modeGroup = new ButtonGroup();	
 		
 		standardMenuItem = new JRadioButtonMenuItem("Standard");		
-		vegasMenuItem = new JRadioButtonMenuItem("Vegas");
-					
+		vegasMenuItem = new JRadioButtonMenuItem("Vegas(Non-Cumulative)");
+		cumulativeVegasMenuItem = new JRadioButtonMenuItem("Vegas(Cumulative)");
+		
 		//Set the default mode
 		standardMenuItem.setSelected(true);		
 		
 		modeGroup.add(standardMenuItem);
 		modeGroup.add(vegasMenuItem);
+		modeGroup.add(cumulativeVegasMenuItem);
 		
 		gameModeMenu.add(standardMenuItem);
 		gameModeMenu.add(vegasMenuItem);
+		gameModeMenu.add(cumulativeVegasMenuItem);
 		
 		standardMenuItem.addActionListener(new ActionListener() {
 			@Override
@@ -104,7 +109,16 @@ public class MenuBarCreator {
 			public void actionPerformed(ActionEvent e) {
 				String currentMode = getGameMode();
 				setGameMode(vegasMenuItem.getText().toUpperCase());
-				menuBarModel.setGameMode(currentMode, vegasMenuItem.getText().toUpperCase());				
+				menuBarModel.setGameMode(currentMode, Constants.vegasGameMode);				
+			}
+		});
+		
+		cumulativeVegasMenuItem.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				String currentMode = getGameMode();
+				setGameMode(cumulativeVegasMenuItem.getText().toUpperCase());
+				menuBarModel.setGameMode(currentMode, Constants.cumulativeVegasGameMode);
 			}
 		});
 		

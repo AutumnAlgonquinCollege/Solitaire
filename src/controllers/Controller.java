@@ -206,20 +206,21 @@ public class Controller {
 	}
 	
 	private void updateScore() {
-		
-		if (isGameComplete()) {
-			int timeBonus = 1000 - (gameBoard.getTime() * 1); //The time multiplier can be changed. I left it as 1.            
-            gameBoard.setScore(gameBoard.getScore() + timeBonus);
-		}
-		
-		if (gameBoard.getTime() % 60 % 10 == 0 && gameBoard.getTime() != 0) {
-			gameBoard.setScore(gameBoard.getScore() - 2);
-			scoreLabel.setText(ControllerConstants.scoreLabel + String.valueOf(gameBoard.getScore()));
-			Dimension size = scoreLabel.getPreferredSize();
-			scoreLabel.setBounds((int)ControllerConstants.scorePoint.getX(), (int)ControllerConstants.scorePoint.getY(), size.width, size.height);
-			scoreLabel.repaint();
-		}
-		
+		//Standard Scoring rules
+		if (getGameBoard().getGameMode() == Constants.standardGameMode) {
+			if (isGameComplete()) {
+				int timeBonus = 1000 - (gameBoard.getTime() * 1); //The time multiplier can be changed. I left it as 1.            
+	            gameBoard.setScore(gameBoard.getScore() + timeBonus);
+			}
+			
+			if (gameBoard.getTime() % 60 % 10 == 0 && gameBoard.getTime() != 0) {
+				gameBoard.setScore(gameBoard.getScore() - 2);
+				scoreLabel.setText(ControllerConstants.scoreLabel + String.valueOf(gameBoard.getScore()));
+				Dimension size = scoreLabel.getPreferredSize();
+				scoreLabel.setBounds((int)ControllerConstants.scorePoint.getX(), (int)ControllerConstants.scorePoint.getY(), size.width, size.height);
+				scoreLabel.repaint();
+			}
+		}		
 	}
 	
 	public int getCardsDealt() {
@@ -261,7 +262,7 @@ public class Controller {
 	public List<CardButton> getTableauList5() {	return tableauList5; }
 	public List<CardButton> getTableauList6() {	return tableauList6; }
 	public List<CardButton> getTableauList7() {	return tableauList7; }
-		
+	
 	
 	public void redrawAll() {
 		gameView.getPane().removeAll();
@@ -305,6 +306,8 @@ public class Controller {
 		}
 		
 	}
+	
+	
 	
 	
 }

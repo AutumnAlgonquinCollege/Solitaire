@@ -17,7 +17,16 @@ public class Constants {
 	public static final long timeDelay = 1000;
 	public static final long timePeriod = 1000;
 	
+	//constants for game modes
+	public static final String standardGameMode = "STANDARD";
+	public static final String vegasGameMode = "VEGASGAMEMODE";
+	public static final String cumulativeVegasGameMode = "CVEGASGAMEMODE";
+	public static final int oneDrawPasses = 1;
+	public static final int threeDrawPasses = 3;
+	public static final int vegasScoreStart = -52;
+	public static final int vegasScoreFoundation = 5;
 	
+	//image paths for cards
 	public static final ImageIcon emptyCardImg = new ImageIcon("ImageAssets/NewModels/Backs/empty-frame.png");
 	public static final ImageIcon backSideImg = new ImageIcon("ImageAssets/NewModels/Backs/card-backnew.png"); 
 	

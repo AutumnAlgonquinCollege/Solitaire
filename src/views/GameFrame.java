@@ -1,8 +1,11 @@
 package views;
+import java.awt.MenuBar;
+
 import javax.swing.JFrame;
+import javax.swing.JMenuBar;
 
 public class GameFrame extends JFrame{
-	
+
 	
 	GameFrame() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -11,6 +14,7 @@ public class GameFrame extends JFrame{
 		this.setJMenuBar(new MenuBarCreator().createMenuBar());
 		
 	}
+	
 	
 	
 	
