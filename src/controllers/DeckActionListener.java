@@ -29,6 +29,7 @@ public class DeckActionListener implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		
 		System.out.println(gameBoard.getGameMode());
+		System.out.println(gameBoard.getDrawMode());
 		
 		LastCardSelectedUtility.clearSelectedCards();
 		
@@ -50,65 +51,44 @@ public class DeckActionListener implements ActionListener{
 			}
 		}
 		//If deck is empty
-		else {
+		else {	
 			gameBoard.incrementDeckPass();
-			if (gameBoard.getGameMode() == Constants.standardGameMode) {
-				cardDeck.copyCardsFromWaste(wastePile.getWasteCards());
-				wastePile.emptyWaste();
-			} else {
-				if(gameBoard.getDrawMode() == "DRAW 1") {
-					System.out.println("Deck Passes: " + gameBoard.getDeckPasses());
-					if (gameBoard.getDeckPasses() < Constants.oneDrawPasses) {
-						System.out.println("Inside deckPassing");
-						cardDeck.copyCardsFromWaste(wastePile.getWasteCards());
-						wastePile.emptyWaste();
-					}
-				}
-				else {
-					System.out.println("Deck Passes: " + gameBoard.getDeckPasses());
-					if (gameBoard.getDeckPasses() < Constants.threeDrawPasses) {
-						cardDeck.copyCardsFromWaste(wastePile.getWasteCards());
-						wastePile.emptyWaste();
-					}
-				}
-			}
 			
 			//If draw options is set to Draw 1
-			if (!wastePile.isWasteEmpty() && gameBoard.getDrawMode().equals("DRAW 1")) {
-				if (gameBoard.getGameMode().equals("STANDARD") && gameBoard.getDeckPasses() > 1) {
-					gameBoard.setScore(gameBoard.getScore() - 100);
-					wastePile.emptyWaste();
+			if (!wastePile.isWasteEmpty() && gameBoard.getDrawMode().equals("DRAW 1")) {	
+				
+				if (gameBoard.getGameMode().equals(Constants.standardGameMode)) {
+					cardDeck.copyCardsFromWaste(wastePile.getWasteCards());
+					wastePile.emptyWaste();	
+					
+					if (gameBoard.getDeckPasses() > 1) {
+						gameBoard.setScore(gameBoard.getScore() - 100);									
+					}
 				}
-				else {
-					//vegas score stuff
-				}	
 			}
+			
 			//If draw options is set to Draw 3
 			if (!wastePile.isWasteEmpty() && gameBoard.getDrawMode().equals("DRAW 3")) {
-				if (gameBoard.getGameMode().equals("STANDARD") && gameBoard.getDeckPasses() > 4) {
-					gameBoard.setScore(gameBoard.getScore() - 20);
-					wastePile.emptyWaste();
+				
+				if (gameBoard.getGameMode().equals(Constants.standardGameMode)) {
+					cardDeck.copyCardsFromWaste(wastePile.getWasteCards());
+					wastePile.emptyWaste();	
+					
+					if (gameBoard.getDeckPasses() > 4) {
+						gameBoard.setScore(gameBoard.getScore() - 20);
+					}
 				}
 				else {
-					//vegas score stuff
-				}				
+					if (controller.getGameBoard().getDeckPasses() < Constants.threeDrawPasses) {
+						cardDeck.copyCardsFromWaste(wastePile.getWasteCards());
+						wastePile.emptyWaste();
+					}					
+				}
 			}			
-			
-//			wastePile.emptyWaste();
 		}
-		if (controller.getGameBoard().getGameMode() == Constants.standardGameMode) {
-			controller.redrawAll();
-		}
-		else if (controller.getGameBoard().getDrawMode().equals("DRAW 1")) {
-			if (controller.getGameBoard().getDeckPasses() != Constants.oneDrawPasses) {
-				controller.redrawAll();
-			}
-		}
-		else {
-			if (controller.getGameBoard().getDeckPasses() != Constants.threeDrawPasses) {
-				controller.redrawAll();
-			}
-		}
+		
+		controller.redrawAll();
+		
 	}
 
 }
