@@ -51,24 +51,27 @@ public class TableauActionListener implements ActionListener {
 	
 	public Boolean getAutoStackFromTableau() {
 		Boolean didGet = false;
+		boolean cardsMatch = false;
 		Tableau lastTableau = (Tableau)LastCardSelectedUtility.getLastCardSelected();		
 		
 		if (tableau == lastTableau && LastCardSelectedUtility.getCurrentCardSelected() != null) {
 			Card card = tableau.getCardByIndex(LastCardSelectedUtility.getCurrentCardIndex());
+			Card lastCard = tableau.getCardByIndex(LastCardSelectedUtility.getLastIndexSelected());
+			if (card == lastCard) {
+				cardsMatch = true;
+			}
 			Foundation foundation = controller.getFoundation(card.getSuit());
-			if (tableau.getTableauSize() == LastCardSelectedUtility.getCurrentCardIndex()) {
+			if (tableau.getTableauSize() == LastCardSelectedUtility.getCurrentCardIndex() && cardsMatch) {
 				if (foundation.addCard(card)) {
-					if (tableau.removeCard(tableau.getCardByIndex(LastCardSelectedUtility.getLastIndexSelected()))) {
+					if (tableau.removeCard(tableau.getCardByIndex(LastCardSelectedUtility.getCurrentCardIndex()))) {
 						tableau.setUndiscoveredCards(tableau.getUndiscoveredCards() - 1);
 						
 						//Add points for discovering a card
 						if (gameBoard.getGameMode().equals("STANDARD")) {
 							controller.getGameBoard().setScore(controller.getGameBoard().getScore() + 5);
 						}
-						else {
-							//vegas score stuff
-						}
-						controller.getGameBoard().setScore(controller.getGameBoard().getScore() + 5);
+
+						//controller.getGameBoard().setScore(controller.getGameBoard().getScore() + 5); Is there points for discovering in Vegas?
 					}
 					
 					//Add points for moving card to foundation
@@ -90,9 +93,7 @@ public class TableauActionListener implements ActionListener {
 							if (gameBoard.getGameMode().equals("STANDARD")) {
 								controller.getGameBoard().setScore(controller.getGameBoard().getScore() + 3);
 							}
-							else {
-								//vegas score stuff
-							}
+
 							didGet = true;
 							break;
 						}
@@ -103,9 +104,7 @@ public class TableauActionListener implements ActionListener {
 								if (gameBoard.getGameMode().equals("STANDARD")) {
 									controller.getGameBoard().setScore(controller.getGameBoard().getScore() + 3);
 								}
-								else {
-									//vegas score stuff
-								}
+
 								didGet = true;
 								break;
 							}
@@ -128,11 +127,7 @@ public class TableauActionListener implements ActionListener {
 				if(lastTableau.removeCard(lastTableau.getCardByIndex(LastCardSelectedUtility.getLastIndexSelected())) == true) {
 					if (gameBoard.getGameMode().equals("STANDARD")) {
 						controller.getGameBoard().setScore(controller.getGameBoard().getScore() + 3);
-					}
-					else {
-						//vegas score stuff
-					}
-					
+					}					
 				}
 			}
 		} 
@@ -143,9 +138,6 @@ public class TableauActionListener implements ActionListener {
 					System.out.println("Tableau stack cards moved");
 					if (gameBoard.getGameMode().equals("STANDARD")) {
 						controller.getGameBoard().setScore(controller.getGameBoard().getScore() + 3);
-					}
-					else {
-						//vegas score stuff
 					}
 				}
 			}
