@@ -15,6 +15,7 @@ public class Main {
 	
 	private static Controller controller;
 	private static GameBoard gameBoard;
+	private static boolean gameModeChanged;
 	
 	public static void main(String[] args) {
 		newGame();
@@ -29,10 +30,13 @@ public class Main {
 		gameView.setViewVisible();
 	}
 	
-	public static void restartGame(String gameMode, String drawMode) {
+	public static void restartGame(String gameMode, String drawMode, boolean gameModeChanged) {
 		int score = 0;
-		if (gameMode == Constants.cumulativeVegasGameMode) {
+		if (gameMode == Constants.cumulativeVegasGameMode && !gameModeChanged) {
 			score = gameBoard.getScore() + Constants.vegasScoreStart;
+		}
+		else if (gameMode == Constants.cumulativeVegasGameMode && gameModeChanged){
+			score = Constants.vegasScoreStart;
 		}
 		if (gameMode == Constants.vegasGameMode) {
 			score = Constants.vegasScoreStart;
@@ -43,7 +47,7 @@ public class Main {
 	}
 	
 	public static void restartGame() {
-		restartGame(gameBoard.getGameMode(), gameBoard.getDrawMode());
+		restartGame(gameBoard.getGameMode(), gameBoard.getDrawMode(), false);
 	}
 	
 }

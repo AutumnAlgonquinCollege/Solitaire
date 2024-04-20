@@ -13,10 +13,12 @@ public class MenuBar {
 	private String credits;
 	private String gameMode;
 	private String drawMode;
+	private boolean gameModeChanged;
 	
 	public MenuBar(String gameMode, String drawMode) {
 		this.gameMode = gameMode;
 		this.drawMode = drawMode;
+		gameModeChanged = false;
 		try {
 			rules = new URI("https://bicyclecards.com/how-to-play/solitaire/");
 		} catch (URISyntaxException e) {
@@ -33,7 +35,7 @@ public class MenuBar {
 	}
 	
 	public void newGame() {
-		Main.restartGame(gameMode, drawMode);
+		Main.restartGame(gameMode, drawMode, gameModeChanged);
 	}
 	
 	public String credits() {
@@ -52,7 +54,9 @@ public class MenuBar {
 	public void setGameMode(String currentGameMode, String newGameMode) {
 		if (!currentGameMode.equals(newGameMode)) {
 			this.gameMode = newGameMode;
+			gameModeChanged = true;
 			newGame();
+			gameModeChanged = false;
 		}		
 	}
 
