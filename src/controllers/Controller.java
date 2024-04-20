@@ -209,7 +209,8 @@ public class Controller {
 		//Standard Scoring rules
 		if (getGameBoard().getGameMode() == Constants.standardGameMode) {
 			if (isGameComplete()) {
-				int timeBonus = 1000 - (gameBoard.getTime() * 1); //The time multiplier can be changed. I left it as 1.            
+				int timeBonus = 1000 - (gameBoard.getTime() * 1); //The time multiplier can be changed. I left it as 1.   
+				System.out.println("Time Bonus: "+ timeBonus);
 	            gameBoard.setScore(gameBoard.getScore() + timeBonus);
 			}
 			
@@ -274,6 +275,7 @@ public class Controller {
 	
 	public void completeGameCheck() {
 		if (isGameComplete()) {
+			updateScore();
 			CompletedGamePanel gameTest = new CompletedGamePanel();
 		}
 	}
@@ -304,8 +306,9 @@ public class Controller {
 			timerTask = new TimerTask() {
 				public void run() {					
 					gameBoard.setTime(gameBoard.getTime() + 1);
+					updateScore();
 					label.setText(ControllerConstants.timerLabel + gameBoard.getFormattedTime());
-					updateScore();					
+									
 				}
 			};	        
 			gameBoard.getGameTimer().scheduleAtFixedRate(timerTask, Constants.timeDelay, Constants.timePeriod);

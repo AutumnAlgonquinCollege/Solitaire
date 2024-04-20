@@ -25,8 +25,7 @@ public class FoundationActionListener implements ActionListener{
 	private boolean ManualClick(Foundation foundation) {
 		boolean cardMoved = false;		
 		if (LastCardSelectedUtility.getLastCardSelected() == controller.getGameBoard().getWastePile())	{
-			if (foundation.addCard(controller.getGameBoard().getWastePile().getLastCard())) {
-				//controller.getGameBoard().getCardDeck().removeCardByObject(controller.getGameBoard().getWastePile().getLastCard());
+			if (foundation.addCard(controller.getGameBoard().getWastePile().getLastCard())) {				
 				controller.getGameBoard().getWastePile().removeCardByIndex(LastCardSelectedUtility.getLastIndexSelected());
 				
 				if (gameBoard.getGameMode().equals("STANDARD")) {
