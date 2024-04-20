@@ -99,7 +99,7 @@ public class DeckActionListener implements ActionListener{
 		if (controller.getGameBoard().getGameMode() == Constants.standardGameMode) {
 			controller.redrawAll();
 		}
-		else if (controller.getGameBoard().getDrawMode() == "DRAW 1") {
+		else if (controller.getGameBoard().getDrawMode().equals("DRAW 1")) {
 			if (controller.getGameBoard().getDeckPasses() != Constants.oneDrawPasses) {
 				controller.redrawAll();
 			}
