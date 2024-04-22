@@ -20,7 +20,6 @@ public class Main {
 	
 	public static void main(String[] args) {
 		newGame();
-		CompletedGamePanel gameTest = new CompletedGamePanel(gameBoard.getFormattedTime(), gameBoard.getScore(), 100);
 	}
 	
 	public static void newGame() {		
