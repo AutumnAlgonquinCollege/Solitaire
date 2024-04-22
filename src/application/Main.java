@@ -9,6 +9,7 @@ import controllers.DeckActionListener;
 import models.Constants;
 import models.GameBoard;
 import views.CardButton;
+import views.CompletedGamePanel;
 import views.GameView;
 
 public class Main {
@@ -19,6 +20,7 @@ public class Main {
 	
 	public static void main(String[] args) {
 		newGame();
+		CompletedGamePanel gameTest = new CompletedGamePanel(gameBoard.getFormattedTime(), gameBoard.getScore(), 100);
 	}
 	
 	public static void newGame() {		
