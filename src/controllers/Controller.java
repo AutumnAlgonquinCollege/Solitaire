@@ -276,7 +276,11 @@ public class Controller {
 	public void completeGameCheck() {
 		if (isGameComplete()) {
 			updateScore();
-			CompletedGamePanel gameTest = new CompletedGamePanel();
+			int timeBonus = 0;
+			if (gameBoard.getGameMode().equals(Constants.standardGameMode)) {
+				timeBonus = 1000 - (gameBoard.getTime() * 1);
+			}
+			CompletedGamePanel gameTest = new CompletedGamePanel(gameBoard.getFormattedTime(), gameBoard.getScore(), timeBonus);
 		}
 	}
 

@@ -27,6 +27,9 @@ public class DeckActionListener implements ActionListener{
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
+//		Testing the game complete screen;
+//		int timeBonus = 1;
+//		CompletedGamePanel gameTest = new CompletedGamePanel(gameBoard.getFormattedTime(), gameBoard.getScore(), timeBonus);
 		
 		System.out.println(gameBoard.getGameMode());
 		System.out.println(gameBoard.getDrawMode());
