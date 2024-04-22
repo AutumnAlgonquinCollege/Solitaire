@@ -3,7 +3,7 @@ package models;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-
+import java.util.List;
 import java.util.Timer;
 
 import java.util.TimerTask;
@@ -35,15 +35,21 @@ public class GameBoard {
 	private int time;
 	private Timer gameTimer;
 	boolean isTimerRunning;
+	private int deckPasses;
+	private String gameMode;
+	private String drawMode;
 	
 	
 	
 	//==================================
 	//          Constructor
 	//==================================
-	public GameBoard() {
+	public GameBoard(String gameMode, String drawMode) {
+		this.gameMode = gameMode;
+		this.drawMode = drawMode;
 		score = 0;
 		time = 0;
+		deckPasses = 0;
 		gameTimer = new Timer();
 		isTimerRunning = false;
 		cardDeck = new CardDeck();
@@ -79,7 +85,7 @@ public class GameBoard {
 	public CardDeck getCardDeck() {
 		return cardDeck;
 	}
-	
+		
 	public WastePile getWastePile() {
 		return wastePile;
 	}
@@ -166,6 +172,26 @@ public class GameBoard {
 	
 	public void setIsTimerRunning(boolean isTimerRunning) {
 		this.isTimerRunning = isTimerRunning;		
+	}
+	
+	public int getDeckPasses() {
+		return deckPasses;
+	}
+	
+	public void incrementDeckPass() {
+		deckPasses += 1;
+	}
+	
+	public String getGameMode() {
+		return gameMode;
+	}
+	
+	public String getDrawMode() {
+		return drawMode;
+	}
+	
+	public List<Tableau> getAllTableaus() {
+		return tableauList;
 	}
 	
 	//==================================

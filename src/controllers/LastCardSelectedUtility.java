@@ -9,9 +9,6 @@ import models.Card;
 import views.CardButton;
 
 public class LastCardSelectedUtility {
-
-//	public static List<Object> cards = new ArrayList<Object>();
-//	public static List<Integer> indexes = new ArrayList<Integer>();
 	
 	public static Object currentCard;
 	public static Integer currentIndex;
@@ -44,32 +41,32 @@ public class LastCardSelectedUtility {
 	}
 	
 	public static void setCardSelected(Object selectedModel, Integer index) {
-//		if (cards.size() == 2) {
-//			cards.removeAll(cards);
-//			indexes.removeAll(indexes);
-//		}
-//		cards.add(selectedModel);	
-//		indexes.add(index);
-		if (lastCard == null) {
-			lastCard = selectedModel;
-			lastIndex = index;
+
+		if (currentCard == null) {
+			lastCard = null;
+			lastIndex = null;			
 			currentCard = selectedModel;
 			currentIndex = index;
-		} else {
+		} else {			
 			lastCard = currentCard;
 			lastIndex = currentIndex;
 			currentCard = selectedModel;
 			currentIndex = index;
+			
 		}
 	}
 	
-//	public static void clearCardsSelected() {
-//		cards.removeAll(cards);
-//		indexes.removeAll(indexes);
-//	}
-
-//	public static int getSize() {
-//		return cards.size();
-//	}
+	public static void clearLastSelectedCard() {
+		lastCard = null;
+		lastIndex = null;
+	}
+	
+	public static void clearSelectedCards() {
+		lastCard = null;
+		currentCard = null;
+		
+		lastIndex = null;
+		currentIndex = null;
+	}
 	
 }

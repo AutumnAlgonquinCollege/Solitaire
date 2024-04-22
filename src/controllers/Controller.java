@@ -2,6 +2,7 @@ package controllers;
 
 
 
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -22,7 +23,9 @@ public class Controller {
 	JLabel timerLabel;
 	JLabel scoreLabel;
 	CardButton deckBtn;
-	CardButton wasteBtn;
+	CardButton wasteBtn1;
+	CardButton wasteBtn2;
+	CardButton wasteBtn3;
 	List<CardButton> tableauList1;
 	List<CardButton> tableauList2;
 	List<CardButton> tableauList3;
@@ -35,21 +38,19 @@ public class Controller {
 	CardButton foundationDiamondsBtn;
 	CardButton foundationHeartsBtn;
 	List<Integer> cardIndexes = new ArrayList<Integer>(); 
-	private int deckIndex;
 	TimerTask timerTask;
-	
+	private int cardsDealt;
 	
 	public Controller(GameBoard model, GameView view) {
-		this.gameBoard = model;
+		this.gameBoard = model;		
 		this.gameView = view;
-		deckIndex = -1;
 		timerLabel = new JLabel(ControllerConstants.timerLabel + gameBoard.getFormattedTime());
 	}
 	
 	public void resetGame(GameBoard model) {
 		this.gameBoard = model;
 		timerLabel = new JLabel(ControllerConstants.timerLabel + gameBoard.getFormattedTime());
-		deckIndex = -1;
+		LastCardSelectedUtility.clearSelectedCards();
 		this.redrawAll();
 	}
 	
@@ -67,26 +68,54 @@ public class Controller {
 	private void displayTableauBtn(List<CardButton> btnList, int xAxis, Tableau tableau) {
 		int yAxis = (int) ControllerConstants.tableau1Point.getY();
 		for (int i = 0; i < btnList.size(); i++) {
-			gameView.addTableauCardButton(btnList.get(i), xAxis, yAxis, Integer.valueOf(i));
+			gameView.addCardButtonWithZ(btnList.get(i), xAxis, yAxis, Integer.valueOf(i));
 			btnList.get(i).addActionListener(new TableauActionListener(this, tableau, i));
-			yAxis += 25;
+			yAxis += 40;
 		}
 		
 	}
 	
 	public void createGui() {
-			
+		
+		System.out.println(cardsDealt);
 		scoreLabel = new JLabel(ControllerConstants.scoreLabel + String.valueOf(gameBoard.getScore()));
 		
 		//Init buttons
-		if (deckIndex == gameBoard.getCardDeck().getRemainingDeckSize()) {
+		if (gameBoard.getCardDeck().isDeckEmpty()) {
 			deckBtn = new CardButton(Constants.emptyCardImg);
 		}
 		else {
 			deckBtn = new CardButton(Constants.backSideImg);
 		}
 		
-		wasteBtn = new CardButton(gameBoard.getWastePile().getTopCardImage());
+		
+		if (gameBoard.getWastePile().isWasteEmpty()) {
+			wasteBtn1 = new CardButton(gameBoard.getWastePile().getTopCardImage());
+		}
+		else if (gameBoard.getDrawMode().equals("DRAW 1")) {
+			wasteBtn1 = new CardButton(gameBoard.getWastePile().getTopCardImage());
+		}
+		else if (gameBoard.getDrawMode().equals("DRAW 3")) {
+			List<ImageIcon> wasteIcons = gameBoard.getWastePile().getTop3CardImages(cardsDealt);
+			if (!gameBoard.getWastePile().isWasteEmpty() && cardsDealt == 3){
+				wasteBtn1 = new CardButton(wasteIcons.get(0));
+				wasteBtn2 = new CardButton(wasteIcons.get(1));
+				wasteBtn3 = new CardButton(wasteIcons.get(2));
+			}
+			else if (!gameBoard.getWastePile().isWasteEmpty() && cardsDealt == 2) {
+				wasteBtn1 = new CardButton(wasteIcons.get(0));
+				wasteBtn2 = new CardButton(wasteIcons.get(1));	
+			}
+			else if (!gameBoard.getWastePile().isWasteEmpty() && cardsDealt == 1) {
+				wasteBtn1 = new CardButton(wasteIcons.get(0));
+			}
+			else {
+				wasteBtn1 = new CardButton(Constants.emptyCardImg);
+			}
+		}
+		
+		
+		
 		foundationSpadesBtn = new CardButton(gameBoard.getFoundationSpades().getFoundationDisplayImage(Constants.spades));
 		foundationClubsBtn = new CardButton(gameBoard.getFoundationClubs().getFoundationDisplayImage(Constants.clubs));
 		foundationDiamondsBtn = new CardButton(gameBoard.getFoundationDiamonds().getFoundationDisplayImage(Constants.diamonds));
@@ -94,7 +123,15 @@ public class Controller {
 		
 		//Adding listeners
 		deckBtn.addActionListener(new DeckActionListener(this));
-		wasteBtn.addActionListener(new WasteActionListener(this));
+		wasteBtn1.addActionListener(new WasteActionListener(this));
+		
+		if (gameBoard.getDrawMode().equals("DRAW 3")) {
+			if (!gameBoard.getWastePile().isWasteEmpty()) {
+				wasteBtn2.addActionListener(new WasteActionListener(this));
+				wasteBtn3.addActionListener(new WasteActionListener(this));
+			}
+		}
+		
 		foundationSpadesBtn.addActionListener(new FoundationActionListener(this, Constants.spades));
 		foundationClubsBtn.addActionListener(new FoundationActionListener(this, Constants.clubs));
 		foundationDiamondsBtn.addActionListener(new FoundationActionListener(this, Constants.diamonds));
@@ -104,7 +141,29 @@ public class Controller {
 		gameView.addCardButton(deckBtn, (int)ControllerConstants.deckPoint.getX(), (int)ControllerConstants.deckPoint.getY());
 		
 		//Create waste view
-		gameView.addCardButton(wasteBtn, (int)ControllerConstants.wastePoint.getX(), (int)ControllerConstants.wastePoint.getY());
+		if (gameBoard.getDrawMode().equals("DRAW 1")) {
+			gameView.addCardButton(wasteBtn1, (int)ControllerConstants.wastePoint.getX(), (int)ControllerConstants.wastePoint.getY());
+		} 
+		else if (gameBoard.getDrawMode().equals("DRAW 3")) {
+			if (!gameBoard.getWastePile().isWasteEmpty()) {
+				if (cardsDealt == 3) {
+					gameView.addCardButtonWithZ(wasteBtn1, (int)ControllerConstants.wastePoint.getX(), (int)ControllerConstants.wastePoint.getY(), 0);
+					gameView.addCardButtonWithZ(wasteBtn2, (int)ControllerConstants.wastePoint.getX() + 40, (int)ControllerConstants.wastePoint.getY(), 1);
+					gameView.addCardButtonWithZ(wasteBtn3, (int)ControllerConstants.wastePoint.getX() + 80, (int)ControllerConstants.wastePoint.getY(), 2);
+				}
+				else if (cardsDealt == 2) {
+					gameView.addCardButtonWithZ(wasteBtn1, (int)ControllerConstants.wastePoint.getX(), (int)ControllerConstants.wastePoint.getY(), 0);
+					gameView.addCardButtonWithZ(wasteBtn2, (int)ControllerConstants.wastePoint.getX() + 40, (int)ControllerConstants.wastePoint.getY(), 1);
+				}
+				else if (cardsDealt == 1 || cardsDealt == 0) {
+					gameView.addCardButtonWithZ(wasteBtn1, (int)ControllerConstants.wastePoint.getX(), (int)ControllerConstants.wastePoint.getY(), 0);
+				}
+				
+			}
+			else {
+				gameView.addCardButtonWithZ(wasteBtn1, (int)ControllerConstants.wastePoint.getX(), (int)ControllerConstants.wastePoint.getY(), 0);
+			}
+		}
 		
 		//Create foundation view
 		gameView.addCardButton(foundationSpadesBtn, (int)ControllerConstants.foundationSpadesPoint.getX(), (int)ControllerConstants.foundationSpadesPoint.getY());
@@ -138,26 +197,47 @@ public class Controller {
 		//display timer
 		gameView.addLabel(timerLabel, (int)ControllerConstants.timerPoint.getX(), (int)ControllerConstants.timerPoint.getY());
 		initTimer(timerLabel);
+		
+		if (isGameComplete()) {
+			timerTask.cancel();
+            gameBoard.getGameTimer().purge();            
+		}
+		
 	}
 	
-	public CardButton getDeckBtn() {
-		return deckBtn;
+	private void updateScore() {
+		//Standard Scoring rules
+		if (getGameBoard().getGameMode() == Constants.standardGameMode) {
+			if (isGameComplete()) {
+				int timeBonus = 1000 - (gameBoard.getTime() * 1); //The time multiplier can be changed. I left it as 1.   
+				System.out.println("Time Bonus: "+ timeBonus);
+	            gameBoard.setScore(gameBoard.getScore() + timeBonus);
+			}
+			
+			if (gameBoard.getTime() % 60 % 10 == 0 && gameBoard.getTime() != 0) {
+				gameBoard.setScore(gameBoard.getScore() - 2);
+				scoreLabel.setText(ControllerConstants.scoreLabel + String.valueOf(gameBoard.getScore()));
+				Dimension size = scoreLabel.getPreferredSize();
+				scoreLabel.setBounds((int)ControllerConstants.scorePoint.getX(), (int)ControllerConstants.scorePoint.getY(), size.width, size.height);
+				scoreLabel.repaint();
+			}
+		}		
 	}
 	
-	public CardButton getWasteBtn() {
-		return wasteBtn;
+	public int getCardsDealt() {
+		return cardsDealt;
+	}
+	
+	public void setCardsDealt(int cardsDealt) {
+		this.cardsDealt = cardsDealt;
+	}
+	
+	public void decrementCardsDealt() {
+		this.cardsDealt--;
 	}
 	
 	public GameBoard getGameBoard() {
 		return gameBoard;
-	}
-	
-	public int getDeckIndex() {
-		return deckIndex;
-	}
-	
-	public void setDeckIndex(int deckIndex) {
-		this.deckIndex = deckIndex;
 	}
 	
 	public Foundation getFoundation(String suit) {
@@ -176,17 +256,6 @@ public class Controller {
 		}
 	}
 	
-	public void setCardIndexes(Integer cardIndex) {
-		if (cardIndexes.size() >= 2) {
-			cardIndexes.removeAll(cardIndexes);
-		}
-		cardIndexes.add(cardIndex);
-	}
-	
-	public int getCardIndexes(int cardIndex) {
-		return cardIndexes.get(cardIndex);
-	}
-	
 	public List<CardButton> getTableauList1() {	return tableauList1; }
 	public List<CardButton> getTableauList2() {	return tableauList2; }
 	public List<CardButton> getTableauList3() {	return tableauList3; }
@@ -194,35 +263,65 @@ public class Controller {
 	public List<CardButton> getTableauList5() {	return tableauList5; }
 	public List<CardButton> getTableauList6() {	return tableauList6; }
 	public List<CardButton> getTableauList7() {	return tableauList7; }
-		
+	
 	
 	public void redrawAll() {
 		gameView.getPane().removeAll();
 		gameView.getPane().repaint();
+		gameView.getPane().revalidate();
+		completeGameCheck();
 		createGui();
 	}
-
-	public boolean deckClicked() {
-		gameBoard.getCardDeck().getCardByIndex(0);
-		return false;
-	}	
 	
-	public synchronized void initTimer(JLabel label) {
+	public void completeGameCheck() {
+		if (isGameComplete()) {
+			updateScore();
+			int timeBonus = 0;
+			if (gameBoard.getGameMode().equals(Constants.standardGameMode)) {
+				timeBonus = 1000 - (gameBoard.getTime() * 1);
+			}
+			CompletedGamePanel gameTest = new CompletedGamePanel(gameBoard.getFormattedTime(), gameBoard.getScore(), timeBonus);
+		}
+	}
+
+	private boolean isGameComplete() {
+		boolean gameCompleted = false;
+		
+		if (getFoundation(Constants.spades).isFoundationComplete() 
+				&& getFoundation(Constants.clubs).isFoundationComplete() 
+				&& getFoundation(Constants.hearts).isFoundationComplete() 
+				&& getFoundation(Constants.diamonds).isFoundationComplete()) {
+			
+			gameCompleted = true;
+		}
+		
+		return gameCompleted;
+	}
+	
+	private synchronized void initTimer(JLabel label) {
+		
 		if (!gameBoard.getIsTimerRunning()) {
 			// cancel existing timertask if game is restarted
 	        if (timerTask != null) {
 	            timerTask.cancel();
+	            gameBoard.getGameTimer().purge();
+	            gameBoard.setIsTimerRunning(false);
 	        }
 			timerTask = new TimerTask() {
-				public void run() {
+				public void run() {					
 					gameBoard.setTime(gameBoard.getTime() + 1);
+					updateScore();
 					label.setText(ControllerConstants.timerLabel + gameBoard.getFormattedTime());
+									
 				}
-			};
+			};	        
 			gameBoard.getGameTimer().scheduleAtFixedRate(timerTask, Constants.timeDelay, Constants.timePeriod);
 			gameBoard.setIsTimerRunning(true);
 		}
+		
 	}
+	
+	
 	
 	
 }

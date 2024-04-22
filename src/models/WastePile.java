@@ -5,7 +5,7 @@ import java.util.List;
 
 import javax.swing.ImageIcon;
 
-public class WastePile{
+public class WastePile {
 		
 	public List<Card> cards = new ArrayList<Card>();
 	
@@ -21,8 +21,12 @@ public class WastePile{
 		cards.add(card);
 	}
 	
-	public void emptyWaste() {
+	public void emptyWaste() {			
 		cards.clear();
+	}
+	
+	public List<Card> getWasteCards() {
+		return cards;
 	}
 	
 	public Card getLastCard() {
@@ -48,12 +52,43 @@ public class WastePile{
 		}
 		return imageIcon;
 	}
+	
+	public List<ImageIcon> getTop3CardImages(int cardsDealt){
+		List<ImageIcon> imageIcons = new ArrayList<>();
+		
+		if (!cards.isEmpty()) {
+			if (cardsDealt == 3) {
+				imageIcons.add(cards.get(cards.size()-3).getImageIcon());
+				imageIcons.add(cards.get(cards.size()-2).getImageIcon());
+				imageIcons.add(cards.get(cards.size()-1).getImageIcon());
+			}
+			else if (cardsDealt == 2) {
+				imageIcons.add(cards.get(cards.size()-2).getImageIcon());
+				imageIcons.add(cards.get(cards.size()-1).getImageIcon());
+			}
+			else if (cardsDealt == 1) {
+				imageIcons.add(cards.get(cards.size()-1).getImageIcon());
+			}
+		}
+		
+		else {
+			imageIcons.add(Constants.emptyCardImg);
+		}
+		
+		return imageIcons;
+	}
+	
+	public boolean isWasteEmpty() {
+		return cards.isEmpty();
+	}
 
 	public void removeCardByObject(Card card) {
 		cards.remove(card);
 	}
 	
+	
 	public int getWasteSize() {
-		return cards.size() - 1;
+		return cards.size();
 	}
+	
 }
